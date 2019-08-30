@@ -1,0 +1,316 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+label {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+.fab.fab {
+  margin: 0px;
+  top: auto;
+  right: 20px;
+  bottom: 20px;
+  left: auto;
+  position: fixed;
+}
+@media (min-width: 992px) {
+  .fab.fab {
+    right: 40px;
+    bottom: 40px;
+  }
+}
+
+@media (min-width: 576px) {
+  .splitInput,
+  .MuiFormControl-root {
+    max-width: 420px;
+  }
+
+  .splitInput > .MuiTextField-root {
+    margin-right: 0;
+  }
+}
+
+.right-20.right-20 .MuiBadge-badge {
+  right: -20px;
+}
+
+.splitInput {
+  display: flex;
+  justify-content: space-between;
+}
+.splitInput > .MuiTextField-root {
+  width: 44%;
+}
+
+#netlify-root {
+  z-index: 99999;
+}
+
+.register-form {
+  padding-left: 15px;
+}
+
+tfoot {
+  justify-items: left;
+}
+
+.register-form-buttons-container {
+  margin-top: 15px;
+}
+.register-form-buttons-container > button:not(:last-child) {
+  margin-right: 15px;
+}
+.MuiCollapse-container .MuiFormControl-root {
+  max-width: 90%;
+}
+.MuiCollapse-entered .MuiFormControl-root {
+  max-width: 90%;
+}
+.MuiExpansionPanelSummary-content {
+  justify-content: space-between;
+}
+
+.hidden {
+  display: none;
+}
+
+.red {
+  color: #f50057 !important;
+  transform: scale(1.2);
+}
+
+.checkbox-flex.checkbox-flex {
+  display: flex;
+  align-items: center;
+}
+.checkbox-flex > .MuiFormControlLabel-label {
+  font-size: 1em;
+}
+.checkbox-flex > .MuiCheckbox-root {
+  padding: 6px 9px;
+}
+
+.MuiInputBase-input.MuiInputBase-input {
+  min-width: 60px;
+}
+
+.fed-helper-text {
+  text-decoration: none;
+  font-size: 11px;
+}
+
+.flex-baseline {
+  display: flex;
+  align-items: baseline;
+}
+.flex-loading {
+  width: 24px !important;
+  height: 24px !important;
+  margin-left: 12px !important;
+}
+
+.MuiButton-root {
+  text-transform: none !important;
+}
+.MuiToolbar-gutters {
+  padding-left: 16px !important;
+}
+
+/**
+ * Material Table actions
+ **/
+.MaterialTable .MuiTable-root tbody th:last-child span.Mui-disabled {
+  color: transparent;
+}
+.MaterialTable .MuiTable-root tbody td:last-child button {
+  display: none;
+}
+.MaterialTable .MuiTable-root tbody tr:hover td:last-child button {
+  display: initial;
+}
+
+/**
+ * Material card redesign
+ */
+.MuiCardContent-root.MuiCardContent-root {
+  padding-top: 0;
+}
+.MuiCard-root.MuiCard-root {
+  background-color: inherit;
+  max-width: 420px;
+}
+.MuiPaper-elevation1.MuiPaper-elevation1 {
+  box-shadow: none;
+  border: solid 1px #ccc;
+  border-radius: 10px;
+}
+.MuiCard-root .MuiTypography-h5 {
+  font-size: 1.25rem;
+}
+.MuiCard-root .MuiCardActions-root > button:first-child {
+  margin-left: auto;
+}
+.MuiCard-root .MuiCardHeader-root {
+  padding-bottom: 0;
+}
+.MuiCard-root .MuiCardActions-root {
+  padding-top: 0;
+}
+
+.MuiTableRow-root.MuiTableRow-hover.MuiTableRow-hover:hover {
+  background-color: #7cbdd6;
+}
+.MaterialTable > .MuiPaper-root > div.MuiToolbar-root > div:last-child span:first-child button {
+  color: #3f51b5;
+  background: #eee;
+}
+
+.mr-1.mr-1 {
+  margin-right: 1em;
+}
+.mt-1.mt-1 {
+  margin-top: 1em;
+}
+.mt-2.mt-2 {
+  margin-top: 2em;
+}
+.mb-1.mb-1 {
+  margin-bottom: 1rem;
+}
+.w-1\/2 {
+  width: 50%;
+  max-width: 220px;
+}
+.w-1\/4 {
+  width: 25%;
+}
+.text-right.text-right {
+  text-align: right;
+}
+
+.p-r-5px.p-r-5px {
+  padding-right: 5px;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+.max-width-xs.max-width-xs {
+  max-width: 20rem;
+}
+.max-width-sm.max-width-sm {
+  max-width: 24rem;
+}
+.max-width-md.max-width-md {
+  max-width: 28rem;
+}
+.max-width-420.max-width-420 {
+  max-width: 420px;
+}
+.max-width-105.max-width-105 {
+  max-width: 105px;
+}
+
+.border-bottom-solid.border-bottom-solid {
+  border-bottom: solid 2px #3f51b5;
+}
+.leading-normal.leading-normal {
+  line-height: 1.5rem;
+}
+.leading-loose.leading-loose {
+  line-height: 2rem;
+}
+
+.flex.flex {
+  display: flex;
+}
+.flex-col {
+  flex-direction: column;
+}
+.uppercase.uppercase {
+  text-transform: uppercase;
+}
+.cursor-pointer.cursor-pointer {
+  cursor: pointer;
+}
+.font-bold.font-bold {
+  font-weight: bold;
+}
+
+.login-form.login-form .MuiInput-underline {
+  max-width: 260px;
+}
+
+#section-to-print {
+  margin: 1em 0;
+  border-spacing: 0;
+}
+#section-to-print td {
+  padding: 0.5em 0;
+}
+#section-to-print tr td:nth-child(2) {
+  padding-left: 0.85em;
+}
+#section-to-print tr.section td {
+  border-top: solid 1px #3f51b5;
+}
+#section-to-print h4 {
+  margin: 0;
+  border-left: solid 5px #3f51b5;
+  padding-left: 5px;
+  font-size: 16px;
+}
+#print-helper {
+  display: none;
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+@media (min-width: 998px) {
+  #section-to-print tr td:first-child {
+    min-width: 140px;
+  }
+}
+
+.edit-form {
+  max-width: 420px;
+}
+.edit-form .MuiFormControl-root {
+  max-width: none;
+}
+
+@media print {
+  /* put your CSS rules if they are to apply in print only */
+}
+
+.table-taxes {
+  min-width: 600px;
+}
+.cell-calcul {
+  width: 105px;
+}
+.bara-jos {
+  border-bottom: 2px solid black;
+}
+.form-results-section {
+  margin: 25px 0;
+}
+
+.truncate {
+  width: 220px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

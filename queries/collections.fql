@@ -1,0 +1,35 @@
+// Delete(Collection("hotels"))
+CreateCollection({
+  "name": "hotels",
+  "history_days": 0
+});
+
+// Delete(Collection("participants"))
+CreateCollection({
+  "name": "participants",
+  "history_days": 0
+});
+
+// Delete(Collection("taxes"))
+CreateCollection({
+  "name": "taxes",
+  "history_days": 0
+});
+
+// Delete(Collection("tournaments"))
+CreateCollection({
+  "name": "tournaments",
+  "history_days": 0
+});
+
+// Delete(Collection("settings"))
+CreateCollection({
+  "name": "settings",
+  "history_days": 0
+});
+
+// Delete(Collection("users"))
+CreateCollection({
+  "name": "users",
+  "history_days": 0
+});

@@ -1,0 +1,9 @@
+# ignore everything...
+**/*.js
+
+# with these exceptions
+!**/functions/**/*.js
+!**/src/**/*.js
+
+# except files that contain "test"
+**/*.test.*

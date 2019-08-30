@@ -1,0 +1,5 @@
+export { default as hotelSchema } from "./hotel-schema"
+export { default as settingSchema } from "./setting-schema"
+export { default as participantSchema } from "./participant-schema"
+export { default as taxSchema } from "./tax-schema"
+export { default as tournamentSchema } from "./tournament-schema"

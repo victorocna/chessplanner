@@ -1,0 +1,17 @@
+[build]
+  functions = "functions-build"
+  # This will be run the site build
+  command = "npm run build"
+  # This is the directory is publishing to netlify's CDN
+  publish = "build"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "SAMEORIGIN"
+    X-XSS-Protection = "1; mode=block"
+
+    Content-Security-Policy = "upgrade-insecure-requests; block-all-mixed-content;"
+    Feature-Policy = "vibrate 'none'; geolocation 'none'; microphone 'none'; camera 'none'"
+    Referrer-Policy = "no-referrer"
