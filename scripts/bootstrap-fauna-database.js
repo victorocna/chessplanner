@@ -37,13 +37,6 @@ if (!process.env.REACT_APP_FAUNADB_SERVER_SECRET) {
   }
 }
 
-// Has var. Do the thing
-if (process.env.REACT_APP_FAUNADB_SERVER_SECRET) {
-  createFaunaDB(process.env.REACT_APP_FAUNADB_SERVER_SECRET).then(() => {
-    console.log('Database created')
-  })
-}
-
 /* idempotent operation */
 function createFaunaDB(key) {
   console.log('Create the database!')
