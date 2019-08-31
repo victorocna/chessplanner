@@ -22,7 +22,7 @@ exports.handler = (event, context) => {
   if (!identity) {
     return { statusCode: 401, body: "Unauthorized" }
   }
-  const key = randomKey(12)
+  const key = randomKey(12) + "" // cast to string
 
   return fetch(`${identity.url}/admin/users`, {
     method: "POST",
@@ -40,11 +40,7 @@ exports.handler = (event, context) => {
     // construct the fauna query
     return client.query(
       q.Create(q.Ref(`collections/users`), {
-        data: {
-          email,
-          password,
-          key,
-        },
+        data: { email, key, createdAt: Date.now() },
       })
     )
   })
