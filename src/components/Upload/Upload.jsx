@@ -13,7 +13,7 @@ import fromStore from "../../utils/fromStore"
 import howMuch from "../../utils/howMuch"
 import deepObject from "../../utils/deepObject"
 import api from "../../api"
-import Loading from "../Loading"
+import { Loading } from "../Loading"
 import { i18n } from "../../locale"
 import DndWrapper from "./DndWrapper"
 import ConfirmUpload from "./ConfirmUpload"
@@ -39,6 +39,7 @@ function Upload() {
   }
   const handleConfirm = async () => {
     let j = 0
+    handleClose()
     showLoading()
     await Promise.all(
       payload
@@ -60,7 +61,6 @@ function Upload() {
         })
     )
     hideLoading()
-    handleClose()
     j > 0
       ? notify({ open: !snackbar.open, message: i18n("Success! Participants imported: ") + j })
       : notify({ open: !snackbar.open, message: i18n("Error! No participants uploaded") })

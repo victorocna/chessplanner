@@ -5,7 +5,7 @@ import { Box, Typography, Button, Collapse, FormControlLabel, Checkbox } from "@
 import { ExpandLess, ExpandMore } from "@material-ui/icons"
 import SnackbarWrapper from "./SnackbarWrapper"
 import api from "../api"
-import Loading from "./Loading"
+import { Loading } from "./Loading/"
 import { i18n } from "../locale"
 
 const DangerZone = (props) => {

@@ -1,5 +1,5 @@
 import React from "react"
-import Loading from "./Loading/Modern"
+import { Loading } from "./Loading"
 const App = React.lazy(() => import("./App"))
 
 function LazyApp(props) {
