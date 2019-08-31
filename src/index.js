@@ -1,6 +1,6 @@
 import React from "react"
 import ReactDOM from "react-dom"
-import App from "./components/App"
+import LazyApp from "./components/LazyApp"
 import "./index.css"
 
-ReactDOM.render(<App />, document.getElementById("root"))
+ReactDOM.render(<LazyApp />, document.getElementById("root"))

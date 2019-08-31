@@ -9,7 +9,7 @@ import TaxWrapper from "./Tax/Wrapper"
 import TournamentWrapper from "./Tournament/Wrapper"
 import HotelWrapper from "./Hotel/Wrapper"
 import Hotels from "./Tables/Hotels"
-import Upload from "./Upload"
+import LazyUpload from "./Upload/LazyUpload"
 import SettingsWrapper from "./Settings/Wrapper"
 import ParticipantSheet from "./Participant/Sheet"
 import ParticipantWrapper from "./Participant/Wrapper"
@@ -50,7 +50,7 @@ export default function Main() {
         <PrivateRoute path="/edit-tax/:id" component={TaxWrapper} />
         <PrivateRoute path="/new-tax" component={TaxWrapper} />
 
-        <PrivateRoute path="/upload-participants" component={Upload} />
+        <PrivateRoute path="/upload-participants" component={LazyUpload} />
         <PrivateRoute path="/settings" component={SettingsWrapper} />
 
         <Route path="/login" component={AuthScreen} />
