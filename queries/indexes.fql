@@ -75,3 +75,9 @@ CreateIndex({
   terms: []
 });
 
+// Delete(Index("all_users_by_email"))
+CreateIndex({
+  name: "all_users_by_email",
+  source: Collection("users"),
+  terms:  [{ field: [ "data", "email" ] }]
+});

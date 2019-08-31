@@ -1,5 +1,11 @@
+import faunadb from "faunadb"
 import fetch from "node-fetch"
 import { randomKey } from "./utils/helpers"
+
+const q = faunadb.query
+const client = new faunadb.Client({
+  secret: process.env.REACT_APP_FAUNADB_SERVER_SECRET,
+})
 
 exports.handler = (event, context) => {
   if (event.httpMethod !== "POST") {
@@ -16,6 +22,7 @@ exports.handler = (event, context) => {
   if (!identity) {
     return { statusCode: 401, body: "Unauthorized" }
   }
+  const key = randomKey(12)
 
   return fetch(`${identity.url}/admin/users`, {
     method: "POST",
@@ -26,8 +33,19 @@ exports.handler = (event, context) => {
       confirm: true,
       user_metadata: {
         roles: ["auth0", "extended"],
-        key: randomKey(12),
+        key,
       },
     }),
+  }).then(() => {
+    // construct the fauna query
+    return client.query(
+      q.Create(q.Ref(`collections/users`), {
+        data: {
+          email,
+          password,
+          key,
+        },
+      })
+    )
   })
 }
