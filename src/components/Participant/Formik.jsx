@@ -8,6 +8,7 @@ import { Name, Type, Gender, Notes } from "./Form"
 import { i18n } from "../../locale"
 import { HotelSection, PaymentSection, TournamentSection } from "./Sections"
 import shouldShow from "../../utils/shouldShow"
+import Debug from "../Debug"
 
 function ParticipantFormik({ errors, touched, isSubmitting, isValid, values, setFieldValue }) {
   const { settings } = React.useContext(AppContext)
@@ -131,6 +132,7 @@ function ParticipantFormik({ errors, touched, isSubmitting, isValid, values, set
           </Button>
         </Form>
       )}
+      <Debug subject={{ errors, touched, isSubmitting, isValid, values, setFieldValue }} />
     </ParticipantContext.Provider>
   )
 }

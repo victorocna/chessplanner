@@ -92,6 +92,7 @@
   "Login": "Conectare",
   "Logout": "Deconectare",
   "Add new": "Adaugă",
+  "Everything was saved successfully. What's next?": "Totul a fost salvat cu succes. Ce urmează?",
   "_table": {
     "body": {
       "emptyDataSourceMessage": "Nu există rezultate de afișat. Verificați dacă vă aflați pe prima pagina când efectuați o căutare",

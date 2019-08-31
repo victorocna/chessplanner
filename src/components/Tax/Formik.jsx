@@ -5,9 +5,9 @@ import { TaxContext } from "../../context"
 import FormikInput from "../Formik/Input"
 import { TaxTournament, TaxRules } from "../Tax"
 
-function TaxFormik({ errors, touched, isSubmitting, values }) {
+function TaxFormik({ errors, touched, isSubmitting, values, submitCount }) {
   return (
-    <TaxContext.Provider value={{ errors, touched, isSubmitting, values }}>
+    <TaxContext.Provider value={{ errors, touched, isSubmitting, values, submitCount }}>
       <Form autoComplete="off">
         <FormikInput name="name" label="Tax name" helper="Required" />
         <div className="splitInput">
@@ -32,6 +32,7 @@ TaxFormik.propTypes = {
   touched: PropTypes.object,
   values: PropTypes.object,
   isSubmitting: PropTypes.bool,
+  submitCount: PropTypes.number,
 }
 
 export default TaxFormik

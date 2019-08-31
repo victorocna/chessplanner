@@ -2,9 +2,10 @@ import React from "react"
 import PropTypes from "prop-types"
 import { Button } from "@material-ui/core"
 import { HotelContext } from "../../context"
+import WhatsNext from "../WhatsNext"
 
 function HotelButtons({ push }) {
-  const { isSubmitting } = React.useContext(HotelContext)
+  const { isSubmitting, submitCount } = React.useContext(HotelContext)
 
   return (
     <div className="flex mt-2">
@@ -26,6 +27,8 @@ function HotelButtons({ push }) {
       >
         Save hotel
       </Button>
+
+      {!!submitCount && !isSubmitting && <WhatsNext path="/#/taxes" />}
     </div>
   )
 }

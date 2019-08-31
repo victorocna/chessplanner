@@ -2,9 +2,10 @@ import React from "react"
 import PropTypes from "prop-types"
 import { Button } from "@material-ui/core"
 import { TaxContext } from "../../context"
+import WhatsNext from "../WhatsNext"
 
 function TaxButtons({ push }) {
-  const { isSubmitting } = React.useContext(TaxContext)
+  const { isSubmitting, submitCount } = React.useContext(TaxContext)
 
   return (
     <div className="flex mt-2">
@@ -26,6 +27,8 @@ function TaxButtons({ push }) {
       >
         Save tax
       </Button>
+
+      {!!submitCount && !isSubmitting && <WhatsNext path="/#/taxes" />}
     </div>
   )
 }
