@@ -16,6 +16,10 @@ function Timeframe({ hidden }) {
     return d instanceof Date && !isNaN(d)
   }
   const nights = () => {
+    if (!values.hotel.arrival || !values.hotel.departure) {
+      return ""
+    }
+
     const _arrival = new Date(values.hotel.arrival)
     const _departure = new Date(values.hotel.departure)
 

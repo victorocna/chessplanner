@@ -11,7 +11,13 @@ function ToPay({ value }) {
         <strong>{i18n("TOTAL to pay")}</strong>
       </TableCell>
       <TableCell className="max-width-105" align="right">
-      <Input disabled value={value} align="right" endAdornment={<InputCurrency />} />
+        <Input
+          disabled
+          value={value}
+          align="right"
+          error={!(value && +value > 0)}
+          endAdornment={<InputCurrency />}
+        />
       </TableCell>
     </TableRow>
   )
