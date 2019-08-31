@@ -8,9 +8,11 @@ import { Name, Type, Gender, Notes } from "./Form"
 import { i18n } from "../../locale"
 import { HotelSection, PaymentSection, TournamentSection } from "./Sections"
 import shouldShow from "../../utils/shouldShow"
-import Debug from "../Debug"
+import WhatsNext from "../WhatsNext"
 
-function ParticipantFormik({ errors, touched, isSubmitting, isValid, values, setFieldValue }) {
+function ParticipantFormik(props) {
+  const { errors, touched, isSubmitting, isValid, values, setFieldValue, submitCount } = props
+
   const { settings } = React.useContext(AppContext)
   const [step, setStep] = React.useState("initial")
 
@@ -91,7 +93,6 @@ function ParticipantFormik({ errors, touched, isSubmitting, isValid, values, set
             color="secondary"
             type="button"
             className="mt-2"
-            disabled={!isValid}
             onClick={() => {
               setStep("confirm")
             }}
@@ -127,12 +128,19 @@ function ParticipantFormik({ errors, touched, isSubmitting, isValid, values, set
           >
             {i18n("Modify entry")}
           </Button>
-          <Button variant="contained" color="secondary" className="mr-1 mt-1" type="submit">
+          <Button
+            variant="contained"
+            color="secondary"
+            className="mr-1 mt-1"
+            type="submit"
+            disabled={!isValid && isSubmitting}
+          >
             {i18n("Save")}
           </Button>
+
+          {!!submitCount && !isSubmitting && <WhatsNext path="/#/" />}
         </Form>
       )}
-      <Debug subject={{ errors, touched, isSubmitting, isValid, values, setFieldValue }} />
     </ParticipantContext.Provider>
   )
 }
@@ -144,6 +152,7 @@ ParticipantFormik.propTypes = {
   isSubmitting: PropTypes.bool,
   isValid: PropTypes.bool,
   setFieldValue: PropTypes.func,
+  submitCount: PropTypes.number,
 }
 
 export default ParticipantFormik
