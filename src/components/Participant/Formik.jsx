@@ -8,10 +8,9 @@ import { Name, Type, Gender, Notes } from "./Form"
 import { i18n } from "../../locale"
 import { HotelSection, PaymentSection, TournamentSection } from "./Sections"
 import shouldShow from "../../utils/shouldShow"
-import WhatsNext from "../WhatsNext"
 
 function ParticipantFormik(props) {
-  const { errors, touched, isSubmitting, isValid, values, setFieldValue, submitCount } = props
+  const { errors, touched, isSubmitting, isValid, values, setFieldValue } = props
 
   const { settings } = React.useContext(AppContext)
   const [step, setStep] = React.useState("initial")
@@ -137,8 +136,6 @@ function ParticipantFormik(props) {
           >
             {i18n("Save")}
           </Button>
-
-          {!!submitCount && !isSubmitting && <WhatsNext path="/#/" />}
         </Form>
       )}
     </ParticipantContext.Provider>
@@ -152,7 +149,6 @@ ParticipantFormik.propTypes = {
   isSubmitting: PropTypes.bool,
   isValid: PropTypes.bool,
   setFieldValue: PropTypes.func,
-  submitCount: PropTypes.number,
 }
 
 export default ParticipantFormik

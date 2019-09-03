@@ -8,12 +8,17 @@ import HotelFormik from "./Formik"
 import { hotelSchema } from "../../schema/"
 import { hotelValues } from "../../data/initial-values"
 import api from "../../api"
+import WhatsNext from "../WhatsNext"
 
 const HotelWrapper = (props) => {
   const [snackbar, notify] = React.useState({ open: false, message: "" })
   const [initialValues, setInitialValues] = React.useState(hotelValues)
 
-  const [state, setState] = React.useState({ action: "create", title: "New hotel" })
+  const [state, setState] = React.useState({
+    action: "create",
+    title: "New hotel",
+    showNext: false,
+  })
   React.useEffect(() => {
     if (props.match.params.id) {
       setState({ action: "update", title: "Update hotel" })
@@ -38,12 +43,15 @@ const HotelWrapper = (props) => {
     saveHotel(values, id)
       .then(() => {
         notify({ open: !snackbar.open, message: "Success! Everything has been saved." })
+        setState((state) => ({ ...state, showNext: true }))
       })
       .catch(() => {
         notify({ open: !snackbar.open, message: "Error. Something went wrong!" })
       })
       .finally(() => {
-        actions.setSubmitting(false)
+        if (state.action === "update") {
+          actions.setSubmitting(false)
+        }
       })
   }
 
@@ -59,6 +67,8 @@ const HotelWrapper = (props) => {
       />
       <SnackbarWrapper openSnackbar={snackbar.open} message={snackbar.message} />
       <DangerZone instance="hotels" id={props.match.params.id} />
+
+      {state.showNext && <WhatsNext path="/#/hotels" />}
     </Box>
   )
 }

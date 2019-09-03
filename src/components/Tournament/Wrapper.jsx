@@ -8,12 +8,17 @@ import TournamentFormik from "./Formik"
 import { tournamentSchema } from "../../schema/"
 import { tournamentValues } from "../../data/initial-values"
 import api from "../../api"
+import WhatsNext from "../WhatsNext"
 
 const TournamentWrapper = (props) => {
   const [snackbar, notify] = React.useState({ open: false, message: "" })
   const [initialValues, setInitialValues] = React.useState(tournamentValues)
 
-  const [state, setState] = React.useState({ action: "create", title: "New tournament" })
+  const [state, setState] = React.useState({
+    action: "create",
+    title: "New tournament",
+    showNext: false,
+  })
   React.useEffect(() => {
     if (props.match.params.id) {
       setState({ action: "update", title: "Update tournament" })
@@ -38,12 +43,15 @@ const TournamentWrapper = (props) => {
     saveTournament(values, id)
       .then(() => {
         notify({ open: !snackbar.open, message: "Success! Everything has been saved." })
+        setState((state) => ({ ...state, showNext: true }))
       })
       .catch(() => {
         notify({ open: !snackbar.open, message: "Error. Something went wrong!" })
       })
       .finally(() => {
-        actions.setSubmitting(false)
+        if (state.action === "update") {
+          actions.setSubmitting(false)
+        }
       })
   }
 
@@ -59,6 +67,8 @@ const TournamentWrapper = (props) => {
       />
       <SnackbarWrapper openSnackbar={snackbar.open} message={snackbar.message} />
       <DangerZone instance="tournaments" id={props.match.params.id} />
+
+      {state.showNext && <WhatsNext path="/#/tournaments" />}
     </Box>
   )
 }
