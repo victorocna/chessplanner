@@ -1,5 +1,4 @@
 import limits from '../limits';
-import { getUser } from "./helpers";
 
 import faunadb from "faunadb"
 
@@ -11,10 +10,9 @@ const client = new faunadb.Client({
 
 const size = +process.env.REACT_APP_FAUNADB_QUERY_LIMIT
 
-export default async (event, instance) => {
+export default async (user, instance) => {
   const instanceToIndex = (instance) => `indexes/all_${instance}_by_key`
-  const user = getUser(event.headers.authorization)
-  const userLimit = limits[index] || 0
+  const userLimit = limits[instance] || 0
   return client
     .query(q.Paginate(q.Match(q.Ref(instanceToIndex(instance)), user.key), { size }))
     .then((response) => {

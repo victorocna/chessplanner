@@ -39,7 +39,8 @@ const lambda = async (event) => {
   instanceData.key = user.key
 
   // Middleware: check limits for demo account
-  if (isDemo() && await !canCreate(event, instance)) {
+  const isAllowed = await canCreate(user, instance)
+  if (isDemo() && !isAllowed) {
     let message = `User: ${user.email} reached demo limit for ${instance}.`
     await putLogEvents(message)
 
