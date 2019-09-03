@@ -93,6 +93,7 @@
   "Logout": "Deconectare",
   "Add new": "Adaugă",
   "Everything was saved successfully. What's next?": "Totul a fost salvat cu succes. Ce urmează?",
+  "Welcome back! Log in with your credentials to access your tournaments": "Bine ai venit! Folosește credențialele tale în formularul de mai jos",
   "_table": {
     "body": {
       "emptyDataSourceMessage": "Nu există rezultate de afișat. Verificați dacă vă aflați pe prima pagina când efectuați o căutare",
