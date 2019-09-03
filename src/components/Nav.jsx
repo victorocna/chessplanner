@@ -189,7 +189,7 @@ export default function Nav(props) {
             className={classes.header}
           >
             <AllInclusive />
-            masterplanner
+            masterplanner {process.env.REACT_APP_DEMO_ACCOUNT && <span> | demo</span>}
           </Typography>
         </Toolbar>
       </AppBar>

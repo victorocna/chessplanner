@@ -3,7 +3,7 @@ import aws4 from "aws4"
 import getSequenceToken from "./getSequenceToken"
 import { oneLine } from "../utils/helpers"
 
-export default async function putLogEvents(message, logGroupName = "masterplanner") {
+const putLogEvents = async (message, logGroupName = process.env.REACT_APP_AWS_LOG_GROUP_NAME) => {
   const now = new Date()
   const sequenceToken = await getSequenceToken()
 
@@ -35,3 +35,5 @@ export default async function putLogEvents(message, logGroupName = "masterplanne
     headers: awsSigned.headers,
   })
 }
+
+export default putLogEvents
