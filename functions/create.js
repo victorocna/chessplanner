@@ -3,6 +3,9 @@ import putLogEvents from "./aws/putLogEvents"
 import validate from "./utils/validate"
 import { getUser, prettyErrors } from "./utils/helpers"
 
+import isDemo from './utils/isDemo';
+import canCreate from './utils/canCreate';
+
 const q = faunadb.query
 const client = new faunadb.Client({
   secret: process.env.REACT_APP_FAUNADB_SERVER_SECRET,
@@ -34,6 +37,17 @@ const lambda = async (event) => {
   // append key to instance data
   const instanceData = JSON.parse(event.body)
   instanceData.key = user.key
+
+  // Middleware: check limits for demo account
+  if (isDemo() && await !canCreate(event, instance)) {
+    let message = `User: ${user.email} reached demo limit for ${instance}.`
+    await putLogEvents(message)
+
+    return {
+      statusCode: 403,
+      body: 'Exceeded demo limit.'
+    }
+  }
 
   // construct the fauna query
   return client
