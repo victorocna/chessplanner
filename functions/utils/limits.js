@@ -4,4 +4,3 @@ export default {
   taxes: 1,
   tournaments: 1,
 }
-
