@@ -8,18 +8,22 @@ import ParticipantFormik from "./Formik"
 import { participantSchema } from "../../schema/"
 import { participantValues } from "../../data/initial-values"
 import api from "../../api"
+import WhatsNext from "../WhatsNext"
 
 const ParticipantWrapper = (props) => {
   const [snackbar, notify] = React.useState({ open: false, message: "" })
   const [initialValues, setInitialValues] = React.useState(participantValues)
 
-  const [state, setState] = React.useState({ action: "create", title: "New participant" })
+  const [state, setState] = React.useState({
+    action: "create",
+    title: "New participant",
+    showNext: false,
+  })
   React.useEffect(() => {
     if (props.match.params.id) {
       setState({ action: "update", title: "Update participant" })
       api.read("participants", props.match.params.id).then((item) => {
         setInitialValues(item.data)
-        console.log(item.data)
       })
     } else {
       setInitialValues(participantValues)
@@ -39,12 +43,15 @@ const ParticipantWrapper = (props) => {
     saveParticipant(values, id)
       .then(() => {
         notify({ open: !snackbar.open, message: "Success! Everything has been saved." })
+        setState((state) => ({ ...state, showNext: true }))
       })
       .catch(() => {
         notify({ open: !snackbar.open, message: "Error. Something went wrong!" })
       })
       .finally(() => {
-        actions.setSubmitting(false)
+        if (state.action === "update") {
+          actions.setSubmitting(false)
+        }
       })
   }
 
@@ -60,6 +67,8 @@ const ParticipantWrapper = (props) => {
       />
       <SnackbarWrapper openSnackbar={snackbar.open} message={snackbar.message} />
       <DangerZone instance="participants" id={props.match.params.id} />
+
+      {state.showNext && <WhatsNext path="/#/" />}
     </Box>
   )
 }
