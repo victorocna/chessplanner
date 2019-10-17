@@ -3,6 +3,7 @@ import putLogEvents from "./aws/putLogEvents"
 import getId from "./utils/getId"
 import validate from "./utils/validate"
 import { getUser, prettyErrors } from "./utils/helpers"
+import { errorDelete } from "./utils/messages"
 
 const q = faunadb.query
 const client = new faunadb.Client({
@@ -47,13 +48,12 @@ const lambda = async (event) => {
         body: JSON.stringify(response),
       }
     })
-    .catch(async (error) => {
-      const errMessage = prettyErrors(error)
-      const errDetails = `
-        Error! Cannot read ${instance} with id ${id}.
-        ErrMessage: ${errMessage}; User: ${user.email}`
+    .catch((error) => {
+      putLogEvents(errorDelete({ instance, id, user, error }))
 
-      await putLogEvents(errDetails)
-      return { statusCode: 400, body: errMessage }
+      return {
+        statusCode: 400,
+        body: prettyErrors(error),
+      }
     })
 }

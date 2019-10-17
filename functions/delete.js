@@ -3,6 +3,7 @@ import putLogEvents from "./aws/putLogEvents"
 import getId from "./utils/getId"
 import validate from "./utils/validate"
 import { getUser, prettyErrors } from "./utils/helpers"
+import { successDelete, errorDelete } from "./utils/messages"
 
 const q = faunadb.query
 const client = new faunadb.Client({
@@ -36,22 +37,20 @@ const lambda = async (event) => {
   // construct the fauna query
   return client
     .query(q.Delete(q.Ref(`collections/${instance}/${id}`)))
-    .then(async (response) => {
-      const backup = Buffer.from(JSON.stringify(response)).toString("base64")
-      const message = `
-        Success! Deleted ${instance} instance with id ${id}.
-        Backup: ${backup}; User: ${user.email}`
+    .then((response) => {
+      putLogEvents(successDelete({ instance, id, user, response }))
 
-      await putLogEvents(message)
-      return { statusCode: 200, body: JSON.stringify(response) }
+      return {
+        statusCode: 200,
+        body: JSON.stringify(response),
+      }
     })
-    .catch(async (error) => {
-      const errMessage = prettyErrors(error)
-      const errDetails = `
-        Error! Cannot delete ${instance} with id ${id}.
-        ErrMessage: ${errMessage}; User: ${user.email}`
+    .catch((error) => {
+      putLogEvents(errorDelete({ instance, id, user, error }))
 
-      await putLogEvents(errDetails)
-      return { statusCode: 400, body: errMessage }
+      return {
+        statusCode: 400,
+        body: prettyErrors(error),
+      }
     })
 }

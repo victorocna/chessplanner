@@ -2,9 +2,9 @@ import faunadb from "faunadb"
 import putLogEvents from "./aws/putLogEvents"
 import validate from "./utils/validate"
 import { getUser, prettyErrors } from "./utils/helpers"
-
-import isDemo from './utils/isDemo';
-import canCreate from './utils/canCreate';
+import { successCreate, errorCreate } from "./utils/messages"
+import isDemo from "./utils/isDemo"
+import canCreate from "./utils/canCreate"
 
 const q = faunadb.query
 const client = new faunadb.Client({
@@ -46,7 +46,7 @@ const lambda = async (event) => {
 
     return {
       statusCode: 403,
-      body: 'Exceeded demo limit.'
+      body: "Exceeded demo limit.",
     }
   }
 
@@ -57,22 +57,20 @@ const lambda = async (event) => {
         data: instanceData,
       })
     )
-    .then(async (response) => {
-      const backup = Buffer.from(JSON.stringify(response)).toString("base64")
-      const message = `
-        Success! Created a new ${instance} instance.
-        Backup: ${backup}; User: ${user.email}`
+    .then((response) => {
+      putLogEvents(successCreate({ instance, user, response }))
 
-      await putLogEvents(message)
-      return { statusCode: 200, body: JSON.stringify(response) }
+      return {
+        statusCode: 200,
+        body: JSON.stringify(response),
+      }
     })
-    .catch(async (error) => {
-      const errMessage = prettyErrors(error)
-      const errDetails = `
-        Error! Cannot create a new ${instance} instance.
-        ErrMessage: ${errMessage}; User: ${user.email}`
+    .catch((error) => {
+      putLogEvents(errorCreate({ instance, user, error }))
 
-      await putLogEvents(errDetails)
-      return { statusCode: 400, body: errMessage }
+      return {
+        statusCode: 400,
+        body: prettyErrors(error),
+      }
     })
 }

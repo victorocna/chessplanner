@@ -18,10 +18,7 @@ const getUser = (authHeaders) => {
     if (token.hasOwnProperty("email")) {
       user.email = token.email
     }
-    if (
-      token.hasOwnProperty("user_metadata") &&
-      token.user_metadata.hasOwnProperty("key")
-    ) {
+    if (token.hasOwnProperty("user_metadata") && token.user_metadata.hasOwnProperty("key")) {
       user.key = token.user_metadata.key.toString()
     }
   }

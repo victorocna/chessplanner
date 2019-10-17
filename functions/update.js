@@ -3,6 +3,7 @@ import putLogEvents from "./aws/putLogEvents"
 import getId from "./utils/getId"
 import validate from "./utils/validate"
 import { getUser, prettyErrors } from "./utils/helpers"
+import { successUpdate, errorUpdate } from "./utils/messages"
 
 const q = faunadb.query
 const client = new faunadb.Client({
@@ -40,22 +41,20 @@ const lambda = async (event) => {
         data: JSON.parse(event.body),
       })
     )
-    .then(async (response) => {
-      const backup = Buffer.from(JSON.stringify(response)).toString("base64")
-      const message = `
-        Success! Updated ${instance} instance with id ${id}.
-        Backup: ${backup}; User: ${user.email}`
+    .then((response) => {
+      putLogEvents(successUpdate({ instance, id, user, response }))
 
-      await putLogEvents(message)
-      return { statusCode: 200, body: JSON.stringify(response) }
+      return {
+        statusCode: 200,
+        body: JSON.stringify(response),
+      }
     })
-    .catch(async (error) => {
-      const errMessage = prettyErrors(error)
-      const errDetails = `
-        Error! Cannot update ${instance} with id ${id}.
-        ErrMessage: ${errMessage}; User: ${user.email}`
+    .catch((error) => {
+      putLogEvents(errorUpdate({ instance, id, user, error }))
 
-      await putLogEvents(errDetails)
-      return { statusCode: 400, body: errMessage }
+      return {
+        statusCode: 400,
+        body: prettyErrors(error),
+      }
     })
 }
