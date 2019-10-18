@@ -17,6 +17,7 @@ import AppContext from "../context/app-context"
 import AuthScreen from "./Identity/AuthScreen"
 import NotFound from "./NotFound"
 import ComingSoon from "./ComingSoon"
+import Dashboard from "./Dashboard"
 
 export default function Main() {
   const [settings, setSettings] = React.useState({})
@@ -33,7 +34,8 @@ export default function Main() {
   return (
     <AppContext.Provider value={settings}>
       <Switch>
-        <PrivateRoute exact path="/" component={Participants} />
+        <PrivateRoute exact path="/" component={Dashboard} />
+        <PrivateRoute path="/participants" component={Participants} />
         <PrivateRoute path="/new/" component={ParticipantWrapper} />
         <PrivateRoute path="/edit/:id" component={ParticipantWrapper} />
         <PrivateRoute path="/view/:id" component={ParticipantSheet} />

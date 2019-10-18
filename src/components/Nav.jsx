@@ -115,6 +115,11 @@ export default function Nav(props) {
     <div>
       <div className={classes.toolbar} />
       <Divider />
+      <List onClick={closeDrawer}>
+        <ListItemLink primary={i18n("Dashboard")} to="/" />
+      </List>
+
+      <Divider />
       <List>
         <ListItem button onClick={toggleNested}>
           <ListItemText primary={i18n("Add new")} />
@@ -132,7 +137,7 @@ export default function Nav(props) {
 
       <Divider />
       <List onClick={closeDrawer}>
-        <ListItemLink primary={i18n("Participants")} to="/" />
+        <ListItemLink primary={i18n("Participants")} to="/participants" />
         <ListItemLink primary={i18n("Tournaments")} to="/tournaments" />
         <ListItemLink primary={i18n("Hotels")} to="/hotels" />
         <ListItemLink primary={i18n("Taxes")} to="/taxes" />
@@ -189,7 +194,7 @@ export default function Nav(props) {
             className={classes.header}
           >
             <AllInclusive />
-            masterplanner {process.env.REACT_APP_DEMO_ACCOUNT && <span> | demo</span>}
+            masterplanner
           </Typography>
         </Toolbar>
       </AppBar>
