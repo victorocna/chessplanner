@@ -5,17 +5,16 @@ import { Button } from "@material-ui/core"
 import clearCache from "./clearCache"
 
 function Logout({ onNotify }) {
-  const { logoutUser } = React.useContext(IdentityContext)
-
+  const identity = React.useContext(IdentityContext)
   const handleLogout = async (event) => {
     event.preventDefault()
-    logoutUser()
+    return new Promise((resolve) => {
+      delete identity.token
+      resolve()
+    })
+      .then(await clearCache)
       .then(() => {
         onNotify("You have been successfully logged out.")
-      })
-      .then(await clearCache)
-      .catch(() => {
-        onNotify("Something went wrong! Cannot perform logout operation.")
       })
   }
 

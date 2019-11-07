@@ -7,15 +7,17 @@ const client = new faunadb.Client({
 })
 const size = +process.env.REACT_APP_FAUNADB_QUERY_LIMIT
 
+/**
+ * Using the user object, checks if the user limits have been reached
+ */
 export default async (user, instance) => {
-  const instanceToIndex = (instance) => `indexes/all_${instance}_by_key`
   if (typeof limits[instance] === "undefined") {
     return true
   }
 
   const userLimit = limits[instance]
   return client
-    .query(q.Paginate(q.Match(q.Ref(instanceToIndex(instance)), user.key), { size }))
+    .query(q.Paginate(q.Match(q.Ref(`indexes/all_${instance}_by_key`), user.key), { size }))
     .then((response) => {
       let length = response.data.length
       return length < userLimit

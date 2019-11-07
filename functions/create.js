@@ -3,8 +3,8 @@ import putLogEvents from "./aws/putLogEvents"
 import validate from "./utils/validate"
 import { getUser, prettyErrors } from "./utils/helpers"
 import { successCreate, errorCreate } from "./utils/messages"
-import isDemo from "./utils/isDemo"
-import canCreate from "./utils/canCreate"
+import isDemo from "./utils/is-demo"
+import canCreate from "./utils/can-create"
 
 const q = faunadb.query
 const client = new faunadb.Client({
@@ -39,8 +39,7 @@ const lambda = async (event) => {
   instanceData.key = user.key
 
   // Middleware: check limits for demo account
-  const isAllowed = await canCreate(user, instance)
-  if (isDemo() && !isAllowed) {
+  if ((await isDemo(user)) && !(await canCreate(user, instance))) {
     let message = `User: ${user.email} reached demo limit for ${instance}.`
     await putLogEvents(message)
 

@@ -1,7 +1,6 @@
 import React from "react"
 import { HashRouter } from "react-router-dom"
 import { makeStyles } from "@material-ui/core/styles"
-import { useNetlifyIdentity } from "react-netlify-identity"
 import IdentityContext from "../context/identity-context"
 import Nav from "./Nav"
 import Main from "./Main"
@@ -40,10 +39,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function App() {
   const classes = useStyles()
-  const identity = useNetlifyIdentity(process.env.REACT_APP_NETLIFY_AUTH_URL)
 
   return (
-    <IdentityContext.Provider value={identity}>
+    <IdentityContext.Provider value={{ isLoggedIn: false }}>
       <HashRouter>
         <div className={classes.root}>
           <Nav />

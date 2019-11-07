@@ -13,33 +13,21 @@ const getUser = (authHeaders) => {
 
   const encodedToken = authHeaders.split(" ")
   if (typeof encodedToken[1] !== "undefined") {
-    const token = jwt.decode(encodedToken[1])
-
-    if (token.hasOwnProperty("email")) {
-      user.email = token.email
-    }
-    if (token.hasOwnProperty("user_metadata") && token.user_metadata.hasOwnProperty("key")) {
-      user.key = token.user_metadata.key.toString()
-    }
+    return jwt.decode(encodedToken[1])
   }
 
   return user
 }
 
-const isTokenValid = (authHeaders, secret = process.env.REACT_APP_JWT_NETLIFY_SECRET) => {
-  const encodedToken = authHeaders.split(" ")
-  if (typeof encodedToken[1] === "undefined") {
-    return false
-  }
-  const token = jwt.decode(encodedToken[1])
+const isTokenValid = (headers) => {
+  const token = headers.split(" ")[1] || ""
 
-  return (
-    token &&
-    token.hasOwnProperty("user_metadata") &&
-    token.user_metadata.hasOwnProperty("key") &&
-    token.user_metadata.hasOwnProperty("roles") &&
-    Object.values(token.user_metadata.roles).includes(secret)
-  )
+  return jwt.verify(token, process.env.REACT_APP_JWT_SECRET, (err) => {
+    if (err) {
+      return false
+    }
+    return true
+  })
 }
 
 const waitForCoffee = () => {

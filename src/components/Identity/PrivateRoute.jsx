@@ -10,7 +10,7 @@ function PrivateRoute({ component: Component, ...rest }) {
     <Route
       {...rest}
       render={(props) =>
-        identity.user ? <Component {...props} /> : <Redirect to={{ pathname: "/login" }} />
+        identity.token ? <Component {...props} /> : <Redirect to={{ pathname: "/login" }} />
       }
     />
   )

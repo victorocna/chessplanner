@@ -191,6 +191,12 @@ tfoot {
 .mb-2.mb-2 {
   margin-bottom: 2rem;
 }
+.ml-2.ml-2 {
+  margin-left: 0.5rem;
+}
+.p-4.p-4 {
+  padding: 1rem;
+}
 .w-1\/2 {
   width: 50%;
   max-width: 220px;
@@ -252,6 +258,9 @@ tfoot {
   font-weight: bold;
 }
 
+.paper-signup {
+  max-width: 420px;
+}
 .login-form.login-form .MuiInput-underline {
   max-width: 260px;
 }
