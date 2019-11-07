@@ -10,7 +10,7 @@ const client = new faunadb.Client({
 })
 
 exports.handler = async (event) => {
-  const { username, password } = JSON.parse(event.body)
+  const { username, password, origin } = JSON.parse(event.body)
   if (!username || !password) {
     return {
       statusCode: 400,
@@ -55,7 +55,7 @@ exports.handler = async (event) => {
           from: "support@chesscoders.com",
           to: username,
           subject: "Confirm your email address",
-          html: signup(event, hash),
+          html: signup(origin, hash),
         })
       } catch (err) {
         // console.log(err)

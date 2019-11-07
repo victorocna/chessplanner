@@ -4,6 +4,8 @@ import remove from "./api/api-remove"
 import read from "./api/api-read"
 import readAll from "./api/api-read-all"
 import signin from "./api/api-signin"
+import signup from "./api/api-signup"
+import confirm from "./api/api-confirm"
 
 export default {
   create,
@@ -12,4 +14,6 @@ export default {
   update,
   remove,
   signin,
+  signup,
+  confirm,
 }

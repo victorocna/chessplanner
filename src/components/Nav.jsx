@@ -158,7 +158,7 @@ export default function Nav(props) {
       <Divider />
       <List onClick={closeDrawer}>
         <ListItemLink primary={i18n("Settings")} to="/settings" />
-        <ListItemLink primary={isLoggedIn ? i18n("Logout") : i18n("Login")} to="/login" />
+        <ListItemLink primary={isLoggedIn ? i18n("Logout") : i18n("Login")} to="/signin" />
       </List>
 
       <Divider />

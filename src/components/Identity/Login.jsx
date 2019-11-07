@@ -9,7 +9,6 @@ import store from "store"
 function Login({ onNotify }) {
   const formRef = React.useRef()
   const identity = React.useContext(IdentityContext)
-  // const { loginUser } = React.useContext(IdentityContext)
 
   const handleSubmit = async (event) => {
     event.preventDefault()

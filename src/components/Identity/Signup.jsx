@@ -1,29 +1,39 @@
 import React from "react"
-import IdentityContext from "../../context/identity-context"
-import useLoading from "./useLoading"
-import Button from "@material-ui/core/Button"
-import TextField from "@material-ui/core/TextField"
+import { Button, TextField, Link, Typography } from "@material-ui/core"
+import api from "../../api"
+import SnackbarWrapper from "../SnackbarWrapper"
 
 function Signup() {
-  const formRef = React.useRef()
-  const { signupUser } = React.useContext(IdentityContext)
-  const { load } = useLoading()
+  const [isSubmitting, submitting] = React.useState(false)
+
+  const [snackbar, notify] = React.useState({ open: false, message: "" })
+  const onNotify = (message) => {
+    notify({ open: !snackbar.open, message })
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    const email = event.target.email.value
+    submitting(true)
+    const username = event.target.email.value
     const password = event.target.password.value
-    load(signupUser(email, password))
+
+    api
+      .signup({
+        username,
+        password,
+        origin: window.location.origin
+      })
       .then(() => {
-        // TODO: success
+        onNotify("Sign up successful! Please check your email")
       })
       .catch(() => {
-        // TODO: error
+        onNotify("Error! Something went wrong, please try again")
       })
   }
 
   return (
-    <form ref={formRef} onSubmit={handleSubmit} className="login-form">
+    <form onSubmit={handleSubmit} className="m-4">
+      <Typography variant="h6" className="mb-1">Sign up for a Masterplanner account</Typography>
       <TextField
         variant="outlined"
         label="Your email"
@@ -41,9 +51,14 @@ function Signup() {
         className="flex mb-1 mr-1"
         margin="dense"
       />
-      <Button variant="contained" color="secondary" type="submit">
-        Login
+      <p>You will be creating a demo account.</p>
+      <Button variant="contained" color="secondary" type="submit" disabled={isSubmitting}>
+        Sign up
       </Button>
+      <Link href="/#/signin" className="ml-2">
+        Already have an account?
+      </Link>
+      <SnackbarWrapper openSnackbar={snackbar.open} message={snackbar.message} />
     </form>
   )
 }

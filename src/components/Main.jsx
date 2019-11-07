@@ -15,9 +15,11 @@ import ParticipantSheet from "./Participant/Sheet"
 import ParticipantWrapper from "./Participant/Wrapper"
 import AppContext from "../context/app-context"
 import AuthScreen from "./Identity/AuthScreen"
+import Signup from "./Identity/Signup"
 import NotFound from "./NotFound"
 import ComingSoon from "./ComingSoon"
 import Dashboard from "./Dashboard"
+import Confirm from "./Confirm"
 
 export default function Main() {
   const [settings, setSettings] = React.useState({})
@@ -55,8 +57,10 @@ export default function Main() {
         <PrivateRoute path="/upload-participants" component={LazyUpload} />
         <PrivateRoute path="/settings" component={SettingsWrapper} />
 
-        <Route path="/login" component={AuthScreen} />
+        <Route path="/signin" component={AuthScreen} />
+        <Route path="/signup" component={Signup} />
         <Route path="/coming-soon" component={ComingSoon} />
+        <Route path="/confirm/:hash" component={Confirm} />
         <Route path="*" component={NotFound} />
       </Switch>
     </AppContext.Provider>

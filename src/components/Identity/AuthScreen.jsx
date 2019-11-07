@@ -1,6 +1,5 @@
 import React from "react"
-import Box from "@material-ui/core/Box"
-import Typography from "@material-ui/core/Typography"
+import { Typography } from "@material-ui/core"
 import { i18n } from "../../locale"
 import IdentityContext from "../../context/identity-context"
 import Login from "./Login"
@@ -16,7 +15,7 @@ function AuthScreen() {
   }
 
   return (
-    <Box m={2}>
+    <div className="m-4">
       <Typography paragraph variant="body2">
         {token
           ? i18n("Log out using the button below. Your data is safely stored on our servers")
@@ -24,7 +23,7 @@ function AuthScreen() {
       </Typography>
       {token ? <Logout onNotify={onNotify} /> : <Login onNotify={onNotify} />}
       <SnackbarWrapper openSnackbar={snackbar.open} message={snackbar.message} />
-    </Box>
+    </div>
   )
 }
 
