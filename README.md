@@ -60,6 +60,10 @@ Tests are available for critical business logic and components.
 npm run test
 ```
 
+## Deployment
+
+To skip the installation of `devDependencies`, add `NODE_ENV=production` to the environment variables of the service you are deploying this project.
+
 ## Further development
 
 - [replace API methods with explicit ones](https://refactoring.com/catalog/removeFlagArgument.html)

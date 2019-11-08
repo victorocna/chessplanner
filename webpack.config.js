@@ -5,7 +5,7 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       "global.GENTLY": false,
-      "process.env.REACT_APP_AWS_LOG_STREAM_NAME": '"masterplanner-production"',
+      "process.env.REACT_APP_AWS_LOG_STREAM_NAME": '"masterplanner"',
     }),
     new Dotenv(),
   ],
