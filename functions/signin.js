@@ -20,7 +20,7 @@ exports.handler = async (event) => {
   return client
     .query(
       q.Map(
-        q.Paginate(q.Match(q.Index("all_users_by_email"), username)),
+        q.Paginate(q.Match(q.Index("all_users_by_username"), username)),
         q.Lambda("X", q.Get(q.Var("X")))
       )
     )
