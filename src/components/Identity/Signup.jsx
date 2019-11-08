@@ -2,13 +2,14 @@ import React from "react"
 import { Button, TextField, Link, Typography } from "@material-ui/core"
 import api from "../../api"
 import { notify } from "../Toast"
+import Password from "./Password"
 
 function Signup() {
-  const [isSubmitting, submitting] = React.useState(false)
+  const [isSubmitting, setSubmitting] = React.useState(false)
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault()
-    submitting(true)
+    setSubmitting(true)
 
     api
       .signup({
@@ -20,6 +21,7 @@ function Signup() {
         notify.success("Sign up successful! Please check your email")
       })
       .catch(() => {
+        setSubmitting(false)
         notify.error("Error! Something went wrong, please try again")
       })
   }
@@ -38,14 +40,7 @@ function Signup() {
         margin="dense"
         autoFocus
       />
-      <TextField
-        variant="outlined"
-        label="Your desired password"
-        name="password"
-        type="password"
-        className="flex mb-1 mr-1"
-        margin="dense"
-      />
+      <Password />
       <p>You will be creating a demo account.</p>
       <Button variant="contained" color="secondary" type="submit" disabled={isSubmitting}>
         Sign up

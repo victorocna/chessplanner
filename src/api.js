@@ -4,7 +4,9 @@ import read from "./api/crud/read"
 import readAll from "./api/crud/read-all"
 import remove from "./api/crud/remove"
 import confirm from "./api/identity/confirm"
-import signin from "./api/identity/login"
+import forgot from "./api/identity/forgot"
+import reset from "./api/identity/reset"
+import login from "./api/identity/login"
 import signup from "./api/identity/signup"
 
 export default {
@@ -13,7 +15,9 @@ export default {
   readAll,
   update,
   remove,
-  signin,
+  login,
   signup,
   confirm,
+  forgot,
+  reset,
 }

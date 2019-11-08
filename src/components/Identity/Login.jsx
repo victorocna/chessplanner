@@ -3,6 +3,7 @@ import { Button, TextField, Link, Paper, Typography } from "@material-ui/core"
 import cacheData from "./cache-data"
 import api from "../../api"
 import { notify } from "../Toast"
+import Password from "./Password"
 
 function Login() {
   const [isSubmitting, setSubmitting] = React.useState(false)
@@ -14,7 +15,7 @@ function Login() {
     const password = event.target.password.value
 
     api
-      .signin({
+      .login({
         username,
         password,
       })
@@ -46,14 +47,7 @@ function Login() {
         margin="dense"
         autoFocus
       />
-      <TextField
-        variant="outlined"
-        label="Password"
-        name="password"
-        type="password"
-        className="flex mb-1 mr-1"
-        margin="dense"
-      />
+      <Password />
       <Button variant="contained" color="secondary" type="submit" disabled={isSubmitting}>
         Login
       </Button>
