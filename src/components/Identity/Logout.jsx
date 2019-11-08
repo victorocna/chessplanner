@@ -1,10 +1,10 @@
 import React from "react"
-import PropTypes from "prop-types"
 import IdentityContext from "../../context/identity-context"
 import { Button } from "@material-ui/core"
 import clearCache from "./clearCache"
+import { notify } from "../Toast"
 
-function Logout({ onNotify }) {
+function Logout() {
   const identity = React.useContext(IdentityContext)
   const handleLogout = async (event) => {
     event.preventDefault()
@@ -14,7 +14,7 @@ function Logout({ onNotify }) {
     })
       .then(await clearCache)
       .then(() => {
-        onNotify("You have been successfully logged out.")
+        notify.success("You have been successfully logged out.")
       })
   }
 
@@ -23,14 +23,6 @@ function Logout({ onNotify }) {
       Logout
     </Button>
   )
-}
-
-Logout.propTypes = {
-  onNotify: PropTypes.func,
-}
-
-Logout.defaultProps = {
-  onNotify: () => {},
 }
 
 export default Logout

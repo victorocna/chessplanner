@@ -1,7 +1,7 @@
 import React from "react"
 import { Box, Typography } from "@material-ui/core"
 import { Formik } from "formik"
-import SnackbarWrapper from "../SnackbarWrapper"
+import { notify } from "../Toast"
 import SettingsFormik from "./Formik"
 import { settingSchema } from "../../schema/"
 import { settingValues } from "../../data/initial-values"
@@ -9,7 +9,6 @@ import api from "../../api"
 import fromStore from "../../utils/fromStore"
 
 const SettingsWrapper = () => {
-  const [snackbar, notify] = React.useState({ open: false, message: "" })
   const [initialValues, setInitialValues] = React.useState(settingValues)
 
   const [settingsId, setId] = React.useState(false)
@@ -42,13 +41,13 @@ const SettingsWrapper = () => {
     const id = settingsId || null
     saveSettings(values, id)
       .then(() => {
-        notify({ open: !snackbar.open, message: "Settings updated successfully. Refreshing" })
+        notify.success("Settings updated successfully. Refreshing")
         setTimeout(() => {
           window.location.reload()
         }, 2000)
       })
       .catch(() => {
-        notify({ open: !snackbar.open, message: "Error! Failed to update settings" })
+        notify.error("Error! Failed to update settings")
       })
       .finally(() => {
         actions.setSubmitting(false)
@@ -69,7 +68,6 @@ const SettingsWrapper = () => {
         onSubmit={(values, actions) => handleSubmit(values, actions)}
         render={(props) => <SettingsFormik {...props} />}
       />
-      <SnackbarWrapper openSnackbar={snackbar.open} message={snackbar.message} />
     </Box>
   )
 }

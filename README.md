@@ -2,11 +2,11 @@
 
 Masterplanner is built with some of the following technologies:
 
-- React for the app frontend
+- React
 - FaunaDB for the cloud backend with a NoSQL environment
 - Netlify for automatic deployment from a Git repo
 - Netlify Lambda for serverless functions
-- Netlify Identity for user management
+- Custom JWT authentication for user management
 - AWS Cloudwatch for remote logging and storage
 
 ## Quick start
@@ -31,59 +31,23 @@ Using it in a lambda function is a two step process (both asynchronous):
 ```bash
 exports.handler = async (event) => {
   const sequenceToken = await getSequenceToken()
-  await putLogEvents("Foo", sequenceToken)
+  putLogEvents("Foo", sequenceToken)
 
   return { statusCode: 200 }
 }
 ```
 
-## Notify
+## Notifications
 
-We use **Material UI Snackbars** to notify its users of various messages.
+We use a slightly improved version of [**React notify toast**](https://www.npmjs.com/package/react-notify-toast) to notify its users of various messages.
 
-To implement the snackbar in a React component, see the example below:
-
-### Current
+To show a simple notification, just use the example below in any component.
 
 ```bash
-export default function Foo() {
-  const [snackbar, notify] = useState({ open: false, message: '' })
-
-  const someAction = () => {
-    notify({ open: !snackbar.open, message: 'Hello world' })
-  }
-
-  return (
-    <div>
-      [...]
-      <SnackbarWrapper openSnackbar={snackbar.open} message={snackbar.message} />
-    </div>
-  )
-}
+notify.success("Hello world")
 ```
 
-### Deprecated
-
-```bash
-class Foo extends React.Component {
-  snackbarRef = React.createRef();
-
-  someAction = () => {
-    this.snackbarRef.current.openSnackBar("Hello world");
-  }
-
-  [...]
-
-  render() {
-    return (
-      <div>
-        [...]
-        <Notify ref={this.snackbarRef} />
-      </div>
-    );
-  }
-}
-```
+Other methods are `warn`, `error` and `info`.
 
 ## Testing
 

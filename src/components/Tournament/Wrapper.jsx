@@ -2,7 +2,7 @@ import React from "react"
 import PropTypes from "prop-types"
 import { Box, Typography } from "@material-ui/core"
 import { Formik } from "formik"
-import SnackbarWrapper from "../SnackbarWrapper"
+import { notify } from "../Toast"
 import DangerZone from "../DangerZone"
 import TournamentFormik from "./Formik"
 import { tournamentSchema } from "../../schema/"
@@ -11,7 +11,6 @@ import api from "../../api"
 import WhatsNext from "../WhatsNext"
 
 const TournamentWrapper = (props) => {
-  const [snackbar, notify] = React.useState({ open: false, message: "" })
   const [initialValues, setInitialValues] = React.useState(tournamentValues)
 
   const [state, setState] = React.useState({
@@ -42,11 +41,11 @@ const TournamentWrapper = (props) => {
     const id = props.match.params.id || null
     saveTournament(values, id)
       .then(() => {
-        notify({ open: !snackbar.open, message: "Success! Everything has been saved." })
+        notify.success("Success! Everything has been saved.")
         setState((state) => ({ ...state, showNext: true }))
       })
       .catch(() => {
-        notify({ open: !snackbar.open, message: "Error. Something went wrong!" })
+        notify.error("Error. Something went wrong!")
       })
       .finally(() => {
         if (state.action === "update") {
@@ -65,7 +64,6 @@ const TournamentWrapper = (props) => {
         onSubmit={(values, actions) => handleSubmit(values, actions)}
         render={(props) => <TournamentFormik {...props} />}
       />
-      <SnackbarWrapper openSnackbar={snackbar.open} message={snackbar.message} />
       <DangerZone instance="tournaments" id={props.match.params.id} />
 
       {state.showNext && <WhatsNext path="/#/tournaments" />}

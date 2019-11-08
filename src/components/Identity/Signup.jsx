@@ -1,15 +1,10 @@
 import React from "react"
 import { Button, TextField, Link, Typography } from "@material-ui/core"
 import api from "../../api"
-import SnackbarWrapper from "../SnackbarWrapper"
+import { notify } from "../Toast"
 
 function Signup() {
   const [isSubmitting, submitting] = React.useState(false)
-
-  const [snackbar, notify] = React.useState({ open: false, message: "" })
-  const onNotify = (message) => {
-    notify({ open: !snackbar.open, message })
-  }
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -24,10 +19,10 @@ function Signup() {
         origin: window.location.origin
       })
       .then(() => {
-        onNotify("Sign up successful! Please check your email")
+        notify.success("Sign up successful! Please check your email")
       })
       .catch(() => {
-        onNotify("Error! Something went wrong, please try again")
+        notify.error("Error! Something went wrong, please try again")
       })
   }
 
@@ -58,7 +53,6 @@ function Signup() {
       <Link href="/#/signin" className="ml-2">
         Already have an account?
       </Link>
-      <SnackbarWrapper openSnackbar={snackbar.open} message={snackbar.message} />
     </form>
   )
 }

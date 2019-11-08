@@ -1,14 +1,13 @@
 import React from "react"
 import PropTypes from "prop-types"
 import fromStore from "../../utils/fromStore"
-import SnackbarWrapper from "../SnackbarWrapper"
+import { notify } from "../Toast"
 import DangerZone from "../DangerZone"
 import { Box, Button, Typography } from "@material-ui/core"
 import ToPrint from "./ToPrint"
 import printStyles from "./print-styles"
 
 const ParticipantSheet = (props) => {
-  const [snackbar, notify] = React.useState({ open: false, message: "" })
   const [subject, setSubject] = React.useState({})
 
   React.useEffect(() => {
@@ -17,7 +16,7 @@ const ParticipantSheet = (props) => {
       const participant = all_participants.filter((item) => item["ref"]["@ref"]["id"] === id + "")
 
       if (participant.length !== 1) {
-        notify({ open: !snackbar.open, message: "Error! Cannot read participant" })
+        notify.error("Error! Cannot read participant")
         return
       }
 
@@ -53,7 +52,6 @@ const ParticipantSheet = (props) => {
       </Button>
 
       <DangerZone instance="participants" id={props.match.params.id} />
-      <SnackbarWrapper openSnackbar={snackbar.open} message={snackbar.message} />
 
       <ToPrint subject={subject} />
       <iframe id="print-helper" title="print-helper" />

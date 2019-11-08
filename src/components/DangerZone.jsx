@@ -3,17 +3,12 @@ import PropTypes from "prop-types"
 import { withRouter } from "react-router-dom"
 import { Box, Typography, Button, Collapse, FormControlLabel, Checkbox } from "@material-ui/core"
 import { ExpandLess, ExpandMore } from "@material-ui/icons"
-import SnackbarWrapper from "./SnackbarWrapper"
+import { notify } from "./Toast"
 import api from "../api"
 import { Loading } from "./Loading/"
 import { i18n } from "../locale"
 
 const DangerZone = (props) => {
-  const [snackbar, notify] = React.useState({
-    open: false,
-    message: "",
-  })
-
   const [collapse, setCollapse] = React.useState(false)
   function toggle() {
     setCollapse(!collapse)
@@ -34,14 +29,14 @@ const DangerZone = (props) => {
     api
       .remove(props.instance, props.id)
       .then(() => {
-        notify({ open: !snackbar.open, message: i18n("Success! Item has been deleted") })
+        notify.success(i18n("Success! Item has been deleted"))
         setTimeout(() => {
           setIsLoading(false)
           props.history.goBack()
         }, 2000)
       })
       .catch(() => {
-        notify({ open: !snackbar.open, message: i18n("Error! Cannot delete item") })
+        notify.error(i18n("Error! Cannot delete item"))
         setIsLoading(false)
       })
   }
@@ -89,7 +84,6 @@ const DangerZone = (props) => {
           {i18n("Delete")}
         </Button>
       </Collapse>
-      <SnackbarWrapper openSnackbar={snackbar.open} message={snackbar.message} />
     </Box>
   )
 }

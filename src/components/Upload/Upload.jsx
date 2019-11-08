@@ -6,8 +6,7 @@ import useChip from "./useChip"
 import useCheckbox from "./useCheckbox"
 import useLoading from "./useLoading"
 import useStyles from "../useStyles"
-import useSnackbar from "../useSnackbar"
-import SnackbarWrapper from "../SnackbarWrapper"
+import { notify } from "../Toast"
 import prepareUpload from "./prepare-upload"
 import fromStore from "../../utils/fromStore"
 import howMuch from "../../utils/howMuch"
@@ -24,7 +23,6 @@ import merge from "lodash.merge"
 
 function Upload() {
   const classes = useStyles()
-  const { snackbar, notify } = useSnackbar()
   const { chips } = useChip()
   const { isLoading, showLoading, hideLoading } = useLoading()
   const { checkbox, showSkipFirst, showHowMuch } = useCheckbox()
@@ -62,8 +60,8 @@ function Upload() {
     )
     hideLoading()
     j > 0
-      ? notify({ open: !snackbar.open, message: i18n("Success! Participants imported: ") + j })
-      : notify({ open: !snackbar.open, message: i18n("Error! No participants uploaded") })
+      ? notify.success(i18n("Success! Participants imported: ") + j)
+      : notify.warn(i18n("Error! No participants uploaded"))
   }
 
   /**
@@ -72,7 +70,7 @@ function Upload() {
   const uploadFile = async (event) => {
     let file = event.target.files[0]
     if (!file || !fh.isValidFile(file.name)) {
-      notify({ open: !snackbar.open, message: i18n("Error! Unsupported file extension") })
+      notify.warn(i18n("Error! Unsupported file extension"))
       return false
     }
 
@@ -81,7 +79,7 @@ function Upload() {
       try {
         contents = await fh.contentsFromCsv(file)
       } catch (err) {
-        notify({ open: !snackbar.open, message: err })
+        notify.warn(err)
         return false
       }
     }
@@ -89,7 +87,7 @@ function Upload() {
       try {
         contents = await fh.contentsFromExcel(file)
       } catch (err) {
-        notify({ open: !snackbar.open, message: err })
+        notify.warn(err)
         return false
       }
     }
@@ -153,7 +151,6 @@ function Upload() {
         </Button>
       </label>
       <NeedHelp />
-      <SnackbarWrapper openSnackbar={snackbar.open} message={snackbar.message} />
       <ConfirmUpload
         open={dialog.open}
         message={dialog.message}

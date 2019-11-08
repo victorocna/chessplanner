@@ -1,12 +1,12 @@
 import React from "react"
-import PropTypes from "prop-types"
 import IdentityContext from "../../context/identity-context"
 import { Button, TextField, Link, Paper, Typography } from "@material-ui/core"
 import cacheData from "./cacheData"
 import api from "../../api"
 import store from "store"
+import { notify } from "../Toast"
 
-function Login({ onNotify }) {
+function Login() {
   const formRef = React.useRef()
   const identity = React.useContext(IdentityContext)
 
@@ -24,7 +24,7 @@ function Login({ onNotify }) {
         // set the token in local storage and in React context
         store.set("token", token)
         identity.token = token
-        onNotify("Login successful! Redirecting home...")
+        notify.success("Login successful! Redirecting home...")
       })
       .then(await cacheData)
       .then(() => {
@@ -33,7 +33,7 @@ function Login({ onNotify }) {
         }, 2000)
       })
       .catch(() => {
-        onNotify("Invalid credentials. Please try again")
+        notify.error("Invalid credentials. Please try again")
       })
   }
 
@@ -74,14 +74,6 @@ function Login({ onNotify }) {
       </Paper>
     </form>
   )
-}
-
-Login.propTypes = {
-  onNotify: PropTypes.func,
-}
-
-Login.defaultProps = {
-  onNotify: () => {},
 }
 
 export default Login
