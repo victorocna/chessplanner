@@ -1,10 +1,10 @@
-import withToken from "./with-token"
-import checkStatus from "./check-status"
-import dispatch from "./dispatch"
-import config from "./config"
+import withToken from "../with-token"
+import checkStatus from "../check-status"
+import dispatch from "../dispatch"
+import config from "../config"
 
 export default async (instance, id, headers = withToken()) => {
-  return await fetch(`/.netlify/functions/delete?instance=${instance}&id=${id}`, {
+  return await fetch(`/.netlify/functions/go?action=remove&instance=${instance}&id=${id}`, {
     headers: headers,
     method: "DELETE",
   })

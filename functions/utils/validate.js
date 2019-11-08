@@ -1,11 +1,11 @@
-import putLogEvents from "../aws/putLogEvents"
-import { isTokenValid } from "../utils/helpers"
+const putLogEvents = require("../aws/putLogEvents")
+const isTokenValid = require("./is-token-valid")
 
 /**
  * @param {Object} event
  * @param {Object} data
  */
-export default async (event, data) => {
+module.exports = async (event, data) => {
   if (event.httpMethod !== data.httpMethod) {
     return { statusCode: 405, body: "Method Not Allowed" }
   }
@@ -17,12 +17,12 @@ export default async (event, data) => {
   }
 
   if (!event.headers["authorization"]) {
-    await putLogEvents(`Auth error! No authorization header detected`)
+    putLogEvents(`Auth error! No authorization header detected`)
     return { statusCode: 401, body: "Unauthorized" }
   }
 
   if (!isTokenValid(event.headers.authorization)) {
-    await putLogEvents(`Auth error! Invalid JWT secret`)
+    putLogEvents(`Auth error! Invalid JWT secret`)
     return { statusCode: 401, body: "Unauthorized" }
   }
 

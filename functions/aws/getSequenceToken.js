@@ -1,7 +1,7 @@
-import fetch from "node-fetch"
-import aws4 from "aws4"
+const aws4 = require("aws4")
+const fetch = require("node-fetch")
 
-const getSequenceToken = async (logGroupName = process.env.REACT_APP_AWS_LOG_GROUP_NAME) => {
+module.exports = async (logGroupName = process.env.REACT_APP_AWS_LOG_GROUP_NAME) => {
   const body = { logGroupName: logGroupName }
 
   const awsSigned = aws4.sign(
@@ -41,5 +41,3 @@ const checkStatus = (response) => {
   }
   return response
 }
-
-export default getSequenceToken

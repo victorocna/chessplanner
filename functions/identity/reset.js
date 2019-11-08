@@ -1,14 +1,15 @@
 require("dotenv").config()
 const faunadb = require("faunadb")
+const bcrypt = require("bcryptjs")
 
 const q = faunadb.query
 const client = new faunadb.Client({
   secret: process.env.REACT_APP_FAUNADB_SERVER_SECRET,
 })
 
-exports.handler = async (event) => {
-  const hash = JSON.parse(event.body) || ""
-  if (!hash) {
+module.exports = async (event) => {
+  const { password, hash } = JSON.parse(event.body)
+  if (!password || !hash) {
     return {
       statusCode: 400,
       body: "Bad Request! Missing required fields",
@@ -39,13 +40,13 @@ exports.handler = async (event) => {
       const hashId = response["data"][0]["ref"]
       const userId = response["data"][0]["data"]["ref"]
 
-      // delete hash from db && activate user
+      // delete hash from db && update password
       client.query(q.Delete(hashId))
       client.query(
         q.Update(userId, {
           data: {
-            confirmed: true,
-            confirmedAt: +Date.now(),
+            password: await bcrypt.hash(password, 10),
+            updatedAt: +Date.now(),
           },
         })
       )

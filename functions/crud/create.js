@@ -1,28 +1,14 @@
-import faunadb from "faunadb"
-import putLogEvents from "./aws/putLogEvents"
-import validate from "./utils/validate"
-import { getUser, prettyErrors } from "./utils/helpers"
-import { successCreate, errorCreate } from "./utils/messages"
-import isDemo from "./utils/is-demo"
-import canCreate from "./utils/can-create"
+const faunadb = require("faunadb")
+const putLogEvents = require("../aws/putLogEvents")
+const { isDemo, canCreate, getUser, prettyErrors, validate } = require("../utils")
+const { successCreate, errorCreate } = require("../utils/messages")
 
 const q = faunadb.query
 const client = new faunadb.Client({
   secret: process.env.REACT_APP_FAUNADB_SERVER_SECRET,
 })
 
-// export our lambda function as named "handler" export
-exports.handler = async (event) => {
-  try {
-    return await lambda(event)
-  } catch (err) {
-    // eslint-disable-next-line no-console
-    console.log(err) // output to netlify function log
-    return { statusCode: 500, body: JSON.stringify(err) }
-  }
-}
-
-const lambda = async (event) => {
+module.exports = async (event) => {
   const validation = await validate(event, {
     httpMethod: "POST",
     required: ["instance"],
@@ -40,8 +26,7 @@ const lambda = async (event) => {
 
   // Middleware: check limits for demo account
   if ((await isDemo(user)) && !(await canCreate(user, instance))) {
-    let message = `User: ${user.email} reached demo limit for ${instance}.`
-    await putLogEvents(message)
+    putLogEvents(`User: ${user.email} reached demo limit for ${instance}.`)
 
     return {
       statusCode: 403,

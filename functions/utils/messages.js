@@ -1,4 +1,4 @@
-import { prettyErrors } from "./helpers"
+const prettyErrors = require("./pretty-errors")
 
 const successUpdate = (props) => {
   const { instance, id, user, response } = props
@@ -56,7 +56,7 @@ const errorReadAll = (props) => {
   return `Error! Cannot read ${index}. ErrMessage: ${errMessage}; User: ${user.email}`
 }
 
-export {
+module.exports = {
   successUpdate,
   errorUpdate,
   successCreate,

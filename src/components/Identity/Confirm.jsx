@@ -8,7 +8,9 @@ const Confirm = (props) => {
   const [error, setError] = React.useState(false)
   React.useEffect(() => {
     api
-      .confirm(props.match.params.hash)
+      .confirm({
+        hash: props.match.params.hash
+      })
       .then(() => {
         // valid hash
         setSuccess(true)

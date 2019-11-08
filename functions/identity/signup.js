@@ -1,15 +1,15 @@
 require("dotenv").config()
 const faunadb = require("faunadb")
 const bcrypt = require("bcryptjs")
-const { email, randomHash } = require("./utils")
-const { signup } = require("./views/email-templates")
+const { sendEmail, randomHash } = require("../utils")
+const { signup } = require("../views/email-templates")
 
 const q = faunadb.query
 const client = new faunadb.Client({
   secret: process.env.REACT_APP_FAUNADB_SERVER_SECRET,
 })
 
-exports.handler = async (event) => {
+module.exports = async (event) => {
   const { username, password, origin } = JSON.parse(event.body)
   if (!username || !password) {
     return {
@@ -51,7 +51,7 @@ exports.handler = async (event) => {
     .then(async (response) => {
       // email confirmation to the new user
       try {
-        await email({
+        await sendEmail({
           from: "support@chesscoders.com",
           to: username,
           subject: "Confirm your email address",

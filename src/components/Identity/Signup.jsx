@@ -6,17 +6,15 @@ import { notify } from "../Toast"
 function Signup() {
   const [isSubmitting, submitting] = React.useState(false)
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
     submitting(true)
-    const username = event.target.email.value
-    const password = event.target.password.value
 
     api
       .signup({
-        username,
-        password,
-        origin: window.location.origin
+        username: event.target.email.value,
+        password: event.target.password.value,
+        origin: window.location.origin,
       })
       .then(() => {
         notify.success("Sign up successful! Please check your email")
@@ -28,7 +26,9 @@ function Signup() {
 
   return (
     <form onSubmit={handleSubmit} className="m-4">
-      <Typography variant="h6" className="mb-1">Sign up for a Masterplanner account</Typography>
+      <Typography variant="h6" className="mb-1">
+        Sign up for a Masterplanner account
+      </Typography>
       <TextField
         variant="outlined"
         label="Your email"

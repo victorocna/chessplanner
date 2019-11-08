@@ -1,9 +1,8 @@
-import fetch from "node-fetch"
-import aws4 from "aws4"
-import getSequenceToken from "./getSequenceToken"
-import { oneLine } from "../utils/helpers"
+const aws4 = require("aws4")
+const fetch = require("node-fetch")
+const getSequenceToken = require("./getSequenceToken")
 
-const putLogEvents = async (message, logGroupName = process.env.REACT_APP_AWS_LOG_GROUP_NAME) => {
+module.exports = async (message, logGroupName = process.env.REACT_APP_AWS_LOG_GROUP_NAME) => {
   const now = new Date()
   const sequenceToken = await getSequenceToken()
 
@@ -36,4 +35,6 @@ const putLogEvents = async (message, logGroupName = process.env.REACT_APP_AWS_LO
   })
 }
 
-export default putLogEvents
+const oneLine = (message) => {
+  return message.split("\n").join("")
+}

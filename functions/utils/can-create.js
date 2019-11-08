@@ -1,5 +1,5 @@
-import limits from "./limits"
-import faunadb from "faunadb"
+const faunadb = require("faunadb")
+const { demoLimits } = require("./")
 
 const q = faunadb.query
 const client = new faunadb.Client({
@@ -11,11 +11,11 @@ const size = +process.env.REACT_APP_FAUNADB_QUERY_LIMIT
  * Using the user object, checks if the user limits have been reached
  */
 export default async (user, instance) => {
-  if (typeof limits[instance] === "undefined") {
+  if (typeof demoLimits[instance] === "undefined") {
     return true
   }
 
-  const userLimit = limits[instance]
+  const userLimit = demoLimits[instance]
   return client
     .query(q.Paginate(q.Match(q.Ref(`indexes/all_${instance}_by_key`), user.key), { size }))
     .then((response) => {

@@ -8,7 +8,7 @@ const client = new faunadb.Client({
   secret: process.env.REACT_APP_FAUNADB_SERVER_SECRET,
 })
 
-exports.handler = async (event) => {
+module.exports = async (event) => {
   const { username, password } = JSON.parse(event.body)
   if (!username || !password) {
     return {
