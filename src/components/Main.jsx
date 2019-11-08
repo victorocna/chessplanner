@@ -1,7 +1,7 @@
 import React from "react"
 import store from "store"
 import { Route, Switch } from "react-router-dom"
-import { Account, PrivateRoute, Signup } from "./Identity"
+import { Account, Confirm, PrivateRoute, Signup } from "./Identity"
 import Participants from "./Tables/Participants"
 import Taxes from "./Tables/Taxes"
 import Tournaments from "./Tables/Tournaments"
@@ -17,7 +17,6 @@ import AppContext from "../context/app-context"
 import NotFound from "./NotFound"
 import ComingSoon from "./ComingSoon"
 import Dashboard from "./Dashboard"
-import Confirm from "./Confirm"
 
 export default function Main() {
   const [settings, setSettings] = React.useState({})

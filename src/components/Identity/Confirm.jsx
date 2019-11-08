@@ -1,7 +1,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { Button, Paper, Typography } from "@material-ui/core"
-import api from "../api"
+import api from "../../api"
 
 const Confirm = (props) => {
   const [success, setSuccess] = React.useState(false)
@@ -27,7 +27,7 @@ const Confirm = (props) => {
           <Typography variant="body2">
             Your account has been confirmed. You may signin using your credentials
           </Typography>
-          <Button variant="contained" color="primary" href="/#/signin" className="mt-1">
+          <Button variant="contained" color="primary" href="/#/account" className="mt-1">
             Sign in
           </Button>
         </Paper>
