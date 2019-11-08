@@ -12,6 +12,7 @@
     "clsx": "^1.0.4",
     "date-fns": "^2.7.0",
     "dotenv": "^8.2.0",
+    "dotenv-webpack": "^1.7.0",
     "encoding": "^0.1.12",
     "faunadb": "^2.9.3",
     "formik": "^1.5.8",
@@ -23,6 +24,7 @@
     "netlify-lambda": "^1.6.3",
     "node-fetch": "^2.6.0",
     "nodemailer": "^6.3.1",
+    "npm-run-all": "^4.1.5",
     "react": "^16.11.0",
     "react-dnd": "^9.4.0",
     "react-dnd-html5-backend": "^9.4.0",
@@ -33,6 +35,7 @@
     "store": "^2.0.12",
     "typeface-noto-sans": "0.0.72",
     "typeface-roboto": "0.0.54",
+    "webpack": "^4.29.6",
     "xlsx": "^0.14.5",
     "y18n": "^4.0.0",
     "yup": "^0.27.0"
@@ -53,16 +56,13 @@
   "devDependencies": {
     "@welldone-software/why-did-you-render": "^3.3.8",
     "babel-loader": "^8.0.5",
-    "dotenv-webpack": "^1.7.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
     "eslint-plugin-jest": "^22.21.0",
     "eslint-plugin-react": "^7.16.0",
     "http-proxy-middleware": "^0.19.1",
     "mocha": "^6.2.2",
-    "npm-run-all": "^4.1.5",
-    "source-map-explorer": "^2.1.0",
-    "webpack": "^4.29.6"
+    "source-map-explorer": "^2.1.0"
   },
   "browserslist": [
     ">0.2%",

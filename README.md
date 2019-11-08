@@ -51,18 +51,19 @@ Other methods are `warn`, `error` and `info`.
 
 ## Testing
 
-Tests are available for critical business logic and components.
+Tests are available for critical business logic and not for frontend components. There are, but not limited to:
 
 - determining the taxes a participant needs to pay
-- components with forms, snackbar notifications and others using enzyme
+- merging settings using deep object logic
+- CSV or Excel file upload logic
 
 ```bash
 npm run test
 ```
 
-## Deployment
+## Deployment on Netlify
 
-To skip the installation of `devDependencies`, add `NODE_ENV=production` to the environment variables of the service you are deploying this project.
+To skip the installation of `devDependencies`, add `NODE_ENV=production` to the environment variables. [See this article](https://docs.netlify.com/configure-builds/manage-dependencies/#node-js-environment) for reference.
 
 ## Further development
 
