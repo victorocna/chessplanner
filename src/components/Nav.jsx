@@ -21,7 +21,6 @@ import { AllInclusive, ExpandLess, ExpandMore } from "@material-ui/icons"
 import { makeStyles, useTheme } from "@material-ui/core/styles"
 import { Link as RouterLink } from "react-router-dom"
 import "typeface-noto-sans"
-import IdentityContext from "../context/identity-context"
 import { i18n } from "../locale"
 
 const drawerWidth = 240
@@ -92,7 +91,6 @@ ListItemLink.propTypes = {
 }
 
 export default function Nav(props) {
-  const { isLoggedIn } = React.useContext(IdentityContext)
   const { container } = props
   const classes = useStyles()
   const theme = useTheme()
@@ -157,8 +155,8 @@ export default function Nav(props) {
 
       <Divider />
       <List onClick={closeDrawer}>
-        <ListItemLink primary={i18n("Settings")} to="/settings" />
-        <ListItemLink primary={isLoggedIn ? i18n("Logout") : i18n("Login")} to="/signin" />
+        <ListItemLink primary={"My settings"} to="/settings" />
+        <ListItemLink primary={"My account"} to="/account" />
       </List>
 
       <Divider />

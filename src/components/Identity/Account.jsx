@@ -1,23 +1,20 @@
 import React from "react"
 import { Typography } from "@material-ui/core"
 import { i18n } from "../../locale"
-import IdentityContext from "../../context/identity-context"
-import Login from "./Login"
-import Logout from "./Logout"
+import { identity } from "../../identity"
+import { Login, Logout } from "./"
 
-function AuthScreen() {
-  const { token } = React.useContext(IdentityContext)
-
+function Account() {
   return (
     <div className="m-4">
       <Typography paragraph variant="body2">
-        {token
+        {identity.token
           ? i18n("Log out using the button below. Your data is safely stored on our servers")
           : i18n("Welcome back! Log in with your credentials to access your tournaments")}
       </Typography>
-      {token ? <Logout /> : <Login />}
+      {identity.token ? <Logout /> : <Login />}
     </div>
   )
 }
 
-export default AuthScreen
+export default Account

@@ -1,17 +1,15 @@
 import React from "react"
-import IdentityContext from "../../context/identity-context"
 import { Button, TextField, Link, Paper, Typography } from "@material-ui/core"
-import cacheData from "./cacheData"
+import cacheData from "./cache-data"
 import api from "../../api"
-import store from "store"
 import { notify } from "../Toast"
 
 function Login() {
-  const formRef = React.useRef()
-  const identity = React.useContext(IdentityContext)
+  const [isSubmitting, setSubmitting] = React.useState(false)
 
   const handleSubmit = async (event) => {
     event.preventDefault()
+    setSubmitting(true)
     const username = event.target.username.value
     const password = event.target.password.value
 
@@ -22,12 +20,12 @@ function Login() {
       })
       .then((token) => {
         // set the token in local storage and in React context
-        store.set("token", token)
-        identity.token = token
+        localStorage.setItem("token", token)
         notify.success("Login successful! Redirecting home...")
       })
       .then(await cacheData)
       .then(() => {
+        setSubmitting(false)
         setTimeout(() => {
           window.location.href = "/#/"
         }, 2000)
@@ -38,7 +36,7 @@ function Login() {
   }
 
   return (
-    <form ref={formRef} onSubmit={handleSubmit} className="login-form">
+    <form onSubmit={handleSubmit} className="login-form">
       <TextField
         variant="outlined"
         label="Email"
@@ -56,7 +54,7 @@ function Login() {
         className="flex mb-1 mr-1"
         margin="dense"
       />
-      <Button variant="contained" color="secondary" type="submit">
+      <Button variant="contained" color="secondary" type="submit" disabled={isSubmitting}>
         Login
       </Button>
       <Link href="/#/forgot" className="ml-2">

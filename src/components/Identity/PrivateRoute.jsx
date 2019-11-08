@@ -1,16 +1,14 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { Route, Redirect } from "react-router-dom"
-import IdentityContext from "../../context/identity-context"
+import { identity } from "../../identity"
 
 function PrivateRoute({ component: Component, ...rest }) {
-  const identity = React.useContext(IdentityContext)
-
   return (
     <Route
       {...rest}
       render={(props) =>
-        identity.token ? <Component {...props} /> : <Redirect to={{ pathname: "/signin" }} />
+        identity.token ? <Component {...props} /> : <Redirect to={{ pathname: "/login" }} />
       }
     />
   )

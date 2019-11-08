@@ -1,7 +1,6 @@
 import React from "react"
 import { HashRouter } from "react-router-dom"
 import { makeStyles } from "@material-ui/core/styles"
-import IdentityContext from "../context/identity-context"
 import Notifications from "./Toast"
 import Nav from "./Nav"
 import Main from "./Main"
@@ -42,7 +41,7 @@ export default function App() {
   const classes = useStyles()
 
   return (
-    <IdentityContext.Provider value={{ token: false }}>
+    <div>
       <HashRouter>
         <div className={classes.root}>
           <Nav />
@@ -53,6 +52,6 @@ export default function App() {
         </div>
       </HashRouter>
       <Notifications options={{ top: "80px", right: "20px", width: "auto" }} />
-    </IdentityContext.Provider>
+    </div>
   )
 }

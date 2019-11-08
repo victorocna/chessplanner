@@ -1,7 +1,7 @@
 import React from "react"
 import store from "store"
 import { Route, Switch } from "react-router-dom"
-import PrivateRoute from "./Identity/PrivateRoute"
+import { Account, PrivateRoute, Signup } from "./Identity"
 import Participants from "./Tables/Participants"
 import Taxes from "./Tables/Taxes"
 import Tournaments from "./Tables/Tournaments"
@@ -14,8 +14,6 @@ import SettingsWrapper from "./Settings/Wrapper"
 import ParticipantSheet from "./Participant/Sheet"
 import ParticipantWrapper from "./Participant/Wrapper"
 import AppContext from "../context/app-context"
-import AuthScreen from "./Identity/AuthScreen"
-import Signup from "./Identity/Signup"
 import NotFound from "./NotFound"
 import ComingSoon from "./ComingSoon"
 import Dashboard from "./Dashboard"
@@ -57,7 +55,7 @@ export default function Main() {
         <PrivateRoute path="/upload-participants" component={LazyUpload} />
         <PrivateRoute path="/settings" component={SettingsWrapper} />
 
-        <Route path="/signin" component={AuthScreen} />
+        <Route path="/account" component={Account} />
         <Route path="/signup" component={Signup} />
         <Route path="/coming-soon" component={ComingSoon} />
         <Route path="/confirm/:hash" component={Confirm} />
