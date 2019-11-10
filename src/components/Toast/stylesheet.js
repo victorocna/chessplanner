@@ -9,12 +9,12 @@ class Stylesheet {
     return {
       container: {
         position: "fixed",
-        width: defaults.width || "50%",
-        margin: "0 auto",
-        right: defaults.right || "0px",
-        top: defaults.top || "0px",
-        // left: defaults.left || "0px",
-        // textAlign: "center",
+        maxWidth: defaults.maxWidth || "50%",
+        margin: defaults.margin || "0 auto",
+        right: defaults.right || "",
+        top: defaults.top || "",
+        left: defaults.left || "",
+        bottom: defaults.bottom || "",
         zIndex: defaults.zIndex,
         pointerEvents: "none",
         transition: "all " + defaults.animationDuration + "ms ease",

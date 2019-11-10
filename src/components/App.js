@@ -51,7 +51,7 @@ export default function App() {
           </main>
         </div>
       </HashRouter>
-      <Notifications options={{ top: "80px", right: "20px", width: "auto" }} />
+      <Notifications options={{ top: "80px", right: "0", width: "auto", margin: "0 20px" }} />
     </div>
   )
 }
