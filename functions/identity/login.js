@@ -28,7 +28,7 @@ module.exports = async (event) => {
       if (!response.data || !response.data[0] || !response.data[0].data) {
         return {
           statusCode: 400,
-          body: "Bad Request! Not Found",
+          body: "Error! Invalid credentials. Please try again.",
         }
       }
 
@@ -53,7 +53,7 @@ module.exports = async (event) => {
 
       return {
         statusCode: 400,
-        body: "Bad Request! Not Found",
+        body: "Error! Invalid credentials. Please try again.",
       }
     })
     .catch((error) => {

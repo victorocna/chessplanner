@@ -16,6 +16,7 @@ const Password = () => {
       type={showPassword ? "text" : "password"}
       className="flex mb-1 mr-1"
       margin="dense"
+      autoComplete="new-password"
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">

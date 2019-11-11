@@ -38,6 +38,7 @@ function Signup() {
         type="text"
         className="flex mb-1 mr-1"
         margin="dense"
+        autoComplete="new-password"
         autoFocus
       />
       <Password />

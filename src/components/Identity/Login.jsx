@@ -26,16 +26,15 @@ function Login() {
       })
       .then(await cacheData)
       .then(() => {
-        setSubmitting(false)
         setTimeout(() => {
           window.location.href = "/#/"
         }, 2000)
       })
       .catch((err) => {
-        // TODO: better error handling
-        console.log(err)
+        notify.error(err)
+      })
+      .finally(() => {
         setSubmitting(false)
-        notify.error("Invalid credentials. Please try again")
       })
   }
 

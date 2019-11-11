@@ -36,6 +36,7 @@ const Forgot = () => {
         type="email"
         className="flex mb-1 mr-1"
         margin="dense"
+        autoComplete="new-password"
         autoFocus
       />
       <Button variant="contained" color="secondary" type="submit" disabled={isSubmitting}>
