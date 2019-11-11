@@ -45,7 +45,11 @@ const ParticipantWrapper = (props) => {
         setState((state) => ({ ...state, showNext: true }))
       })
       .catch((err) => {
-        notify.error(err)
+        if ([400, 403, 404].includes(err.status)) {
+          notify.error(err.message)
+        } else {
+          notify.error("Error! Something went wrong, please try again")
+        }
         actions.setSubmitting(false)
       })
       .finally(() => {

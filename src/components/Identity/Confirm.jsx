@@ -27,7 +27,7 @@ const Confirm = (props) => {
         <Paper className="mb-2 p-4 paper-signup">
           <Typography variant="h6">Success!</Typography>
           <Typography variant="body2">
-            Your account has been confirmed. You may signin using your credentials
+            Your account has been confirmed. You may login using your credentials
           </Typography>
           <Button variant="contained" color="primary" href="/#/account" className="mt-1">
             Sign in
