@@ -7,6 +7,7 @@ const isTokenValid = require("./is-token-valid")
 const prettyErrors = require("./pretty-errors")
 const randomHash = require("./random-hash")
 const sendEmail = require("./send-email")
+const userAlreadyExists = require("./user-already-exists")
 const validate = require("./validate")
 
 module.exports = {
@@ -19,5 +20,6 @@ module.exports = {
   prettyErrors,
   randomHash,
   sendEmail,
-  validate
+  userAlreadyExists,
+  validate,
 }

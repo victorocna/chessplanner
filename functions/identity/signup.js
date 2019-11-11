@@ -1,7 +1,7 @@
 require("dotenv").config()
 const faunadb = require("faunadb")
 const bcrypt = require("bcryptjs")
-const { sendEmail, randomHash } = require("../utils")
+const { sendEmail, randomHash, userAlreadyExists } = require("../utils")
 const { signup } = require("../views/email-templates")
 
 const q = faunadb.query
@@ -31,6 +31,14 @@ module.exports = async (event) => {
       body: "Error! Password must be at least 8 characters",
     }
   }
+
+  if (await userAlreadyExists(username)) {
+    return {
+      statusCode: 400,
+      body: "Error! This email address is already registered",
+    }
+  }
+
   // create a random hash
   const hash = randomHash()
 
