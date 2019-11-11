@@ -9,7 +9,6 @@ const client = new faunadb.Client({
 })
 
 module.exports = async (event) => {
-  console.log("here", process.env.REACT_APP_FAUNADB_SERVER_SECRET)
   const { username, origin } = JSON.parse(event.body)
   if (!username) {
     return {
