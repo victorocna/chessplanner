@@ -1,6 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
-import { Button, Typography } from "@material-ui/core"
+import { Button, Typography, Link } from "@material-ui/core"
 import api from "../../api"
 import { notify } from "../Toast"
 import Password from "./Password"
@@ -35,6 +35,9 @@ const Reset = (props) => {
       <Button variant="contained" color="secondary" type="submit" disabled={isSubmitting}>
         Reset password
       </Button>
+      <Link href="/#/account" className="ml-2">
+        Login here
+      </Link>
     </form>
   )
 }

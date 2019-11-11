@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, TextField, Typography } from "@material-ui/core"
+import { Button, TextField, Typography, Link } from "@material-ui/core"
 import api from "../../api"
 import { notify } from "../Toast"
 
@@ -41,6 +41,9 @@ const Forgot = () => {
       <Button variant="contained" color="secondary" type="submit" disabled={isSubmitting}>
         Recover password
       </Button>
+      <Link href="/#/account" className="ml-2">
+        Login here
+      </Link>
     </form>
   )
 }

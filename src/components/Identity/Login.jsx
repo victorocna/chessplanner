@@ -31,7 +31,10 @@ function Login() {
           window.location.href = "/#/"
         }, 2000)
       })
-      .catch(() => {
+      .catch((err) => {
+        // TODO: better error handling
+        console.log(err)
+        setSubmitting(false)
         notify.error("Invalid credentials. Please try again")
       })
   }

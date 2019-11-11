@@ -20,9 +20,9 @@ function Signup() {
       .then(() => {
         notify.success("Sign up successful! Please check your email")
       })
-      .catch(() => {
+      .catch((err) => {
         setSubmitting(false)
-        notify.error("Error! Something went wrong, please try again")
+        notify.error(err)
       })
   }
 
@@ -45,7 +45,7 @@ function Signup() {
       <Button variant="contained" color="secondary" type="submit" disabled={isSubmitting}>
         Sign up
       </Button>
-      <Link href="/#/signin" className="ml-2">
+      <Link href="/#/account" className="ml-2">
         Already have an account?
       </Link>
     </form>
