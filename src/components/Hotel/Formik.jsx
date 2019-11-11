@@ -9,7 +9,7 @@ function HotelFormik({ errors, touched, isSubmitting, values }) {
   return (
     <HotelContext.Provider value={{ errors, touched, isSubmitting, values }}>
       <Form autoComplete="off">
-        <FormikInput name="name" label="Hotel name" helper="Required" />
+        <FormikInput name="name" label="Hotel name" helper="Required" autoFocus />
         <FormikInput name="description" label="Hotel description" helper="Optional" />
         <br />
         <RoomTypes />

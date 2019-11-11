@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   hotels: 1,
   participants: 30,
   taxes: 1,

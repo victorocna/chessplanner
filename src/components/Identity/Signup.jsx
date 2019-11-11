@@ -13,7 +13,7 @@ function Signup() {
 
     api
       .signup({
-        username: event.target.email.value,
+        username: event.target.username.value,
         password: event.target.password.value,
         origin: window.location.origin,
       })
@@ -34,7 +34,7 @@ function Signup() {
       <TextField
         variant="outlined"
         label="Your email"
-        name="email"
+        name="username"
         type="text"
         className="flex mb-1 mr-1"
         margin="dense"

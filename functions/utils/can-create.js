@@ -1,5 +1,5 @@
 const faunadb = require("faunadb")
-const { demoLimits } = require("./")
+const demoLimits = require("./demo-limits")
 
 const q = faunadb.query
 const client = new faunadb.Client({
@@ -10,7 +10,7 @@ const size = +process.env.REACT_APP_FAUNADB_QUERY_LIMIT
 /**
  * Using the user object, checks if the user limits have been reached
  */
-export default async (user, instance) => {
+module.exports = async (user, instance) => {
   if (typeof demoLimits[instance] === "undefined") {
     return true
   }

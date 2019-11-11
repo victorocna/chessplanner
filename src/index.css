@@ -176,6 +176,13 @@ tfoot {
   background: #eee;
 }
 
+.dashboard-card.dashboard-card {
+  padding: 0 12px 12px 12px;
+}
+.dashboard-card.dashboard-card button:first-child {
+  margin-left: 0;
+}
+
 .mr-1.mr-1 {
   margin-right: 1em;
 }
@@ -196,6 +203,10 @@ tfoot {
 }
 .p-4.p-4 {
   padding: 1rem;
+}
+.py-4.py-4 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 .m-4.m-4 {
   padding: 1rem;
@@ -250,6 +261,9 @@ tfoot {
 }
 .flex-col {
   flex-direction: column;
+}
+.flex-wrap {
+  flex-wrap: wrap;
 }
 .uppercase.uppercase {
   text-transform: uppercase;

@@ -44,8 +44,9 @@ const HotelWrapper = (props) => {
         notify.success("Success! Everything has been saved.")
         setState((state) => ({ ...state, showNext: true }))
       })
-      .catch(() => {
-        notify.error("Error. Something went wrong!")
+      .catch((err) => {
+        notify.error(err)
+        actions.setSubmitting(false)
       })
       .finally(() => {
         if (state.action === "update") {

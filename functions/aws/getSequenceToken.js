@@ -1,5 +1,5 @@
 const aws4 = require("aws4")
-const fetch = require("node-fetch")
+const fetch = require("node-fetch").default
 
 module.exports = async (logGroupName = process.env.REACT_APP_AWS_LOG_GROUP_NAME) => {
   const body = { logGroupName: logGroupName }

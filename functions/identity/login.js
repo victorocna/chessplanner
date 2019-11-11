@@ -35,7 +35,7 @@ module.exports = async (event) => {
       const dbData = response.data[0].data
       // the JWT public data payload
       const payload = {
-        username: dbData.email,
+        username: dbData.username,
         key: dbData.key,
         ref: response.data[0]["ref"]["id"],
       }

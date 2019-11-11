@@ -26,11 +26,11 @@ module.exports = async (event) => {
 
   // Middleware: check limits for demo account
   if ((await isDemo(user)) && !(await canCreate(user, instance))) {
-    putLogEvents(`User: ${user.email} reached demo limit for ${instance}.`)
+    putLogEvents(`User: ${user.username} reached demo limit for ${instance}.`)
 
     return {
       statusCode: 403,
-      body: "Exceeded demo limit.",
+      body: `Error! Exceeded demo limit for ${instance}`,
     }
   }
 

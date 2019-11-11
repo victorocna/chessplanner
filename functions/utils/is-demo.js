@@ -8,7 +8,7 @@ const client = new faunadb.Client({
 /**
  * Using the user object, checks if the user has a "demo" property
  */
-export default async (user) => {
+module.exports = async (user) => {
   const { ref } = user
 
   return client
