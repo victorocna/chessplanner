@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react"
 import { Button, TextField, Typography, Link } from "@material-ui/core"
 import api from "../../api"
 import { notify } from "../Toast"
@@ -18,9 +18,13 @@ const Forgot = () => {
       .then(() => {
         notify.success("Success! You will receive an email with instructions")
       })
-      .catch(() => {
+      .catch((err) => {
+        if ([400, 403, 404].includes(err.status)) {
+          notify.error(err.message)
+        } else {
+          notify.error("Error! Something went wrong, please try again")
+        }
         setSubmitting(false)
-        notify.error("Error! Something went wrong, please try again")
       })
   }
 

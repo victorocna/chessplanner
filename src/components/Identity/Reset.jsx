@@ -20,9 +20,13 @@ const Reset = (props) => {
       .then(() => {
         notify.success("Success! Your password has been reset")
       })
-      .catch(() => {
+      .catch((err) => {
+        if ([400, 403, 404].includes(err.status)) {
+          notify.error(err.message)
+        } else {
+          notify.error("Error! Something went wrong, please try again")
+        }
         setSubmitting(false)
-        notify.error("Error! Something went wrong, please try again")
       })
   }
 

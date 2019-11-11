@@ -29,7 +29,7 @@ module.exports = async (event) => {
         // return an unclear error message when the username does not exist
         return {
           statusCode: 400,
-          body: "Bad Request! Missing required fields",
+          body: "Error! Cannot generate a reset password token",
         }
       }
 

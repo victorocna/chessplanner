@@ -1,5 +1,4 @@
 const withMiddleware = (handler, middlewares = []) => (event, callback) => {
-  console.log(event, callback)
   const chainMiddlewares = ([firstMiddleware, ...restOfMiddlewares]) => {
     if (firstMiddleware) {
       return (e, c) => {
