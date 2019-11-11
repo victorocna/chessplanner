@@ -40,7 +40,7 @@ const Reset = (props) => {
         Reset password
       </Button>
       <Link href="/#/account" className="ml-2">
-        Login here
+        Want to login instead?
       </Link>
     </form>
   )
