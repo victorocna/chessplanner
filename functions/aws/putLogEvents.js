@@ -2,13 +2,13 @@ const aws4 = require("aws4")
 const fetch = require("node-fetch").default
 const getSequenceToken = require("./getSequenceToken")
 
-module.exports = async (message, logGroupName = process.env.REACT_APP_AWS_LOG_GROUP_NAME) => {
+module.exports = async (message) => {
   const now = new Date()
   const sequenceToken = await getSequenceToken()
 
   const body = {
     logEvents: [{ message: oneLine(message), timestamp: +now }],
-    logGroupName: logGroupName,
+    logGroupName: process.env.REACT_APP_AWS_LOG_GROUP_NAME,
     logStreamName: process.env.REACT_APP_AWS_LOG_STREAM_NAME,
     sequenceToken: sequenceToken,
   }
