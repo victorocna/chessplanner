@@ -15,3 +15,6 @@
     Content-Security-Policy = "upgrade-insecure-requests; block-all-mixed-content;"
     Feature-Policy = "vibrate 'none'; geolocation 'none'; microphone 'none'; camera 'none'"
     Referrer-Policy = "no-referrer"
+
+[context.production]
+  environment = { NODE_ENV = "production" }
