@@ -64,7 +64,9 @@
     "enzyme-adapter-react-16": "^1.15.1",
     "eslint-plugin-jest": "^22.21.0",
     "eslint-plugin-react": "^7.16.0",
+    "faker": "^4.1.0",
     "http-proxy-middleware": "^0.19.1",
+    "migrate": "^1.6.2",
     "mocha": "^6.2.2",
     "source-map-explorer": "^2.1.0"
   },
