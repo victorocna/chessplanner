@@ -2,6 +2,7 @@
 **/*.js
 
 # with these exceptions
+!**/api/**/*.js
 !**/functions/**/*.js
 !**/src/**/*.js
 

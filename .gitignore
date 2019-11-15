@@ -89,7 +89,7 @@ typings/
 
 # production
 /build
-/functions-build
+/functions
 
 # netlify
 .netlify
