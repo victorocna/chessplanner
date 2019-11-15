@@ -10,7 +10,7 @@
     "start:server": "netlify-lambda serve api/serverless -c ./config/lambda-dev.js",
     "build": "npm-run-all --parallel build:app build:functions",
     "build:app": "react-scripts build",
-    "build:functions": "netlify-lambda build functions -c ./config/lambda-build.js",
+    "build:functions": "netlify-lambda build api/serverless -c ./config/lambda-build.js",
     "test": "react-scripts test --env=jsdom"
   },
   "keywords": [
@@ -32,6 +32,7 @@
     "date-fns": "^2.7.0",
     "dotenv": "^8.2.0",
     "encoding": "^0.1.12",
+    "express": "^4.17.1",
     "faunadb": "^2.9.3",
     "formik": "^1.5.8",
     "helmet": "^3.21.2",
