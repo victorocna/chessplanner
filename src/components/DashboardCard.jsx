@@ -10,8 +10,8 @@ const DashboardCard = (props) => {
 
   const [count, setCount] = React.useState(0)
   React.useEffect(() => {
-    const items = localStorage.getItem(item) || ""
-    setCount(JSON.parse(items).length)
+    const items = JSON.parse(localStorage.getItem(item)) || ""
+    setCount(items.length)
   }, [item])
 
   return (

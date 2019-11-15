@@ -8,4 +8,10 @@ export default async (index, headers = withToken()) => {
   })
     .then(checkStatus)
     .then((response) => response.json())
+    .catch((err) => {
+      if (err.status === 401) {
+        localStorage.removeItem("token")
+        window.location.href = "/#/account/expired"
+      }
+    })
 }

@@ -16,7 +16,7 @@ const fromStore = async (storeKey, dbKey = storeKey) => {
     .readAll(dbKey)
     .then((items) => {
       store.set(storeKey, items)
-      return items
+      return items || []
     })
     .catch(() => {
       return []

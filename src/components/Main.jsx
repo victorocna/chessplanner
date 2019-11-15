@@ -54,6 +54,7 @@ export default function Main() {
         <PrivateRoute path="/upload-participants" component={LazyUpload} />
         <PrivateRoute path="/settings" component={SettingsWrapper} />
 
+        <Route path="/account/:expired" component={Account} />
         <Route path="/account" component={Account} />
         <Route path="/confirm/:hash" component={Confirm} />
         <Route path="/forgot" component={Forgot} />
