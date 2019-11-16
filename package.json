@@ -32,6 +32,7 @@
     "date-fns": "^2.7.0",
     "dotenv": "^8.2.0",
     "encoding": "^0.1.12",
+    "eslint": "^5.16.0",
     "express": "^4.17.1",
     "faunadb": "^2.9.3",
     "formik": "^1.5.8",
