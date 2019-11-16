@@ -8,14 +8,13 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(helmet())
 
-// log only 4xx and 5xx responses to console
-// TODO: aws logging
-app.use(
-  morgan("dev", {
-    skip: function(req, res) {
-      return res.statusCode < 400
-    },
-  })
-)
+// log responses from the API to console
+app.use(morgan("dev"))
+
+// intercept 4xx and 5xx status codes and write to AWS logger
+app.use(require("./middleware/aws-log-errors"))
+
+// intercept important routes and write backup to AWS logger
+app.use(require("./middleware/aws-backup"))
 
 module.exports = app

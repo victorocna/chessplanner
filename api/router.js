@@ -32,6 +32,7 @@ module.exports = function(app) {
     return readAll(req, res)
   })
   app.post("/create/:collection", isLoggedIn, (req, res) => {
+    // TODO: isDemo && canCreate middlewares
     return create(req, res)
   })
   app.post("/update/:collection/:id", isLoggedIn, (req, res) => {
