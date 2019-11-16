@@ -4,7 +4,7 @@ import dispatch from "../dispatch"
 import config from "../config"
 
 export default async (instance, id, data, headers = withToken()) => {
-  return await fetch(`/.netlify/functions/go?action=update&instance=${instance}&id=${id}`, {
+  return await fetch(`/.netlify/functions/app/update/${instance}/${id}`, {
     headers: headers,
     body: JSON.stringify(data),
     method: "POST",

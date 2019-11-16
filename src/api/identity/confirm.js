@@ -1,7 +1,7 @@
 import checkStatus from "../check-status"
 
 export default async (data) => {
-  return await fetch(`/.netlify/functions/go?action=confirm`, {
+  return await fetch(`/.netlify/functions/app/confirm`, {
     body: JSON.stringify(data),
     method: "POST",
   })

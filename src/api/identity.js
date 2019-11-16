@@ -1,7 +1,7 @@
 import checkStatus from "../check-status"
 
-export default async (data) => {
-  return await fetch(`/.netlify/functions/app/forgot`, {
+export default async (action, data) => {
+  return await fetch(`/.netlify/functions/app/${action}`, {
     body: JSON.stringify(data),
     method: "POST",
   })

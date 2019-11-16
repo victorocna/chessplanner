@@ -4,7 +4,7 @@ import dispatch from "../dispatch"
 import config from "../config"
 
 export default async (instance, data, headers = withToken()) => {
-  return await fetch(`/.netlify/functions/go?action=create&instance=${instance}`, {
+  return await fetch(`/.netlify/functions/app/create/${instance}`, {
     headers: headers,
     body: JSON.stringify(data),
     method: "POST",

@@ -4,7 +4,7 @@ import dispatch from "../dispatch"
 import config from "../config"
 
 export default async (instance, id, headers = withToken()) => {
-  return await fetch(`/.netlify/functions/go?action=remove&instance=${instance}&id=${id}`, {
+  return await fetch(`/.netlify/functions/app/remove/${instance}/${id}`, {
     headers: headers,
     method: "DELETE",
   })

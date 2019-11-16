@@ -2,7 +2,7 @@ import withToken from "../with-token"
 import checkStatus from "../check-status"
 
 export default async (index, headers = withToken()) => {
-  return await fetch(`/.netlify/functions/go?action=read-all&index=${index}`, {
+  return await fetch(`/.netlify/functions/app/read-all/${index}`, {
     headers: headers,
     method: "GET",
   })

@@ -2,7 +2,7 @@ const aws4 = require("aws4")
 const fetch = require("node-fetch").default
 
 module.exports = async () => {
-  const body = { logGroupName: process.env.AWS_LOG_GROUP_NAME }
+  const body = { logGroupName: process.env.REACT_APP_AWS_LOG_GROUP_NAME }
 
   const awsSigned = aws4.sign(
     {
@@ -14,8 +14,8 @@ module.exports = async () => {
       },
     },
     {
-      accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+      accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
+      secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
     }
   )
 
@@ -28,7 +28,7 @@ module.exports = async () => {
     .then((response) => response.json())
     .then((json) => {
       const logStream = json.logStreams.filter((item) => {
-        return item.logStreamName === process.env.AWS_LOG_STREAM_NAME
+        return item.logStreamName === process.env.REACT_APP_AWS_LOG_STREAM_NAME
       })
       return logStream[0]["uploadSequenceToken"]
     })
