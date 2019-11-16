@@ -3,7 +3,6 @@
 
 # with these exceptions
 !**/api/**/*.js
-!**/functions/**/*.js
 !**/src/**/*.js
 
 # except files that contain "test"
