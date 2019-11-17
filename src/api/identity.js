@@ -1,4 +1,4 @@
-import checkStatus from "../check-status"
+import checkStatus from "./check-status"
 
 export default async (action, data) => {
   const baseUrl = process.env.NODE_ENV === "production" ? "" : "http://localhost:9000"
