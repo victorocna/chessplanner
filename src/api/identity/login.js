@@ -1,7 +1,8 @@
 import checkStatus from "../check-status"
 
 export default async (data) => {
-  return await fetch(`/.netlify/functions/app/login`, {
+  const baseUrl = process.env.NODE_ENV === "production" ? "" : "http://localhost:9000"
+  return await fetch(`${baseUrl}/.netlify/functions/app/login`, {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",

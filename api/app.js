@@ -17,4 +17,7 @@ app.use(require("./middleware/aws-log-errors"))
 // intercept important routes and write backup to AWS logger
 app.use(require("./middleware/aws-backup"))
 
+// allow CORS from localhost
+app.use(require("./middleware/allow-localhost"))
+
 module.exports = app
