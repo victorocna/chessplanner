@@ -13,15 +13,24 @@ module.exports = async (req, res, next) => {
     return res.status(401).send("Unauthorized")
   }
 
-  const { key } = jwt.decode(authorization.split(" ").reverse()[0])
-  if (!key) {
+  const { key, ref } = jwt.decode(authorization.split(" ").reverse()[0])
+  if (!key || !ref) {
     return res.status(400).send("Bad Request! Missing required fields")
+  }
+
+  const demoAccount = await client.query(q.Get(q.Ref(`collections/users/${ref}`)))
+  .then((response) => {
+    return response.data.demo
+  })
+
+  if (!demoAccount) {
+    return next() // non-demo account do not have restrictions
   }
 
   return client
     .query(q.Count(q.Match(q.Index(`all_${collection}_by_key`), key)))
     .then((count) => {
-      if (count < demoLimits[collection]) {
+      if (demoAccount && count < demoLimits[collection]) {
         next()
       }
 

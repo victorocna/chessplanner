@@ -1,6 +1,6 @@
 const { create, update, remove, read, readAll } = require("./crud")
 const { confirm, forgot, login, reset, signup } = require("./identity")
-const { isHashValid, isLoggedIn, userExists } = require("./middleware")
+const { canCreate, isHashValid, isLoggedIn, userExists } = require("./middleware")
 
 module.exports = function(app) {
   /**
@@ -31,8 +31,7 @@ module.exports = function(app) {
   app.get("/read-all/:collection", isLoggedIn, (req, res) => {
     return readAll(req, res)
   })
-  app.post("/create/:collection", isLoggedIn, (req, res) => {
-    // TODO: isDemo && canCreate middlewares
+  app.post("/create/:collection", isLoggedIn, canCreate, (req, res) => {
     return create(req, res)
   })
   app.post("/update/:collection/:id", isLoggedIn, (req, res) => {
