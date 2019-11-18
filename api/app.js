@@ -1,7 +1,6 @@
 require("dotenv").config()
 const express = require("express")
 const helmet = require("helmet")
-const morgan = require("morgan")
 const cors = require("cors")
 const app = express()
 
@@ -9,8 +8,8 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(helmet())
 
-// log responses from the API to console
-app.use(morgan("dev"))
+// log requests from the API to console
+app.use(require("./middleware/access-log"))
 
 // intercept 4xx and 5xx status codes and write to AWS logger
 app.use(require("./middleware/aws-log-errors"))
