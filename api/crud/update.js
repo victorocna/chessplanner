@@ -12,8 +12,8 @@ module.exports = async (req, res) => {
     return res.status(401).send("Unauthorized")
   }
 
-  const { key } = jwt.decode(authorization.split(" ").reverse()[0])
-  if (!key) {
+  const { key, username } = jwt.decode(authorization.split(" ").reverse()[0])
+  if (!key || !username) {
     return res.status(400).send("Bad Request! Missing required fields")
   }
 
@@ -21,7 +21,7 @@ module.exports = async (req, res) => {
   return client
     .query(
       q.Update(q.Ref(`collections/${collection}/${id}`), {
-        data: req.body,
+        data: { ...req.body, updatedBy: username },
       })
     )
     .then((response) => {

@@ -31,7 +31,7 @@ module.exports = async (req, res, next) => {
     .query(q.Count(q.Match(q.Index(`all_${collection}_by_key`), key)))
     .then((count) => {
       if (demoAccount && count < demoLimits[collection]) {
-        next()
+        return next()
       }
 
       return res.status(400).send("You have reached the demo limits for this account")
