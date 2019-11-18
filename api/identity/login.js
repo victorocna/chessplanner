@@ -30,7 +30,7 @@ module.exports = async (req, res) => {
       const check = await bcrypt.compare(password, dbData.password)
       if (dbData.password && dbData.confirmed && check) {
         const token = jwt.sign(payload, process.env.REACT_APP_JWT_SECRET, {
-          expiresIn: process.env.REACT_APP_JWT_SECRET_EXPIRE,
+          expiresIn: +process.env.REACT_APP_JWT_SECRET_EXPIRE,
         })
 
         return res.status(200).send(token)

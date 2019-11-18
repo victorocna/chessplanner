@@ -2,6 +2,7 @@ require("dotenv").config()
 const express = require("express")
 const helmet = require("helmet")
 const morgan = require("morgan")
+const cors = require("cors")
 const app = express()
 
 app.use(express.json())
@@ -18,6 +19,6 @@ app.use(require("./middleware/aws-log-errors"))
 app.use(require("./middleware/aws-backup"))
 
 // allow CORS from localhost
-app.use(require("./middleware/allow-localhost"))
+app.use(cors({ origin: "http://localhost:3000" }))
 
 module.exports = app

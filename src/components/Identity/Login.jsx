@@ -8,16 +8,17 @@ import Password from "./Password"
 function Login() {
   const [isSubmitting, setSubmitting] = React.useState(false)
 
-  const handleSubmit = async (event) => {
+  const handleLogin = async (event) => {
+    if (isSubmitting) {
+      return false; // return early if the first request did not finish
+    }
     event.preventDefault()
     setSubmitting(true)
-    const username = event.target.username.value
-    const password = event.target.password.value
 
     api
       .login({
-        username,
-        password,
+        username: event.target.username.value,
+        password: event.target.password.value,
       })
       .then((token) => {
         // set the token in local storage and in React context
@@ -43,7 +44,7 @@ function Login() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="login-form">
+    <form onSubmit={handleLogin} className="login-form">
       <TextField
         variant="outlined"
         label="Email"

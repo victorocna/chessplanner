@@ -14,7 +14,7 @@ const SettingsWrapper = () => {
   const [settingsId, setId] = React.useState(false)
   React.useEffect(() => {
     async function fetchData() {
-      const all_settings = await fromStore("all_settings_by_key")
+      const all_settings = await fromStore("settings")
       if (
         typeof all_settings[0] !== "undefined" &&
         typeof all_settings[0]["ref"]["@ref"]["id"] !== "undefined"

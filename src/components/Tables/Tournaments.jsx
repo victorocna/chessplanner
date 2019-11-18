@@ -56,7 +56,7 @@ const Tournaments = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const all_tournaments = await fromStore("all_tournaments_by_key")
+      const all_tournaments = await fromStore("tournaments")
       const tournaments = all_tournaments.map((item) => ({
         ...item.data,
         id: item["ref"]["@ref"]["id"],

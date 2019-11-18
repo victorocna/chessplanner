@@ -3,11 +3,11 @@ import api from "../../api"
 
 // prettier-ignore
 const instances = [
-  "all_hotels_by_key",
-  "all_tournaments_by_key",
-  "all_participants_by_key",
-  "all_taxes_by_key",
-  "all_settings_by_key",
+  "hotels",
+  "tournaments",
+  "participants",
+  "taxes",
+  "settings",
 ]
 
 function timeout(ms) {

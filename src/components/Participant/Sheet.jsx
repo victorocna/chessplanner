@@ -12,7 +12,7 @@ const ParticipantSheet = (props) => {
 
   React.useEffect(() => {
     async function fetchData(id) {
-      const all_participants = await fromStore("all_participants_by_key")
+      const all_participants = await fromStore("participants")
       const participant = all_participants.filter((item) => item["ref"]["@ref"]["id"] === id + "")
 
       if (participant.length !== 1) {

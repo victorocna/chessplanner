@@ -63,7 +63,7 @@ const Hotels = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const all_hotels = await fromStore("all_hotels_by_key")
+      const all_hotels = await fromStore("hotels")
       const hotels = all_hotels.map((item) => ({
         ...item.data,
         id: item["ref"]["@ref"]["id"],

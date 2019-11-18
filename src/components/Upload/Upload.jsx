@@ -99,7 +99,7 @@ function Upload() {
 
     const participantsToUpload = prepareUpload(contents, chips)
     if (checkbox.howMuch) {
-      const raw_taxes = await fromStore("all_taxes_by_key")
+      const raw_taxes = await fromStore("taxes")
       const all_taxes = raw_taxes.map((tax) => ({
         ...tax.data,
         id: tax["ref"]["@ref"]["id"],

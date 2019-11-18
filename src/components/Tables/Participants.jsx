@@ -65,7 +65,7 @@ const Participants = () => {
 
   React.useEffect(() => {
     async function fetchData() {
-      const all_participants = await fromStore("all_participants_by_key")
+      const all_participants = await fromStore("participants")
       const participants = all_participants.map((item) => ({
         ...item.data,
         id: item["ref"]["@ref"]["id"],

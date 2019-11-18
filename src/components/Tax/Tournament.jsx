@@ -15,7 +15,7 @@ function TaxTournament() {
 
   const [tournaments, setTournaments] = React.useState([{ value: "*", label: "Every tournament" }])
   React.useEffect(() => {
-    const all_tournaments = store.get("all_tournaments_by_key")
+    const all_tournaments = store.get("tournaments")
     const tournaments = all_tournaments
       .filter((item) => item.data.name)
       .map((item) => ({ value: item.data.name, label: item.data.name }))

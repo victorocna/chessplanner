@@ -22,7 +22,7 @@ export default function Main() {
   const [settings, setSettings] = React.useState({})
   React.useEffect(() => {
     async function fetchData() {
-      const all_settings = await store.get("all_settings_by_key")
+      const all_settings = await store.get("settings")
       if (all_settings && all_settings.length > 0) {
         setSettings(() => ({ settings: all_settings[0].data }))
       }

@@ -1,6 +1,6 @@
 import store from "store"
 
-const defaultFor = (what, settings = "all_settings_by_key") => {
+const defaultFor = (what, settings = "settings") => {
   const all_settings = store.get(settings)
   if (all_settings && all_settings[0] && all_settings[0]["data"]) {
     if (all_settings[0]["data"][what]) {

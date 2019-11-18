@@ -7,7 +7,7 @@ function Dashboard() {
     <Box m={2}>
       <Typography variant="h6">Dashboard</Typography>
       <div className="">
-        <DashboardCard item="all_participants_by_key" background="#50854d" title="Participants">
+        <DashboardCard item="participants" background="#50854d" title="Participants">
           <Typography variant="body2" color="textSecondary" component="p">
             Participants are the people that are taking part in your event. You can add players, as
             well as companions, coaches and others.
@@ -22,7 +22,7 @@ function Dashboard() {
           </div>
         </DashboardCard>
 
-        <DashboardCard item="all_tournaments_by_key" background="#3f51b5" title="Tournaments">
+        <DashboardCard item="tournaments" background="#3f51b5" title="Tournaments">
           <Typography variant="body2" color="textSecondary" component="p">
             You can have two types of tournaments: main and side. Players must be assigned one main
             tournament and any number of side ones.
@@ -37,7 +37,7 @@ function Dashboard() {
           </div>
         </DashboardCard>
 
-        <DashboardCard item="all_hotels_by_key" background="#512DA8" title="Hotels">
+        <DashboardCard item="hotels" background="#512DA8" title="Hotels">
           <Typography variant="body2" color="textSecondary" component="p">
             The accommodation you provide for the participants. You can add multiple room types for
             every accommodation you register.
@@ -52,7 +52,7 @@ function Dashboard() {
           </div>
         </DashboardCard>
 
-        <DashboardCard item="all_taxes_by_key" background="#BF360C" title="Taxes">
+        <DashboardCard item="taxes" background="#BF360C" title="Taxes">
           <Typography variant="body2" color="textSecondary" component="p">
             Taxes can be applied to every tournament or you can define custom taxes. You can also
             define complex rules, like 50% off for GMs.

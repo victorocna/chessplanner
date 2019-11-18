@@ -85,7 +85,7 @@ const Taxes = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const all_taxes = await fromStore("all_taxes_by_key")
+      const all_taxes = await fromStore("taxes")
       const taxes = all_taxes.map((tax) => ({
         ...tax.data,
         id: tax["ref"]["@ref"]["id"],
