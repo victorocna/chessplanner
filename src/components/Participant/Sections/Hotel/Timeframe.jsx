@@ -8,13 +8,10 @@ import enGBLocale from "date-fns/locale/en-GB"
 import { i18n } from "../../../../locale"
 import { hasError } from "../../../../utils/validation"
 import ParticipantContext from "../../../../context/participant-context"
+import { hasAccommodation } from '../../../../functions'
 
 function Timeframe({ hidden }) {
   const { values, setFieldValue } = React.useContext(ParticipantContext)
-
-  const hasAccomodation = () => {
-    return values.hotel.name && values.hotel.name !== i18n("No accommodation")
-  }
   const isValidDate = (d) => {
     return d instanceof Date && !isNaN(d)
   }
@@ -38,7 +35,7 @@ function Timeframe({ hidden }) {
   }
 
   React.useEffect(() => {
-    if (hasAccomodation()) {
+    if (hasAccommodation(values.hotel.name)) {
       if (!values.hotel.arrival) {
         values.hotel.arrival = +Date.now()
       }
