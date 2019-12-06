@@ -12,6 +12,9 @@ import ParticipantContext from "../../../../context/participant-context"
 function Timeframe({ hidden }) {
   const { values, setFieldValue } = React.useContext(ParticipantContext)
 
+  const hasAccomodation = () => {
+    return values.hotel.name && values.hotel.name !== i18n("No accommodation")
+  }
   const isValidDate = (d) => {
     return d instanceof Date && !isNaN(d)
   }
@@ -35,9 +38,21 @@ function Timeframe({ hidden }) {
   }
 
   React.useEffect(() => {
+    if (hasAccomodation()) {
+      if (!values.hotel.arrival) {
+        values.hotel.arrival = +Date.now()
+      }
+      if (!values.hotel.departure) {
+        values.hotel.departure = +new Date(new Date().getTime() + 24 * 60 * 60 * 1000)
+      }
+    } else {
+      values.hotel.arrival = ""
+      values.hotel.departure = ""
+    }
+
     setFieldValue("hotel.nights", nights())
     // eslint-disable-next-line
-  }, [])
+  }, [values.hotel.name])
   React.useEffect(() => {
     setFieldValue("hotel.nights", nights())
     // eslint-disable-next-line
