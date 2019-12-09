@@ -25,7 +25,7 @@ module.exports = function(app) {
   /**
    * CRUD routes
    */
-  app.get("/read/:collection/:id", (req, res) => {
+  app.get("/read/:collection/:id", isLoggedIn, (req, res) => {
     return read(req, res)
   })
   app.get("/read-all/:collection", isLoggedIn, (req, res) => {
