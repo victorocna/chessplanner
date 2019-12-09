@@ -1,12 +1,11 @@
 import React from "react"
 import ChipWrapper from "./ChipWrapper"
 import update from "immutability-helper"
-import options from "./options"
 import columns from "../Settings/possible-columns"
 import AppContext from "../../context/app-context"
 import shouldShow from "../../utils/shouldShow"
 
-const useChip = () => {
+const useChip = (options) => {
   const { settings } = React.useContext(AppContext)
   const [chips, setChips] = React.useState([])
 

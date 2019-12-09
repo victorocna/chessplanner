@@ -2,9 +2,10 @@ import React from "react"
 import PropTypes from "prop-types"
 import { Button, Divider } from "@material-ui/core"
 import { Dialog, DialogActions, DialogContent, DialogTitle } from "@material-ui/core"
+import { humanReadable } from "./helpers"
 
 const ConfirmUpload = (props) => {
-  const { open, chips, onClose, onConfirm, message } = props
+  const { open, chips, message, onClose, onConfirm } = props
   const handleClose = () => {
     onClose()
   }
@@ -24,7 +25,7 @@ const ConfirmUpload = (props) => {
           {Object.keys(message).map((item, i) => (
             <React.Fragment key={i}>
               <strong className="p-r-5px">{chips[i].text}</strong>
-              <div>{message[item]}</div>
+              <div>{humanReadable(chips[i].datatype, message[item])}</div>
             </React.Fragment>
           ))}
         </div>
