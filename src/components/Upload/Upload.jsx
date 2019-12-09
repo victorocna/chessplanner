@@ -153,6 +153,7 @@ function Upload() {
       <NeedHelp />
       <ConfirmUpload
         open={dialog.open}
+        chips={chips}
         message={dialog.message}
         onClose={handleClose}
         onConfirm={handleConfirm}

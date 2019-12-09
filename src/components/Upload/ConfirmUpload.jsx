@@ -1,10 +1,10 @@
 import React from "react"
 import PropTypes from "prop-types"
-import { Button, Divider, List, ListItem } from "@material-ui/core"
+import { Button, Divider } from "@material-ui/core"
 import { Dialog, DialogActions, DialogContent, DialogTitle } from "@material-ui/core"
 
 const ConfirmUpload = (props) => {
-  const { open, onClose, onConfirm, message } = props
+  const { open, chips, onClose, onConfirm, message } = props
   const handleClose = () => {
     onClose()
   }
@@ -20,22 +20,14 @@ const ConfirmUpload = (props) => {
           This is the first row you will be uploading. Would you like to continue with the import?
         </div>
         <Divider />
-        <List>
-          {Object.keys(message).map((item, index) => {
-            let itemKey = item.replace(/\./g, " ")
-            let itemValue = message[item]
-            if (itemValue.toString().length === 13 && !isNaN(new Date(itemValue))) {
-              itemKey += "[dd.mm.yy]"
-              itemValue = new Date(itemValue).toLocaleDateString("ro-RO")
-            }
-
-            return (
-              <ListItem key={index}>
-                <strong className="capitalize p-r-5px">{itemKey}</strong> → {itemValue}
-              </ListItem>
-            )
-          })}
-        </List>
+        <div className="my-4 grid grid-confirm-upload">
+          {Object.keys(message).map((item, i) => (
+            <React.Fragment key={i}>
+              <strong className="p-r-5px">{chips[i].text}</strong>
+              <div>{message[item]}</div>
+            </React.Fragment>
+          ))}
+        </div>
       </DialogContent>
       <DialogActions className="mb-1 mr-1">
         <Button onClick={handleClose} color="primary" variant="outlined">
@@ -51,16 +43,18 @@ const ConfirmUpload = (props) => {
 
 ConfirmUpload.propTypes = {
   open: PropTypes.bool,
+  chips: PropTypes.array,
+  message: PropTypes.any,
   onClose: PropTypes.func,
   onConfirm: PropTypes.func,
-  message: PropTypes.any,
 }
 
 ConfirmUpload.defaultProps = {
   open: false,
+  chips: [],
+  message: "",
   onClose: () => {},
   onConfirm: () => {},
-  message: "",
 }
 
 export default ConfirmUpload
