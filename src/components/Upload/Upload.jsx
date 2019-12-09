@@ -16,7 +16,7 @@ import { NeedHelp, DndWrapper, ConfirmUpload } from "../Upload"
 function Upload() {
   const { chips, renderChip } = useChip(options)
   const { isLoading, showLoading, hideLoading } = useLoading()
-  const { checkbox, showSkipFirst, showHowMuch } = useCheckbox()
+  const { checkbox, showSkipFirst } = useCheckbox()
 
   const [payload, setPayload] = React.useState([])
   const [dialog, setDialog] = React.useState({
@@ -78,11 +78,6 @@ function Upload() {
         className="checkbox-flex"
         label={i18n("Headers in first row?")}
         control={showSkipFirst()}
-      />
-      <FormControlLabel
-        className="checkbox-flex"
-        label={i18n("Determine taxes owed by participants")}
-        control={showHowMuch()}
       />
       <DndWrapper chips={chips} renderChip={renderChip} />
       <input className="hidden" id="hidden" type="file" onChange={handleUpload} />
