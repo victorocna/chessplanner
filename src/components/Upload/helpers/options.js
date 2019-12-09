@@ -1,4 +1,4 @@
-import { i18n } from "../../locale"
+import { i18n } from "../../../locale"
 
 export default [
   { key: "name", datatype: "string", text: i18n("Name"), required: true },

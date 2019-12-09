@@ -1,31 +1,22 @@
 import React from "react"
 import { Box, Typography, FormControlLabel, Button } from "@material-ui/core"
-import NeedHelp from "./NeedHelp"
-import fh from "./file-helpers"
-import useChip from "./useChip"
-import useCheckbox from "./useCheckbox"
-import useLoading from "./useLoading"
-import useStyles from "../useStyles"
+import { validateYupSchema } from "formik"
+import merge from "lodash.merge"
 import { notify } from "../Toast"
-import prepareUpload from "./prepare-upload"
-import fromStore from "../../utils/fromStore"
-import howMuch from "../../utils/howMuch"
 import deepObject from "../../utils/deepObject"
 import api from "../../api"
 import { Loading } from "../Loading"
 import { i18n } from "../../locale"
-import DndWrapper from "./DndWrapper"
-import ConfirmUpload from "./ConfirmUpload"
-import { validateYupSchema } from "formik"
 import { participantSchema } from "../../schema"
 import { participantKeys } from "../../data/initial-values"
-import merge from "lodash.merge"
+import { options, uploadFile } from "./helpers"
+import { useChip, useLoading, useCheckbox } from "../Upload"
+import { NeedHelp, DndWrapper, ConfirmUpload } from "../Upload"
 
 function Upload() {
-  const classes = useStyles()
-  const { chips } = useChip()
+  const { chips, renderChip } = useChip(options)
   const { isLoading, showLoading, hideLoading } = useLoading()
-  const { checkbox, showSkipFirst, showHowMuch } = useCheckbox()
+  const { checkbox, showSkipFirst } = useCheckbox()
 
   const [payload, setPayload] = React.useState([])
   const [dialog, setDialog] = React.useState({
@@ -64,64 +55,14 @@ function Upload() {
       : notify.warn(i18n("Error! No participants uploaded"))
   }
 
-  /**
-   * @see https://stackoverflow.com/a/46120369/6884801
-   */
-  const uploadFile = async (event) => {
-    let file = event.target.files[0]
-    if (!file || !fh.isValidFile(file.name)) {
-      notify.warn(i18n("Error! Unsupported file extension"))
-      return false
+  const handleUpload = async (event) => {
+    try {
+      const participantsToUpload = await uploadFile(event, chips, checkbox)
+      setPayload(participantsToUpload)
+      setDialog({ open: true, chips, message: participantsToUpload[0] })
+    } catch (err) {
+      notify.warn(err.message)
     }
-
-    let contents = ""
-    if (fh.isCsv(file.name)) {
-      try {
-        contents = await fh.contentsFromCsv(file)
-      } catch (err) {
-        notify.warn(err)
-        return false
-      }
-    }
-    if (fh.isExcel(file.name)) {
-      try {
-        contents = await fh.contentsFromExcel(file)
-      } catch (err) {
-        notify.warn(err)
-        return false
-      }
-    }
-
-    // skip the first line in the loaded file
-    if (checkbox.skipFirst && contents.length >= 1) {
-      contents.shift()
-    }
-
-    const participantsToUpload = prepareUpload(contents, chips)
-    if (checkbox.howMuch) {
-      const raw_taxes = await fromStore("taxes")
-      const all_taxes = raw_taxes.map((tax) => ({
-        ...tax.data,
-        id: tax["ref"]["@ref"]["id"],
-      }))
-
-      for (let i = 0; i < participantsToUpload.length; i++) {
-        let taxes
-        try {
-          taxes = howMuch(all_taxes, participantsToUpload[i])
-        } catch (err) {
-          // maybe add an increment with skipped participants
-        }
-
-        if (typeof taxes === "object" && howMuch.length > 0) {
-          // append taxes to the original participant object
-          participantsToUpload[i] = { taxes: taxes, ...participantsToUpload[i] }
-        }
-      }
-    }
-
-    setPayload(participantsToUpload)
-    setDialog({ open: true, message: participantsToUpload[0] })
   }
 
   return (
@@ -138,21 +79,17 @@ function Upload() {
         label={i18n("Headers in first row?")}
         control={showSkipFirst()}
       />
-      <FormControlLabel
-        className="checkbox-flex"
-        label={i18n("Determine taxes owed by participants")}
-        control={showHowMuch()}
-      />
-      <DndWrapper />
-      <input className={classes.hidden} id="hidden" type="file" onChange={uploadFile} />
+      <DndWrapper chips={chips} renderChip={renderChip} />
+      <input className="hidden" id="hidden" type="file" onChange={handleUpload} />
       <label htmlFor="hidden">
-        <Button variant="contained" color="secondary" component="span" className={classes.button}>
+        <Button variant="contained" color="secondary" component="span" className="mt-4">
           {i18n("Upload file")}
         </Button>
       </label>
       <NeedHelp />
       <ConfirmUpload
         open={dialog.open}
+        chips={chips}
         message={dialog.message}
         onClose={handleClose}
         onConfirm={handleConfirm}

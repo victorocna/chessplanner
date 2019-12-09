@@ -2,13 +2,14 @@ import React from "react"
 import fromStore from "../../../../utils/fromStore"
 import { HotelName, HotelRoom, Timeframe, Contribution } from "../Hotel"
 import { ParticipantContext } from "../../../../context"
+import { hasAccommodation } from '../../../../functions'
 
 function Hotel() {
   const { values } = React.useContext(ParticipantContext)
 
   const [hidden, setHidden] = React.useState(false)
   React.useEffect(() => {
-    const shouldHide = values.hotel.name === "" || values.hotel.name === "no"
+    const shouldHide = !hasAccommodation(values.hotel.name)
     setHidden(shouldHide)
   }, [values.hotel])
 

@@ -1,13 +1,13 @@
-// const confirm = require("./confirm")
-// const forgot = require("./forgot")
+const confirm = require("./confirm")
+const forgot = require("./forgot")
 const login = require("./login")
-// const reset = require("./reset")
-// const signup = require("./signup")
+const reset = require("./reset")
+const signup = require("./signup")
 
 module.exports = {
-  // confirm,
-  // forgot,
+  confirm,
+  forgot,
   login,
-  // reset,
-  // signup,
+  reset,
+  signup,
 }

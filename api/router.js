@@ -37,7 +37,7 @@ module.exports = function(app) {
   app.post("/update/:collection/:id", isLoggedIn, (req, res) => {
     return update(req, res)
   })
-  app.delete("/delete/:collection/:id", isLoggedIn, (req, res) => {
+  app.delete("/remove/:collection/:id", isLoggedIn, (req, res) => {
     return remove(req, res)
   })
 }

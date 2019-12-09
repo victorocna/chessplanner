@@ -21,7 +21,8 @@ module.exports = async (req, res) => {
   return client
     .query(
       q.Create(q.Ref(`collections/${collection}`), {
-        data: { ...req.body, createdBy: username, key },
+        // associate every instance created with the user using the "key"
+        data: { ...req.body, key, createdAt: +Date.now() },
       })
     )
     .then((response) => {

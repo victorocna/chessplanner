@@ -20,7 +20,7 @@ module.exports = async (req, res) => {
   // create a random hash
   const hash = randomHash()
 
-  // create an inactive user
+  // create an inactive user with a demo account
   return client
     .query(
       q.Create(q.Collection("users"), {
@@ -30,6 +30,7 @@ module.exports = async (req, res) => {
           key: hash,
           createdAt: +Date.now(),
           confirmed: false,
+          demo: true,
         },
       })
     )

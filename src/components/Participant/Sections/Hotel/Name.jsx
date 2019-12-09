@@ -10,7 +10,7 @@ function Name({ hotels }) {
       name="hotel.name"
       render={({ field }) => (
         <TextField {...field} select className="flex mt-1" label={i18n("Hotel")}>
-          <MenuItem value="no">{i18n("No accommodation")}</MenuItem>
+          <MenuItem value={i18n("No accommodation")}>{i18n("No accommodation")}</MenuItem>
           {hotels.map((item, index) => (
             <MenuItem key={index} value={item.name}>
               {item.name}
