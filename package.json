@@ -76,6 +76,55 @@
     "mocha": "^6.2.2",
     "source-map-explorer": "^2.1.0"
   },
+  "prettier": {
+    "trailingComma": "es5",
+    "tabWidth": 2,
+    "semi": false,
+    "singleQuote": false,
+    "arrowParens": "always"
+  },
+  "mocha": {
+    "extension": [
+      "test.js"
+    ]
+  },
+  "eslintConfig": {
+    "globals": {
+      "React": true
+    },
+    "env": {
+      "browser": true,
+      "node": true,
+      "commonjs": true,
+      "es6": true,
+      "jest/globals": true
+    },
+    "extends": [
+      "eslint:recommended",
+      "plugin:react/recommended"
+    ],
+    "parser": "babel-eslint",
+    "parserOptions": {
+      "ecmaVersion": 6,
+      "sourceType": "module"
+    },
+    "rules": {
+      "no-warning-comments": "warn"
+    },
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "plugins": [
+      "react",
+      "jest"
+    ]
+  },
+  "eslintIgnore": [
+    "**/*.js",
+    "!**/api/**/*.js",
+    "!**/src/**/*.js",
+    "**/*.test.*"
+  ],
   "browserslist": [
     ">0.2%",
     "not dead",
