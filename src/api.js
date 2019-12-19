@@ -4,6 +4,7 @@ import read from "./api/crud/read"
 import readAll from "./api/crud/read-all"
 import remove from "./api/crud/remove"
 import identity from "./api/identity"
+import search from "./api/fide/search"
 
 const confirm = (data) => identity("confirm", data)
 const forgot = (data) => identity("forgot", data)
@@ -22,4 +23,5 @@ export default {
   confirm,
   forgot,
   reset,
+  search,
 }

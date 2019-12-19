@@ -1,3 +1,5 @@
 import search from "./search"
 
-export default { search }
+export default {
+  search,
+}

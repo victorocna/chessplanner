@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import PropTypes from "prop-types"
 import List from "@material-ui/core/List"
 import ListItem from "@material-ui/core/ListItem"
 import ListItemText from "@material-ui/core/ListItemText"
@@ -25,21 +26,22 @@ class Suggestions extends Component {
     this.addEventListeners()
   }
   render() {
-    const { filteredSuggestions, activeSuggestion, onClick } = this.props
+    const { suggestions, activeSuggestion, onClick } = this.props
     return (
       <List disablePadding={true} className="suggestions">
-        {filteredSuggestions.map((suggestion, index) => {
+        {suggestions.map((suggestion, index) => {
+          const { name, yob, federation } = suggestion
           let className
           if (index === activeSuggestion) {
             className = "suggestion-active"
           }
-          const suggestionText = `${suggestion.name} (n. ${suggestion.birthYear})`
+          const suggestionText = `${name} (${federation}, ${yob})`
           return (
             <ListItem
               suggestionindex={index}
               originalindex={suggestion.originalIndex}
               className={"dropdown-entry " + className}
-              key={suggestion.name + "" + suggestion.birthday}
+              key={name + index}
               onClick={onClick}
             >
               <ListItemText primary={suggestionText} />
@@ -49,6 +51,20 @@ class Suggestions extends Component {
       </List>
     )
   }
+}
+
+Suggestions.propTypes = {
+  suggestions: PropTypes.array,
+  activeSuggestion: PropTypes.number,
+  onClick: PropTypes.func,
+  changeActiveSuggestion: PropTypes.func,
+}
+
+Suggestions.defaultProps = {
+  suggestions: [],
+  activeSuggestion: 0,
+  onClick: () => {},
+  changeActiveSuggestion: () => {},
 }
 
 export default Suggestions

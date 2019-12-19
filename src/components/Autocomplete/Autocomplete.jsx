@@ -3,11 +3,12 @@ import PropTypes from "prop-types"
 import Suggestions from "./Suggestions"
 import TextField from "@material-ui/core/TextField"
 import { i18n } from "../../locale"
-import "./Autocomplete.css"
+import api from "../../api"
 
 class Autocomplete extends Component {
   constructor(props) {
     super(props)
+    this.timeout = 0
     this.state = {
       // When to start searching for suggestions
       minLetters: 3,
@@ -18,7 +19,7 @@ class Autocomplete extends Component {
       // Index of active filteredSuggestion
       activeSuggestion: 0,
       // Array of suggestions based on input
-      filteredSuggestions: [],
+      suggestions: [],
       // Flag to show Suggestions component
       showSuggestions: false,
       // Flag to show Message component
@@ -28,7 +29,7 @@ class Autocomplete extends Component {
     }
   }
   componentDidUpdate(previousProps) {
-    if (this.props.value && previousProps.value !== this.props.value) {
+    if (previousProps.value !== this.props.value) {
       this.setState({ ...this.state, userInput: this.props.value })
       this.hideBottomMessage()
     }
@@ -48,36 +49,17 @@ class Autocomplete extends Component {
   }
 
   isReadyToSearch = () => {
+    if (this.timeout) {
+      clearTimeout(this.timeout)
+    }
     return this.state.userInput.length >= this.state.minLetters
   }
 
   isReadyToShow = () => {
     // If maxSuggestions is 0, always show
-    return (
-      !this.state.maxSuggestions ||
-      this.state.filteredSuggestions.length < this.state.maxSuggestions
-    )
+    return !this.state.maxSuggestions || this.state.suggestions.length < this.state.maxSuggestions
   }
 
-  loadSuggestions = (userInput) => {
-    const allSuggestions = this.props.suggestions
-    const firstLetters = userInput.substr(0, this.state.minLetters).toUpperCase()
-    // Returning empty array is necessary to avoid fatal error when using suggestions.length
-    return allSuggestions[firstLetters] ? allSuggestions[firstLetters] : []
-  }
-  filterSuggestions = (suggestions, userInput) => {
-    let filteredArr = []
-    for (let i = 0; i < suggestions.length; i++) {
-      if (suggestions[i].name.includes(userInput.toUpperCase())) {
-        filteredArr.push(suggestions[i])
-        // Stop looking for suggestions if we already hit maxSuggestions limit.
-        if (filteredArr.length === this.state.maxSuggestions) {
-          return filteredArr
-        }
-      }
-    }
-    return filteredArr
-  }
   updateInputValue = (newValue) => {
     // Promised setState
     return new Promise((resolve) => {
@@ -89,19 +71,9 @@ class Autocomplete extends Component {
       )
     })
   }
-  updateSuggestions = (filteredSuggestions) => {
-    // Better to reject when no suggestions, for better inputchange handling
-    return new Promise((resolve, reject) => {
-      this.setState(
-        {
-          filteredSuggestions,
-        },
-        filteredSuggestions.length ? resolve : reject
-      )
-    })
-  }
-  triggerShow = () => {
+  triggerShow = (suggestions) => {
     this.setState({
+      suggestions,
       showSuggestions: true,
       showBottomMessage: false,
       activeSuggestion: 0,
@@ -146,62 +118,46 @@ class Autocomplete extends Component {
     }
     return this.hasDeletedChars(prevInput)
   }
-  onChange = (event) => {
+  onChange = async (event) => {
     // First, call the onChange function inhereted from the parent
     if (typeof this.props.onChange === "function") {
       this.props.onChange(event)
     }
-
     const userInput = event.currentTarget.value
-    const prevInput = this.state.userInput
-    this.updateInputValue(userInput).then(() => {
-      // Exit function if there is no chance of finding new suggestions
-      if (!this.shouldComputeAgain(prevInput)) {
-        return
-      }
-      if (this.isReadyToSearch()) {
-        const suggestions = this.loadSuggestions(userInput)
-        const filteredSuggestions = this.filterSuggestions(suggestions, userInput)
-        this.updateSuggestions(filteredSuggestions)
-          // If at least one valid suggestion
-          .then(() => {
-            if (this.isReadyToShow()) {
-              this.triggerShow()
-            } else {
-              this.triggerTooMany()
-            }
-          })
-          // If no valid suggestion
-          .catch(() => {
-            this.triggerNoResults()
-          })
-      } else {
-        this.triggerHide()
-      }
-    })
+    if (this.isReadyToSearch()) {
+      this.timeout = setTimeout(async () => {
+        const suggestions = await api.search(userInput)
+        if (suggestions.length === 0) {
+          return this.triggerNoResults()
+        }
+        if (suggestions.length > 20) {
+          return this.triggerTooMany()
+        }
+        return this.triggerShow(suggestions)
+      }, 500)
+    } else {
+      return this.triggerHide()
+    }
   }
   handleArrowNav = (e) => {
     e.preventDefault()
     const arrowType = e.keyCode === 38 ? "up" : "down"
-    const { activeSuggestion, filteredSuggestions } = this.state
+    const { activeSuggestion, suggestions } = this.state
     if (arrowType === "down") {
-      const lastSuggestionIsActive = activeSuggestion === filteredSuggestions.length - 1
+      const lastSuggestionIsActive = activeSuggestion === suggestions.length - 1
       if (lastSuggestionIsActive) {
         return
       }
       this.setState({ activeSuggestion: activeSuggestion + 1 })
-      // document.querySelector('.suggestions').scrollBy(0, 25)
     } else if (arrowType === "up") {
       const firstSuggestionIsActive = activeSuggestion === 0
       if (firstSuggestionIsActive) {
         return
       }
       this.setState({ activeSuggestion: activeSuggestion - 1 })
-      // document.querySelector('.suggestions').scrollBy(0, -25)
     }
   }
   completePlayerName = (playerName) => {
-    // const newUserInput = player.name
     return new Promise((resolve) => {
       this.setState(
         {
@@ -222,7 +178,7 @@ class Autocomplete extends Component {
      */
     this.setState({
       activeSuggestion: 0,
-      filteredSuggestions: [],
+      suggestions: [],
       showSuggestions: false,
       showBottomMessage: false,
     })
@@ -231,8 +187,8 @@ class Autocomplete extends Component {
     if (e) {
       e.preventDefault()
     }
-    const { activeSuggestion, filteredSuggestions } = this.state
-    const activePlayer = filteredSuggestions[activeSuggestion]
+    const { activeSuggestion, suggestions } = this.state
+    const activePlayer = suggestions[activeSuggestion]
     let activePlayerName = activePlayer ? activePlayer.name : this.state.userInput.toUpperCase()
     let updateObj = activePlayer ? this.getUpdateObj(activePlayer) : { name: activePlayerName }
     this.completePlayerName(activePlayerName).then(() => {
@@ -240,15 +196,11 @@ class Autocomplete extends Component {
       this.onSubmit(updateObj)
     })
   }
-  getUpdateObj = (player) => ({
-    name: player.name,
-    gender: player.sex,
-    club: player.club.name,
-    yob: player.birthYear,
-    federation: "ROU",
-    isMedaliat: player.isMedaliat,
-    isTitrat: ["GM", "IM", "WGM", "WIM"].includes(player.rating.title),
-  })
+  getUpdateObj = (player) => {
+    // FIXME: component is changing a controlled input
+    const { name, federation, yob } = player
+    return { name, federation, yob }
+  }
   onKeyDown = (e) => {
     switch (e.keyCode) {
       case 9: // TAB
@@ -272,7 +224,7 @@ class Autocomplete extends Component {
       onClick,
       onKeyDown,
       onKeyUp,
-      state: { activeSuggestion, filteredSuggestions, showSuggestions, bottomMessage, userInput },
+      state: { activeSuggestion, suggestions, showSuggestions, bottomMessage, userInput },
     } = this
 
     return (
@@ -298,7 +250,7 @@ class Autocomplete extends Component {
         />
         {showSuggestions && (
           <Suggestions
-            filteredSuggestions={filteredSuggestions}
+            suggestions={suggestions}
             changeActiveSuggestion={changeActiveSuggestion}
             onClick={onClick}
             activeSuggestion={activeSuggestion}

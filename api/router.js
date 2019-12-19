@@ -1,6 +1,7 @@
 const { create, update, remove, read, readAll } = require("./crud")
 const { confirm, forgot, login, reset, signup } = require("./identity")
 const { canCreate, isHashValid, isLoggedIn, userExists } = require("./middleware")
+const { search } = require("./fide")
 
 module.exports = function(app) {
   /**
@@ -39,5 +40,12 @@ module.exports = function(app) {
   })
   app.delete("/remove/:collection/:id", isLoggedIn, (req, res) => {
     return remove(req, res)
+  })
+
+  /**
+   * FIDE routes
+   */
+  app.get("/fide/search", (req, res) => {
+    return search(req, res)
   })
 }
