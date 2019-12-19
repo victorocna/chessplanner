@@ -16,7 +16,6 @@ function ParticipantFormik(props) {
   const [step, setStep] = React.useState("initial")
 
   const autocompleteSubmit = (participantValues) => {
-    console.log('participantValues', participantValues)
     const valuesToAutocomplete = ["name", "yob", "federation"]
     for (let i = 0; i < valuesToAutocomplete.length; i++) {
       setFieldValue(valuesToAutocomplete[i], participantValues[valuesToAutocomplete[i]])

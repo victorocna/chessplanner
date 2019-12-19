@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import PropTypes from "prop-types"
+import { InputAdornment, CircularProgress, TextField } from "@material-ui/core"
 import Suggestions from "./Suggestions"
-import TextField from "@material-ui/core/TextField"
 import { i18n } from "../../locale"
 import api from "../../api"
 
@@ -10,6 +10,7 @@ class Autocomplete extends Component {
     super(props)
     this.timeout = 0
     this.state = {
+      loadingSuggestions: false,
       // When to start searching for suggestions
       minLetters: 3,
       // When to show suggestions
@@ -47,29 +48,11 @@ class Autocomplete extends Component {
       this.props.onSubmit(index)
     }
   }
-
   isReadyToSearch = () => {
     if (this.timeout) {
       clearTimeout(this.timeout)
     }
     return this.state.userInput.length >= this.state.minLetters
-  }
-
-  isReadyToShow = () => {
-    // If maxSuggestions is 0, always show
-    return !this.state.maxSuggestions || this.state.suggestions.length < this.state.maxSuggestions
-  }
-
-  updateInputValue = (newValue) => {
-    // Promised setState
-    return new Promise((resolve) => {
-      this.setState(
-        {
-          userInput: newValue,
-        },
-        resolve
-      )
-    })
   }
   triggerShow = (suggestions) => {
     this.setState({
@@ -101,23 +84,6 @@ class Autocomplete extends Component {
       bottomMessage: i18n("Please type 3 letters to view suggestions"),
     })
   }
-  hasDeletedChars = (prevInput) => {
-    const prevLength = prevInput.length
-    const newLength = this.state.userInput.length
-    return newLength < prevLength
-  }
-  hasSuggestions = () => {
-    // return !!this.state.filteredSuggestions.length
-    return !(this.state.bottomMessage === i18n("Participant not found"))
-  }
-  shouldComputeAgain = (prevInput) => {
-    // Should only handle inputchange if there are suggestions.
-    // If there aren't, search suggestions only if the user has deleted chars
-    if (this.hasSuggestions()) {
-      return true
-    }
-    return this.hasDeletedChars(prevInput)
-  }
   onChange = async (event) => {
     // First, call the onChange function inhereted from the parent
     if (typeof this.props.onChange === "function") {
@@ -126,7 +92,10 @@ class Autocomplete extends Component {
     const userInput = event.currentTarget.value
     if (this.isReadyToSearch()) {
       this.timeout = setTimeout(async () => {
+        this.setState({ loadingSuggestions: true })
         const suggestions = await api.search(userInput)
+        this.setState({ loadingSuggestions: false })
+
         if (suggestions.length === 0) {
           return this.triggerNoResults()
         }
@@ -139,9 +108,9 @@ class Autocomplete extends Component {
       return this.triggerHide()
     }
   }
-  handleArrowNav = (e) => {
-    e.preventDefault()
-    const arrowType = e.keyCode === 38 ? "up" : "down"
+  handleArrowNav = (event) => {
+    event.preventDefault()
+    const arrowType = event.keyCode === 38 ? "up" : "down"
     const { activeSuggestion, suggestions } = this.state
     if (arrowType === "down") {
       const lastSuggestionIsActive = activeSuggestion === suggestions.length - 1
@@ -157,25 +126,12 @@ class Autocomplete extends Component {
       this.setState({ activeSuggestion: activeSuggestion - 1 })
     }
   }
-  completePlayerName = (playerName) => {
-    return new Promise((resolve) => {
-      this.setState(
-        {
-          userInput: playerName,
-        },
-        resolve
-      )
-    })
-  }
   changeActiveSuggestion = (newIndex) => {
     this.setState({
       activeSuggestion: newIndex,
     })
   }
   jobDone = () => {
-    /*
-    Called when submitting, resets suggestions.
-     */
     this.setState({
       activeSuggestion: 0,
       suggestions: [],
@@ -183,39 +139,39 @@ class Autocomplete extends Component {
       showBottomMessage: false,
     })
   }
-  handleSubmit = (e) => {
-    if (e) {
-      e.preventDefault()
+  handleSubmit = (event) => {
+    if (event) {
+      event.preventDefault()
     }
     const { activeSuggestion, suggestions } = this.state
     const activePlayer = suggestions[activeSuggestion]
-    let activePlayerName = activePlayer ? activePlayer.name : this.state.userInput.toUpperCase()
-    let updateObj = activePlayer ? this.getUpdateObj(activePlayer) : { name: activePlayerName }
-    this.completePlayerName(activePlayerName).then(() => {
-      this.jobDone()
-      this.onSubmit(updateObj)
-    })
+
+    if (!activePlayer) {
+      return false
+    }
+
+    this.jobDone()
+    this.onSubmit(this.getUpdateObj(activePlayer))
   }
   getUpdateObj = (player) => {
-    // FIXME: component is changing a controlled input
     const { name, federation, yob } = player
     return { name, federation, yob }
   }
-  onKeyDown = (e) => {
-    switch (e.keyCode) {
+  onKeyDown = (event) => {
+    switch (event.keyCode) {
       case 9: // TAB
       case 13: // ENTER
-        this.handleSubmit(e)
+        this.handleSubmit(event)
         break
       case 38: // Arrow Up
       case 40: // Arrow Down
-        this.handleArrowNav(e)
+        this.handleArrowNav(event)
         break
       default:
     }
   }
-  onClick = (e) => {
-    this.handleSubmit(e)
+  onClick = (event) => {
+    this.handleSubmit(event)
   }
   render() {
     const {
@@ -230,8 +186,12 @@ class Autocomplete extends Component {
     return (
       <>
         <TextField
-          inputProps={{
-            autoComplete: "off",
+          InputProps={{
+            endAdornment: (
+              <InputAdornment className={this.state.loadingSuggestions ? "block" : "hidden"} position="end">
+                <CircularProgress size={20} />
+              </InputAdornment>
+            ),
           }}
           className="autocomplete-input"
           label={i18n("Name")}

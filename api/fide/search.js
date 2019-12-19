@@ -9,7 +9,12 @@ module.exports = async (req, res) => {
     return res.send(404)
   }
 
-  return await fetch(`${baseUrl}?search=${name}&search_bday_start=all&search_bday_end=all&simple=0`)
+  const lastname = name.toLowerCase().split(" ")[0]
+  const firstname = name.toLowerCase().split(" ")[1]
+
+  return await fetch(
+    `${baseUrl}?search=${lastname}&search_bday_start=all&search_bday_end=all&search_rating=all&search_title=all`
+  )
     .then((response) => response.text())
     .then((response) => {
       const players = []
@@ -20,15 +25,26 @@ module.exports = async (req, res) => {
       let i = 0
       while (node) {
         try {
+          const name = fideName(node, i)
+          const _firstname = name.toLowerCase().split(" ")[1]
+
+          // if firstname was provided and it starts with the node's firstname
+          if (firstname && !_firstname.startsWith(firstname)) {
+            i++
+            node = xpath.iterateNext()
+            continue
+          }
+
           players.push({
-            name: fideName(node, i),
+            name,
             profile: fideProfile(node, i),
             federation: fideCountry(node, i),
             title: fideTitle(node, i),
             yob: fideYob(node, i),
           })
         } catch (err) {
-          // console.log(err)
+          // eslint-disable-next-line
+          console.log(err)
         }
 
         // next element
@@ -38,13 +54,4 @@ module.exports = async (req, res) => {
 
       return res.send(players)
     })
-}
-
-const config = {
-  locator: {},
-  errorHandler: {
-    warning: function() {},
-    error: function() {},
-    fatalError: function() {},
-  },
 }

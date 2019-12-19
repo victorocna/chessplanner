@@ -361,7 +361,7 @@ tfoot {
 .mb-4.mb-4 {
   margin-bottom: 1rem;
 }
-.hidden {
+.hidden.hidden {
   display: none;
 }
 
