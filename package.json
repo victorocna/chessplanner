@@ -54,7 +54,7 @@
     "react-dnd-touch-backend": "^9.4.0",
     "react-dom": "^16.11.0",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.0.1",
+    "react-scripts": "^3.3.0",
     "serverless-http": "^2.3.0",
     "store": "^2.0.12",
     "typeface-noto-sans": "0.0.72",
@@ -67,7 +67,6 @@
   },
   "devDependencies": {
     "@welldone-software/why-did-you-render": "^3.3.8",
-    "babel-loader": "^8.0.5",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
     "eslint-plugin-jest": "^22.21.0",
