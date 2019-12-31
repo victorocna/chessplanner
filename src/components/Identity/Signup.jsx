@@ -18,6 +18,7 @@ function Signup() {
         origin: window.location.origin,
       })
       .then(() => {
+        // TODO: redirect to thankyou component
         notify.success("Sign up successful! Please check your email")
       })
       .catch((err) => {

@@ -6,5 +6,6 @@ import Logout from "./Logout"
 import PrivateRoute from "./PrivateRoute"
 import Reset from "./Reset"
 import Signup from "./Signup"
+import ThankYou from "./ThankYou"
 
-export { Account, Confirm, Forgot, Login, Logout, PrivateRoute, Reset, Signup }
+export { Account, Confirm, Forgot, Login, Logout, PrivateRoute, Reset, Signup, ThankYou }

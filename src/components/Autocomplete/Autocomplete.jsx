@@ -154,8 +154,8 @@ class Autocomplete extends Component {
     this.onSubmit(this.getUpdateObj(activePlayer))
   }
   getUpdateObj = (player) => {
-    const { name, federation, yob } = player
-    return { name, federation, yob }
+    const { name, federation, yob, title, profile } = player
+    return { name, federation, yob, title, profile }
   }
   onKeyDown = (event) => {
     switch (event.keyCode) {
