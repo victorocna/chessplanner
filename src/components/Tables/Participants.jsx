@@ -83,7 +83,7 @@ const Participants = () => {
         columns={state.columns}
         data={state.participants}
         options={state.options}
-        localization={i18n("_table")}
+        localization={i18n("_table", {})}
         actions={state.actions}
         style={{
           boxShadow: "none",

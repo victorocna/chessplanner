@@ -18,6 +18,11 @@ const i18n = (stringToTranslate) => {
     return locale[stringToTranslate]
   }
 
+  // material-table localization must return an object
+  if (stringToTranslate === "_table") {
+    return {}
+  }
+
   return stringToTranslate
 }
 
