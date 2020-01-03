@@ -3,10 +3,11 @@ import PropTypes from "prop-types"
 import { Link, Typography } from "@material-ui/core"
 
 const ThankYou = (props) => {
-  const { email } = props
-  if (!email) {
+  if (!props.location.state) {
     window.location.href = "/#/"
+    return null
   }
+  const { email } = props.location.state
 
   return (
     <div className="m-4">
@@ -17,20 +18,22 @@ const ThankYou = (props) => {
         Please check your email sent to <strong>{email}</strong> and confirm your account.
       </Typography>
       {email.indexOf("gmail.com") > -1 && (
-        <Link href="https://mail.google.com">
-          Click here to open Gmail
-        </Link>
+        <Link href="https://mail.google.com">Click here to open Gmail</Link>
       )}
     </div>
   )
 }
 
 ThankYou.propTypes = {
-  email: PropTypes.string,
+  location: PropTypes.any,
 }
 
 ThankYou.defaultProps = {
-  email: "",
+  location: {
+    state: {
+      email: "",
+    },
+  },
 }
 
 export default ThankYou
