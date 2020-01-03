@@ -4,6 +4,7 @@ import { i18n } from "../../locale"
 export default {
   "club": i18n("Club"),
   "group": i18n("Group"),
+  "title": i18n("Title"),
   "federation": i18n("Federation"),
   "yob": i18n("Year of birth"),
   "gender": i18n("Gender"),

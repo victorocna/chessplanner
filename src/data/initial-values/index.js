@@ -1,6 +1,6 @@
 export { default as hotelValues } from "./hotel-values"
 export { default as settingValues } from "./setting-values"
-export { default as participantKeys } from "./participant-keys"
+export { default as uploadKeys } from "./upload-keys"
 export { default as participantValues } from "./participant-values"
 export { default as taxValues } from "./tax-values"
 export { default as tournamentValues } from "./tournament-values"

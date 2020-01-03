@@ -1,14 +1,12 @@
 export default {
   arrival: +new Date(),
   departure: +new Date(),
+  // prettier-ignore
   columns: [
-    "club",
-    "federation",
     "yob",
-    "payment.discount",
-    "payment.prepayment",
-    "payment.method",
+    "federation",
+    "title",
   ],
-  currency: "",
+  currency: "EUR",
   language: "en",
 }

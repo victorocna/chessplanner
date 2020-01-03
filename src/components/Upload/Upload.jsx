@@ -8,7 +8,7 @@ import api from "../../api"
 import { Loading } from "../Loading"
 import { i18n } from "../../locale"
 import { participantSchema } from "../../schema"
-import { participantKeys } from "../../data/initial-values"
+import { uploadKeys } from "../../data/initial-values"
 import { options, uploadFile } from "./helpers"
 import { useChip, useLoading, useCheckbox } from "../Upload"
 import { NeedHelp, DndWrapper, ConfirmUpload } from "../Upload"
@@ -35,7 +35,7 @@ function Upload() {
         .filter((item) => typeof item === "object")
         .map(async (item) => {
           const itemToUpload = deepObject(item)
-          const participant = merge(participantKeys, itemToUpload)
+          const participant = merge(uploadKeys, itemToUpload)
 
           await validateYupSchema(participant, participantSchema)
             .then(async () => {

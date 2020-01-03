@@ -155,7 +155,7 @@ class Autocomplete extends Component {
   }
   getUpdateObj = (player) => {
     const { name, federation, yob, title, profile } = player
-    return { name, federation, yob, title, profile }
+    return { name, federation, yob, title, profile, type: i18n("player") }
   }
   onKeyDown = (event) => {
     switch (event.keyCode) {
@@ -188,7 +188,10 @@ class Autocomplete extends Component {
         <TextField
           InputProps={{
             endAdornment: (
-              <InputAdornment className={this.state.loadingSuggestions ? "block" : "hidden"} position="end">
+              <InputAdornment
+                className={this.state.loadingSuggestions ? "block" : "hidden"}
+                position="end"
+              >
                 <CircularProgress size={20} />
               </InputAdornment>
             ),
