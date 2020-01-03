@@ -40,8 +40,9 @@ const participantSchema = Yup.object().shape({
       .nullable()
       .transform((value, original) => transform(value, original)),
     discount: Yup.number()
-      .nullable()
-      .transform((value, original) => transform(value, original)),
+      .required(),
+      // .nullable()
+      // .transform((value, original) => transform(value, original)),
     prepayment: Yup.number()
       .nullable()
       .transform((value, original) => transform(value, original)),

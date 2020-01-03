@@ -27,7 +27,7 @@ function Upload() {
     setDialog({ open: false, message: "" })
   }
   const handleConfirm = async () => {
-    let j = 0
+    const uploaded = []
     handleClose()
     showLoading()
 
@@ -38,21 +38,25 @@ function Upload() {
       const itemToUpload = deepObject(item)
       const participant = merge(uploadKeys, itemToUpload)
 
-      await validateYupSchema(participant, participantSchema)
+      const wasUploaded = await validateYupSchema(participant, participantSchema)
         .then(async () => {
           await api.create("participants", participant).then(() => {
-            j++
+            return true
           })
         })
         .catch((err) => {
           // eslint-disable-next-line
           console.log(err)
+          return false
         })
+
+        uploaded.push(wasUploaded)
     }
 
     hideLoading()
-    j > 0
-      ? notify.success(i18n("Success! Participants imported: ") + j)
+    const successful = uploaded.filter(item => item).length
+    successful > 0
+      ? notify.success(i18n("Success! Participants imported: ") + successful)
       : notify.warn(i18n("Error! No participants uploaded"))
   }
 
