@@ -1,24 +1,34 @@
 import React from "react"
+import PropTypes from "prop-types"
 import { Button, TextField, Link, Typography } from "@material-ui/core"
 import api from "../../api"
 import { notify } from "../Toast"
-import Password from "./Password"
+import { Password } from "../Identity"
 
-function Signup() {
+function Signup(props) {
   const [isSubmitting, setSubmitting] = React.useState(false)
 
   const handleSubmit = (event) => {
     event.preventDefault()
     setSubmitting(true)
 
+    const username = event.target.username.value
+    const password = event.target.password.value
+    const origin = window.location.origin
+
     api
       .signup({
-        username: event.target.username.value,
-        password: event.target.password.value,
-        origin: window.location.origin,
+        username,
+        password,
+        origin,
       })
       .then(() => {
-        notify.success("Sign up successful! Please check your email")
+        props.history.push({
+          pathname: "/thank-you",
+          state: {
+            email: username,
+          },
+        })
       })
       .catch((err) => {
         if ([400, 403, 404].includes(err.status)) {
@@ -55,6 +65,16 @@ function Signup() {
       </Link>
     </form>
   )
+}
+
+Signup.propTypes = {
+  history: PropTypes.any,
+}
+
+Signup.defaultProps = {
+  history: {
+    push: () => ({}),
+  },
 }
 
 export default Signup

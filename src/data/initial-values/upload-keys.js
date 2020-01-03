@@ -5,6 +5,7 @@ export default {
   yob: "",
   federation: "",
   club: "",
+  title: "",
   traits: [],
   taxes: [],
   notes: "",

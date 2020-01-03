@@ -14,11 +14,11 @@ const getLocale = () => {
 
 const i18n = (key) => {
   const locale = getLocale()
-  if (locale.hasOwnProperty(key)) {
+  if (Object.prototype.hasOwnProperty.call(locale, "key")) {
     return locale[key]
   }
 
-  return ""
+  return key
 }
 
 export { i18n }

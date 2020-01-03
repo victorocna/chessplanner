@@ -1,7 +1,7 @@
 import React from "react"
 import store from "store"
 import { Route, Switch } from "react-router-dom"
-import { Account, Confirm, Forgot, Reset, PrivateRoute, Signup } from "./Identity"
+import { Account, Confirm, Forgot, Reset, PrivateRoute, Signup, ThankYou } from "./Identity"
 import Participants from "./Tables/Participants"
 import Taxes from "./Tables/Taxes"
 import Tournaments from "./Tables/Tournaments"
@@ -60,6 +60,7 @@ export default function Main() {
         <Route path="/forgot" component={Forgot} />
         <Route path="/reset/:hash" component={Reset} />
         <Route path="/signup" component={Signup} />
+        <Route path="/thank-you" component={ThankYou} />
 
         <Route path="/coming-soon" component={ComingSoon} />
         <Route path="*" component={NotFound} />

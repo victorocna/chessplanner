@@ -16,7 +16,7 @@ function ParticipantFormik(props) {
   const [step, setStep] = React.useState("initial")
 
   const autocompleteSubmit = (participantValues) => {
-    const valuesToAutocomplete = ["name", "yob", "gender", "federation", "club"]
+    const valuesToAutocomplete = ["name", "yob", "federation", "title", "type"]
     for (let i = 0; i < valuesToAutocomplete.length; i++) {
       setFieldValue(valuesToAutocomplete[i], participantValues[valuesToAutocomplete[i]])
     }
@@ -50,21 +50,29 @@ function ParticipantFormik(props) {
           )}
 
           {shouldShow("gender").basedOn(settings) && <Gender />}
-          {shouldShow("club").basedOn(settings) && (
-            <Input
-              className="flex mb-1"
-              name="club"
-              label={i18n("Club")}
-              helper={i18n("Optional")}
-            />
-          )}
-
           {shouldShow("federation").basedOn(settings) && (
             <Input
               className="flex w-1/2 mb-1"
               name="federation"
               label={i18n("Federation")}
               helper={federationHelper()}
+            />
+          )}
+
+          {shouldShow("title").basedOn(settings) && (
+            <Input
+              className="flex w-1/2 mb-1"
+              name="title"
+              label={i18n("Title")}
+            />
+          )}
+
+          {shouldShow("club").basedOn(settings) && (
+            <Input
+              className="flex mb-1"
+              name="club"
+              label={i18n("Club")}
+              helper={i18n("Optional")}
             />
           )}
 

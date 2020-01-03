@@ -3,8 +3,10 @@ import Confirm from "./Confirm"
 import Forgot from "./Forgot"
 import Login from "./Login"
 import Logout from "./Logout"
+import Password from "./Password"
 import PrivateRoute from "./PrivateRoute"
 import Reset from "./Reset"
 import Signup from "./Signup"
+import ThankYou from "./ThankYou"
 
-export { Account, Confirm, Forgot, Login, Logout, PrivateRoute, Reset, Signup }
+export { Account, Confirm, Forgot, Login, Logout, Password, PrivateRoute, Reset, Signup, ThankYou }

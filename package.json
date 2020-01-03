@@ -23,7 +23,7 @@
   "license": "MIT",
   "dependencies": {
     "@date-io/date-fns": "^1.3.11",
-    "@material-ui/core": "^4.6.0",
+    "@material-ui/core": "^4.8.2",
     "@material-ui/icons": "^4.5.1",
     "@material-ui/pickers": "^3.2.7",
     "aws4": "^1.8.0",
@@ -33,7 +33,6 @@
     "date-fns": "^2.7.0",
     "dotenv": "^8.2.0",
     "encoding": "^0.1.12",
-    "eslint": "^5.16.0",
     "express": "^4.17.1",
     "faunadb": "^2.9.3",
     "formik": "^1.5.8",
@@ -54,28 +53,79 @@
     "react-dnd-touch-backend": "^9.4.0",
     "react-dom": "^16.11.0",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.0.1",
+    "react-scripts": "^3.3.0",
     "serverless-http": "^2.3.0",
     "store": "^2.0.12",
     "typeface-noto-sans": "0.0.72",
     "typeface-roboto": "0.0.54",
     "xlsx": "^0.14.5",
+    "xmldom": "^0.1.27",
+    "xpath": "0.0.27",
     "y18n": "^4.0.0",
     "yup": "^0.27.0"
   },
   "devDependencies": {
-    "@welldone-software/why-did-you-render": "^3.3.8",
-    "babel-loader": "^8.0.5",
+    "@welldone-software/why-did-you-render": "^3.5.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
     "eslint-plugin-jest": "^22.21.0",
-    "eslint-plugin-react": "^7.16.0",
+    "eslint-plugin-react": "^7.17.0",
     "faker": "^4.1.0",
     "http-proxy-middleware": "^0.19.1",
     "migrate": "^1.6.2",
     "mocha": "^6.2.2",
-    "source-map-explorer": "^2.1.0"
+    "source-map-explorer": "^2.2.0",
+    "webpack": "4.41.2"
   },
+  "prettier": {
+    "trailingComma": "es5",
+    "tabWidth": 2,
+    "semi": false,
+    "singleQuote": false,
+    "arrowParens": "always"
+  },
+  "mocha": {
+    "extension": [
+      "test.js"
+    ]
+  },
+  "eslintConfig": {
+    "globals": {
+      "React": true
+    },
+    "env": {
+      "browser": true,
+      "node": true,
+      "commonjs": true,
+      "es6": true,
+      "jest/globals": true
+    },
+    "extends": [
+      "eslint:recommended",
+      "plugin:react/recommended"
+    ],
+    "parser": "babel-eslint",
+    "parserOptions": {
+      "ecmaVersion": 6,
+      "sourceType": "module"
+    },
+    "rules": {
+      "no-warning-comments": "warn"
+    },
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "plugins": [
+      "react",
+      "jest"
+    ]
+  },
+  "eslintIgnore": [
+    "**/*.js",
+    "!**/api/**/*.js",
+    "!**/src/**/*.js",
+    "**/*.test.*"
+  ],
   "browserslist": [
     ">0.2%",
     "not dead",

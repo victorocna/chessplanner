@@ -19,7 +19,7 @@ const useChip = (options) => {
       return true
     })
     setChips(filtered)
-  }, [settings])
+  }, [settings, options])
 
   const handleDelete = (item) => {
     setChips(chips.filter((label) => label.key !== item.key))
