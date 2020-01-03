@@ -5,8 +5,8 @@ import { Form, FieldArray } from "formik"
 import { SettingContext } from "../../context"
 import Input from "../Formik/Input"
 import { Datepicker, LanguageChoice } from "../Settings"
+import { i18n } from "../../locale"
 import columns from "./possible-columns"
-import Debug from "../Debug"
 
 function SettingsFormik({ errors, touched, isSubmitting, values, setFieldValue }) {
   return (
@@ -40,13 +40,13 @@ function SettingsFormik({ errors, touched, isSubmitting, values, setFieldValue }
             ))
           }
         />
-        <Datepicker name="arrival" label="Arrival" />
-        <Datepicker name="departure" label="Departure" />
+        <Datepicker name="arrival" label={i18n("Arrival")} />
+        <Datepicker name="departure" label={i18n("Departure")} />
         <Input
           className="flex w-1/2 mt-2"
           name="currency"
-          label="Currency"
-          helper="Currency setting is required"
+          label={i18n("Currency")}
+          helper={i18n("Currency setting is required")}
         />
         <LanguageChoice />
         <Button
@@ -59,8 +59,6 @@ function SettingsFormik({ errors, touched, isSubmitting, values, setFieldValue }
           Save settings
         </Button>
       </Form>
-
-      <Debug subject={{ errors, touched, isSubmitting, values }} />
     </SettingContext.Provider>
   )
 }

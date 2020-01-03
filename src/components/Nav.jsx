@@ -155,8 +155,8 @@ export default function Nav(props) {
 
       <Divider />
       <List onClick={closeDrawer}>
-        <ListItemLink primary={"My settings"} to="/settings" />
-        <ListItemLink primary={"My account"} to="/account" />
+        <ListItemLink primary={i18n("My settings")} to="/settings" />
+        <ListItemLink primary={i18n("My account")} to="/account" />
       </List>
 
       <Divider />

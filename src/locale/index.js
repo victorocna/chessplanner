@@ -1,5 +1,4 @@
 import ro from "./languages/ro.json"
-import en from "./languages/en.json"
 import { language } from "../defaults"
 
 const getLocale = () => {
@@ -8,17 +7,18 @@ const getLocale = () => {
     case "ro":
       return { ...ro }
     default:
-      return { ...en }
+      return {}
   }
 }
 
-const i18n = (key) => {
+const i18n = (stringToTranslate) => {
   const locale = getLocale()
-  if (Object.prototype.hasOwnProperty.call(locale, "key")) {
-    return locale[key]
+  // eslint-disable-next-line
+  if (locale.hasOwnProperty(stringToTranslate)) {
+    return locale[stringToTranslate]
   }
 
-  return key
+  return stringToTranslate
 }
 
 export { i18n }

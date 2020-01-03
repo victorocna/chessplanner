@@ -1,6 +1,7 @@
 import React from "react"
-import { i18n } from "../../locale"
+import { format } from "date-fns"
 import get from "lodash.get"
+import { i18n } from "../../locale"
 
 const minWidth = { minWidth: "300px" }
 const exactMatch = (term, rowData, field) => {
@@ -11,21 +12,6 @@ const exactMatch = (term, rowData, field) => {
 
   // eslint-disable-next-line
   return term == get(rowData, field)
-}
-
-/**
- * Shows date from given timestamp as "YY/mm/dd"
- * @param {number} timestamp
- */
-const showDate = (timestamp) => {
-  if (typeof timestamp !== "number") {
-    return false
-  }
-  return new Date(timestamp)
-    .toISOString()
-    .replace(/T.*/, "")
-    .split("-")
-    .join("/")
 }
 
 const getLeftToPay = (rowData) => {
@@ -113,13 +99,13 @@ const columns = [
     title: i18n("Arrival"),
     field: "hotel.arrival",
     hidden: true,
-    render: (rowData) => showDate(rowData.hotel.arrival),
+    render: (rowData) => format(rowData.hotel.arrival, "yyyy/MM/dd"),
   },
   {
     title: i18n("Departure"),
     field: "hotel.departure",
     hidden: true,
-    render: (rowData) => showDate(rowData.hotel.departure),
+    render: (rowData) => format(rowData.hotel.departure, "yyyy/MM/dd"),
   },
   {
     title: i18n("Total nights"),

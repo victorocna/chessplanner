@@ -17,7 +17,7 @@ function Datepicker({ name, label }) {
         render={({ field, form }) => (
           <DatePicker
             {...field} // "name", "value", "onChange", "onBlur"
-            format="dd/MM/yyyy"
+            format="yyyy/MM/dd"
             className="flex w-1/2 mt-2"
             label={label}
             error={hasError(form, field.name)}

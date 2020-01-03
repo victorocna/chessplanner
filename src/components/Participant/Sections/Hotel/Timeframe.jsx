@@ -8,7 +8,7 @@ import enGBLocale from "date-fns/locale/en-GB"
 import { i18n } from "../../../../locale"
 import { hasError } from "../../../../utils/validation"
 import ParticipantContext from "../../../../context/participant-context"
-import { hasAccommodation } from '../../../../functions'
+import { hasAccommodation } from "../../../../functions"
 
 function Timeframe({ hidden }) {
   const { values, setFieldValue } = React.useContext(ParticipantContext)
@@ -67,7 +67,7 @@ function Timeframe({ hidden }) {
           render={({ field, form }) => (
             <DatePicker
               {...field} // "name", "value", "onChange", "onBlur"
-              format="dd/MM/yyyy"
+              format="yyyy/MM/dd"
               className="flex w-1/2 mt-2"
               label={i18n("Arrival")}
               error={hasError(form, "hotel.arrival")}
@@ -84,7 +84,7 @@ function Timeframe({ hidden }) {
           render={({ field, form }) => (
             <DatePicker
               {...field} // "name", "value", "onChange", "onBlur"
-              format="dd/MM/yyyy"
+              format="yyyy/MM/dd"
               className="flex w-1/2 mt-2"
               label={i18n("Departure")}
               error={hasError(form, "hotel.departure")}

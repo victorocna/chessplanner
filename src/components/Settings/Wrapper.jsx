@@ -6,6 +6,7 @@ import SettingsFormik from "./Formik"
 import { settingSchema } from "../../schema/"
 import { settingValues } from "../../data/initial-values"
 import api from "../../api"
+import { i18n } from "../../locale"
 import fromStore from "../../utils/fromStore"
 
 const SettingsWrapper = () => {
@@ -56,9 +57,11 @@ const SettingsWrapper = () => {
 
   return (
     <Box m={2}>
-      <Typography variant="h6">Settings</Typography>
+      <Typography variant="h6">
+        {i18n("Settings")}
+      </Typography>
       <Typography variant="body2" className="mb-1">
-        Default settings for your tournament
+        {i18n("Default settings for your account")}
       </Typography>
 
       <Formik
