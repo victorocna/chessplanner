@@ -3,6 +3,7 @@ import PropTypes from "prop-types"
 import { TextField, MenuItem } from "@material-ui/core"
 import { Field } from "formik"
 import { hasError } from "../../../../utils/validation"
+import { i18n } from "../../../../locale"
 
 function Contribution({ hidden }) {
   if (hidden) {
@@ -17,11 +18,11 @@ function Contribution({ hidden }) {
           {...field} // "name", "value", "onChange", "onBlur"
           select
           className="flex w-1/2 mt-2"
-          label="Contribution"
+          label={i18n("Room share")}
           error={hasError(form, field.name)}
-          helperText="How much does the participant pay"
+          helperText={i18n("How much does the participant pay")}
         >
-          <MenuItem value="default">Bed in room</MenuItem>
+          <MenuItem value="default">{i18n("Bed in room")}</MenuItem>
           <MenuItem value="full">100%</MenuItem>
           <MenuItem value="empty">0%</MenuItem>
         </TextField>

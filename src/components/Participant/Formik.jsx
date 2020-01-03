@@ -8,6 +8,7 @@ import { Name, Type, Gender, Notes } from "./Form"
 import { i18n } from "../../locale"
 import { HotelSection, PaymentSection, TournamentSection } from "./Sections"
 import shouldShow from "../../utils/shouldShow"
+import fromStore from "../../utils/fromStore"
 
 function ParticipantFormik(props) {
   const { errors, touched, isSubmitting, isValid, values, setFieldValue } = props
@@ -31,6 +32,15 @@ function ParticipantFormik(props) {
       ISO3 Format
     </a>
   )
+
+  const [taxes, setTaxes] = React.useState([])
+  React.useEffect(() => {
+    async function fetchData() {
+      const all_taxes = await fromStore("taxes")
+      setTaxes(all_taxes)
+    }
+    fetchData()
+  }, [])
 
   return (
     <ParticipantContext.Provider value={{ errors, touched, isSubmitting, values, setFieldValue }}>
@@ -100,12 +110,20 @@ function ParticipantFormik(props) {
             color="secondary"
             type="button"
             className="mt-2"
+            disabled={taxes.length === 0}
             onClick={() => {
               setStep("confirm")
             }}
           >
             {i18n("Continue to taxes")}
           </Button>
+
+          {taxes.length === 0 && (
+            <Typography variant="body2" className="mt-4">
+              <span>No taxes found. </span>
+              <a href="/#/new-tax">Did you forget to add a tax?</a>
+            </Typography>
+          )}
         </Form>
       )}
 

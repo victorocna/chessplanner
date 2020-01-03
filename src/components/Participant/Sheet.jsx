@@ -6,6 +6,7 @@ import DangerZone from "../DangerZone"
 import { Box, Button, Typography } from "@material-ui/core"
 import ToPrint from "./ToPrint"
 import printStyles from "./print-styles"
+import { i18n } from "../../locale"
 
 const ParticipantSheet = (props) => {
   const [subject, setSubject] = React.useState({})
@@ -42,13 +43,15 @@ const ParticipantSheet = (props) => {
 
   return (
     <Box m={2}>
-      <Typography variant="h6">Participant Sheet</Typography>
+      <Typography variant="h6">
+        {i18n("Participant Sheet")}
+      </Typography>
 
       <Button variant="contained" color="secondary" className="mr-1 mt-1" onClick={print}>
-        Print
+        {i18n("Print")}
       </Button>
       <Button variant="outlined" color="primary" className="mr-1 mt-1" onClick={edit}>
-        Update participant
+        {i18n("Update participant")}
       </Button>
 
       <DangerZone instance="participants" id={props.match.params.id} />

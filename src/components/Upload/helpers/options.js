@@ -5,6 +5,7 @@ export default [
   { key: "type", datatype: "string", text: i18n("Type"), required: true },
   { key: "club", datatype: "string", text: i18n("Club") },
   { key: "group", datatype: "string", text: i18n("Group") },
+  { key: "title", datatype: "string", text: i18n("Title") },
   { key: "federation", datatype: "string", text: i18n("Federation") },
   { key: "yob", datatype: "string", text: i18n("Year of birth") },
   { key: "gender", datatype: "string", text: i18n("Gender") },

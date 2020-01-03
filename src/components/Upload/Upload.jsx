@@ -30,25 +30,26 @@ function Upload() {
     let j = 0
     handleClose()
     showLoading()
-    await Promise.all(
-      payload
-        .filter((item) => typeof item === "object")
-        .map(async (item) => {
-          const itemToUpload = deepObject(item)
-          const participant = merge(uploadKeys, itemToUpload)
 
-          await validateYupSchema(participant, participantSchema)
-            .then(async () => {
-              await api.create("participants", participant).then(() => {
-                j++
-              })
-            })
-            .catch((err) => {
-              // eslint-disable-next-line
-              console.log(err)
-            })
+    const filteredPayload = payload.filter((item) => typeof item === "object")
+    for (let i = 0; i < filteredPayload.length; i++) {
+      const item = filteredPayload[i]
+
+      const itemToUpload = deepObject(item)
+      const participant = merge(uploadKeys, itemToUpload)
+
+      await validateYupSchema(participant, participantSchema)
+        .then(async () => {
+          await api.create("participants", participant).then(() => {
+            j++
+          })
         })
-    )
+        .catch((err) => {
+          // eslint-disable-next-line
+          console.log(err)
+        })
+    }
+
     hideLoading()
     j > 0
       ? notify.success(i18n("Success! Participants imported: ") + j)

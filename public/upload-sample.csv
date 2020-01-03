@@ -1,2 +1,4 @@
-Name,Type,Birth year,Club,Title,Hotel,Room,Tournaments,Notes,Arrival date,Departure date
-Ocnarescu Victor,player,1989,Clubul Central de Sah Bucuresti,,Hotel Arad,,Arad Open;Arad U1900,Informatii de test,9/24/2019,9/25/2019
+Name,Type,Title,Federation,Birth year,Hotel,Room type,Main tournament,Arrival date,Departure date
+Georgescu Tiberiu-Marian,player,GM,ROU,1991,,,Chess Coders Cup,9/24/2020,9/25/2020
+Ocnarescu Victor,player,,ROU,1989,,,Chess Coders Cup,9/24/2020,9/25/2020
+Posedaru Bogdan,player,FM,ROU,1990,,,Chess Coders Cup,9/25/2020,9/26/2020
