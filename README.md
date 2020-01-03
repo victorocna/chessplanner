@@ -1,4 +1,4 @@
-# Masterplanner
+# Masterplanner [![Netlify Status](https://api.netlify.com/api/v1/badges/07d2cba9-2dc7-4278-9324-be5d635d7efa/deploy-status)](https://app.netlify.com/sites/masterplanner/deploys)
 
 Modern software for event organizers
 
