@@ -4,13 +4,13 @@ import { Button, FormControlLabel, Switch } from "@material-ui/core"
 import { Form, FieldArray } from "formik"
 import { SettingContext } from "../../context"
 import Input from "../Formik/Input"
-import { Datepicker, LanguageChoice } from "../Settings"
+import { Datepicker, InitialSetup, LanguageChoice } from "../Settings"
 import { i18n } from "../../locale"
 import columns from "./possible-columns"
 
-function SettingsFormik({ errors, touched, isSubmitting, values, setFieldValue }) {
+function SettingsFormik({ isSubmitting, values }) {
   return (
-    <SettingContext.Provider value={{ errors, touched, isSubmitting, values, setFieldValue }}>
+    <SettingContext.Provider value={{ isSubmitting, values }}>
       <Form autoComplete="off">
         <FieldArray
           name="columns"
@@ -49,6 +49,7 @@ function SettingsFormik({ errors, touched, isSubmitting, values, setFieldValue }
           helper={i18n("Currency setting is required")}
         />
         <LanguageChoice />
+        <InitialSetup />
         <Button
           variant="contained"
           color="secondary"

@@ -9,4 +9,7 @@ export default {
   ],
   currency: "EUR",
   language: "en",
+  hide: {
+    initialsetup: false,
+  },
 }

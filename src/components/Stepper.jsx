@@ -1,6 +1,7 @@
 import React from "react"
 import { Stepper, Step, StepLabel } from "@material-ui/core"
 import { Link, Typography } from "@material-ui/core"
+import { AppContext } from "../context/"
 
 function getSteps() {
   return [
@@ -43,6 +44,13 @@ const StepperWrapper = () => {
     }
   }, [count])
 
+  const { settings } = React.useContext(AppContext)
+  if (settings && settings.hide && settings.hide.initialsetup) {
+    if (Object.keys(completed).length === steps.length) {
+      return null
+    }
+  }
+
   return (
     <div className="mb-4">
       <Typography variant="h6" className="mb-1">
@@ -55,7 +63,9 @@ const StepperWrapper = () => {
       {Object.keys(completed).length === steps.length && (
         <Typography variant="body2" className="mb-1">
           Success! You have finished the initial setup.
-          <Link href="/#/settings" className="ml-2">Hide initial setup</Link>
+          <Link href="/#/settings" className="ml-2">
+            Hide initial setup
+          </Link>
         </Typography>
       )}
 
