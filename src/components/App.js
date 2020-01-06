@@ -7,9 +7,6 @@ import Main from "./Main"
 
 const drawerWidth = 240
 const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-  },
   drawer: {
     [theme.breakpoints.up("sm")]: {
       width: drawerWidth,
@@ -32,9 +29,6 @@ const useStyles = makeStyles((theme) => ({
   drawerPaper: {
     width: drawerWidth,
   },
-  content: {
-    flexGrow: 1,
-  },
 }))
 
 export default function App() {
@@ -43,9 +37,9 @@ export default function App() {
   return (
     <div>
       <HashRouter>
-        <div className={classes.root}>
+        <div className="flex">
           <Nav />
-          <main className={classes.content}>
+          <main className="flex-grow">
             <div className={classes.toolbar} />
             <Main />
           </main>
