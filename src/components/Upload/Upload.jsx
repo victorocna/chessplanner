@@ -89,7 +89,7 @@ function Upload() {
         control={showSkipFirst()}
       />
       <DndWrapper chips={chips} renderChip={renderChip} />
-      <input className="hidden" id="hidden" type="file" onChange={handleUpload} />
+      <input className="hidden" id="hidden" type="file" value="" onChange={handleUpload} />
       <label htmlFor="hidden">
         <Button variant="contained" color="secondary" component="span" className="mt-4">
           {i18n("Upload file")}
