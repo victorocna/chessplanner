@@ -23,6 +23,21 @@ function Upload() {
     open: false,
     message: "",
   })
+
+  const saveParticipant = async (item, schema) => {
+    return await validateYupSchema(item, schema)
+      .then(async () => {
+        return await api.create("participants", item).then(() => {
+          return true
+        })
+      })
+      .catch((err) => {
+        // eslint-disable-next-line
+        console.log(err)
+        return false
+      })
+  }
+
   const handleClose = () => {
     setDialog({ open: false, message: "" })
   }
@@ -38,23 +53,12 @@ function Upload() {
       const itemToUpload = deepObject(item)
       const participant = merge(uploadKeys, itemToUpload)
 
-      const wasUploaded = await validateYupSchema(participant, participantSchema)
-        .then(async () => {
-          await api.create("participants", participant).then(() => {
-            return true
-          })
-        })
-        .catch((err) => {
-          // eslint-disable-next-line
-          console.log(err)
-          return false
-        })
-
-        uploaded.push(wasUploaded)
+      const wasUploaded = await saveParticipant(participant, participantSchema)
+      uploaded.push(wasUploaded)
     }
 
     hideLoading()
-    const successful = uploaded.filter(item => item).length
+    const successful = uploaded.filter((item) => item).length
     successful > 0
       ? notify.success(i18n("Success! Participants imported: ") + successful)
       : notify.warn(i18n("Error! No participants uploaded"))
