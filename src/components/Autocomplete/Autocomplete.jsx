@@ -29,6 +29,11 @@ class Autocomplete extends Component {
       bottomMessage: i18n("Please type 3 letters to view suggestions"),
     }
   }
+  componentDidMount() {
+    if (this.props.value) {
+      this.hideBottomMessage()
+    }
+  }
   componentDidUpdate(previousProps) {
     if (previousProps.value !== this.props.value) {
       this.setState({ ...this.state, userInput: this.props.value })
