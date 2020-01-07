@@ -12,7 +12,6 @@ import fromStore from "../../utils/fromStore"
 
 function ParticipantFormik(props) {
   const { errors, touched, isSubmitting, isValid, values, setFieldValue } = props
-  console.log('isValid', isValid)
 
   const { settings } = React.useContext(AppContext)
   const [step, setStep] = React.useState("initial")
