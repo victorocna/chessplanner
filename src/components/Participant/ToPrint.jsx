@@ -117,11 +117,11 @@ function ToPrint({ subject }) {
         )}
         <tr className="section">
           <td>{i18n("Arrival")}</td>
-          <td>{format(subject.hotel.arrival, "yyyy/MM/dd") || "N/A"}</td>
+          <td>{(subject.hotel.arrival && format(subject.hotel.arrival, "yyyy/MM/dd")) || "N/A"}</td>
         </tr>
         <tr>
           <td>{i18n("Departure")}</td>
-          <td>{format(subject.hotel.departure, "yyyy/MM/dd") || "N/A"}</td>
+          <td>{(subject.hotel.departure && format(subject.hotel.departure, "yyyy/MM/dd")) || "N/A"}</td>
         </tr>
         <tr>
           <td>{i18n("Total nights")}</td>
@@ -164,7 +164,7 @@ function ToPrint({ subject }) {
         </tr>
         <tr>
           <td>{i18n("TOTAL payed")}</td>
-          <td>{subject.payment.toPay || "N/A"}</td>
+          <td>{subject.payment.payed || "N/A"}</td>
         </tr>
         {shouldShow("payment.method").basedOn(settings) && (
           <tr>

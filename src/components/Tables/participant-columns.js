@@ -99,13 +99,23 @@ const columns = [
     title: i18n("Arrival"),
     field: "hotel.arrival",
     hidden: true,
-    render: (rowData) => format(rowData.hotel.arrival, "yyyy/MM/dd"),
+    render: (rowData) => {
+      if (rowData.hotel.arrival) {
+        return format(rowData.hotel.arrival, "yyyy/MM/dd")
+      }
+      return "N/A"
+    },
   },
   {
     title: i18n("Departure"),
     field: "hotel.departure",
     hidden: true,
-    render: (rowData) => format(rowData.hotel.departure, "yyyy/MM/dd"),
+    render: (rowData) => {
+      if (rowData.hotel.departure) {
+        return format(rowData.hotel.departure, "yyyy/MM/dd")
+      }
+      return "N/A"
+    },
   },
   {
     title: i18n("Total nights"),
