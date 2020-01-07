@@ -7,7 +7,7 @@ module.exports = (req, res, next) => {
     .query(q.Count(q.Match(q.Index("all_users_by_username"), username)))
     .then((count) => {
       if (count > 0) {
-        return res.status(200).send("User already exists")
+        return res.status(403).send("User already exists")
       }
       next()
     })
