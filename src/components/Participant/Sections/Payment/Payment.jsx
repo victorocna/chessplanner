@@ -1,14 +1,16 @@
 import React from "react"
 import { Table, TableBody, TableCell, TableHead, TableRow } from "@material-ui/core/"
 import { Prepay, Payed, Discount, ToPay, Computed, TaxRow } from "../Payment"
-import { ParticipantContext } from "../../../../context"
+import { AppContext, ParticipantContext } from "../../../../context"
 import { i18n } from "../../../../locale"
 import fromStore from "../../../../utils/fromStore"
 import howMuch from "../../../../utils/howMuch"
 import { roomName, roomPrice } from "../../../../utils/room"
+import shouldShow from "../../../../utils/shouldShow"
 
 function Payment() {
   const { values, setFieldValue } = React.useContext(ParticipantContext)
+  const { settings } = React.useContext(AppContext)
 
   const [taxes, setTaxes] = React.useState([])
   React.useEffect(() => {
@@ -85,8 +87,8 @@ function Payment() {
           ))}
 
         <Computed value={values.payment.computed} />
-        <Discount />
-        <Prepay />
+        {shouldShow("payment.discount").basedOn(settings) && <Discount />}
+        {shouldShow("payment.prepayment").basedOn(settings) && <Prepay />}
         <ToPay value={values.payment.toPay} />
         <Payed />
       </TableBody>
