@@ -71,7 +71,7 @@ const ParticipantWrapper = (props) => {
       />
       <DangerZone instance="participants" id={props.match.params.id} />
 
-      {state.showNext && <WhatsNext path="/#/" />}
+      {state.showNext && <WhatsNext path="/#/participants" />}
     </Box>
   )
 }

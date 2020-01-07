@@ -36,17 +36,19 @@ const participantSchema = Yup.object().shape({
       .transform((value, original) => transform(value, original)),
     toPay: Yup.number()
       .typeError("Must be a number")
-      .positive("Must be positive")
+      .min(0, "Must not be negative")
       .nullable()
       .transform((value, original) => transform(value, original)),
     discount: Yup.number()
-      .required(),
-      // .nullable()
-      // .transform((value, original) => transform(value, original)),
+      .typeError("Must be a number")
+      .nullable()
+      .transform((value, original) => transform(value, original)),
     prepayment: Yup.number()
+      .typeError("Must be a number")
       .nullable()
       .transform((value, original) => transform(value, original)),
     payed: Yup.number()
+      .typeError("Must be a number")
       .nullable()
       .transform((value, original) => transform(value, original)),
   }),

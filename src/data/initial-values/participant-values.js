@@ -29,11 +29,11 @@ export default {
     nights: "",
   },
   payment: {
-    computed: "",
-    discount: "",
-    prepayment: "",
-    payed: "",
-    toPay: "",
+    computed: 0,
+    discount: 0,
+    prepayment: 0,
+    payed: 0,
+    toPay: 0,
     method: "cash",
   },
 }

@@ -15,7 +15,7 @@ function Computed({ value }) {
           disabled
           value={value}
           align="right"
-          error={!(value && +value > 0)}
+          error={!(+value > 0)}
           endAdornment={<InputCurrency />}
         />
       </TableCell>
@@ -24,11 +24,11 @@ function Computed({ value }) {
 }
 
 Computed.propTypes = {
-  value: PropTypes.any,
+  value: PropTypes.number,
 }
 
 Computed.defaultProps = {
-  value: "",
+  value: 0,
 }
 
 export default Computed
