@@ -39,9 +39,9 @@ const StepperWrapper = () => {
       setCompleted((completed) => ({ ...completed, 1: true }))
       handleNext()
     }
-    if (count.hotels) {
-      setCompleted((completed) => ({ ...completed, 2: true }))
-    }
+
+    // mark as completed the optional rule
+    setCompleted((completed) => ({ ...completed, 2: true }))
   }, [count])
 
   const { settings } = React.useContext(AppContext)
