@@ -1,7 +1,7 @@
 const { q, client } = require("../connect")
 
 module.exports = (req, res, next) => {
-  const { hash } = req.params
+  const { hash } = req.body
   if (!hash) {
     return res.status(400).send("Hash does not exist")
   }

@@ -7,16 +7,16 @@ module.exports = function(app) {
   /**
    * Identity routes
    */
-  app.post("/confirm/:hash", (req, res) => {
+  app.post("/confirm", (req, res) => {
     return confirm(req, res)
   })
-  app.post("/forgot/", (req, res) => {
+  app.post("/forgot", (req, res) => {
     return forgot(req, res)
   })
   app.post("/login", (req, res) => {
     return login(req, res)
   })
-  app.post("/reset/:hash", isHashValid, (req, res) => {
+  app.post("/reset", isHashValid, (req, res) => {
     return reset(req, res)
   })
   app.post("/signup", userExists, (req, res) => {

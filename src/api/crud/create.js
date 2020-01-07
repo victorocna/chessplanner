@@ -1,10 +1,9 @@
 import checkStatus from "../check-status"
 import dispatch from "../dispatch"
 import config from "../config"
+import baseUrl from "../base-url"
 
 export default async (instance, data) => {
-  const baseUrl = process.env.NODE_ENV === "production" ? "" : "http://localhost:9000"
-
   return await fetch(`${baseUrl}/.netlify/functions/app/create/${instance}`, {
     headers: {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
