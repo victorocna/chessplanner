@@ -6,6 +6,7 @@ import { AppContext } from "../context/"
 
 function getSteps() {
   return [
+    "Review and save your settings",
     "Create your first tournament",
     "Create your first tax rule",
     "Optionally, create accommodation rules",
@@ -32,17 +33,21 @@ const StepperWrapper = () => {
   }
 
   React.useEffect(() => {
-    if (count.tournaments) {
+    if (count.settings) {
       setCompleted((completed) => ({ ...completed, 0: true }))
       handleNext()
     }
-    if (count.taxes) {
+    if (count.tournaments) {
       setCompleted((completed) => ({ ...completed, 1: true }))
+      handleNext()
+    }
+    if (count.taxes) {
+      setCompleted((completed) => ({ ...completed, 2: true }))
       handleNext()
     }
 
     // mark as completed the optional rule
-    setCompleted((completed) => ({ ...completed, 2: true }))
+    setCompleted((completed) => ({ ...completed, 3: true }))
   }, [count])
 
   const { settings } = React.useContext(AppContext)
@@ -76,7 +81,7 @@ const StepperWrapper = () => {
       <Stepper className="stepper" activeStep={activeStep} nonLinear orientation="vertical">
         {steps.map((label, index) => (
           <Step key={label}>
-            <StepLabel completed={completed[index]}>{label}</StepLabel>
+            <StepLabel completed={!!completed[index]}>{label}</StepLabel>
           </Step>
         ))}
       </Stepper>

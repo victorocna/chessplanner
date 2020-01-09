@@ -4,7 +4,8 @@ module.exports = (column) => {
       if (settings && settings.columns) {
         return settings.columns.includes(column)
       }
-      return true
+      // do not show anything optional if settings are undefined
+      return false
     }
   })()
 }
