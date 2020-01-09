@@ -22,6 +22,7 @@ import { makeStyles, useTheme } from "@material-ui/core/styles"
 import { Link as RouterLink } from "react-router-dom"
 import "typeface-noto-sans"
 import { i18n } from "../locale"
+import { identity } from "../identity"
 
 const drawerWidth = 240
 const useStyles = makeStyles((theme) => ({
@@ -192,7 +193,8 @@ export default function Nav(props) {
             className={classes.header}
           >
             <AllInclusive />
-            masterplanner
+            <span>masterplanner</span>
+            {identity.demo && <span> | demo</span>}
           </Typography>
         </Toolbar>
       </AppBar>
