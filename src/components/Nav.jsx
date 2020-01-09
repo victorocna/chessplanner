@@ -194,7 +194,6 @@ export default function Nav(props) {
           >
             <AllInclusive />
             <span>masterplanner</span>
-            {identity.demo && <span> | demo</span>}
           </Typography>
         </Toolbar>
       </AppBar>

@@ -6,8 +6,11 @@ const identity = {
   },
   get demo() {
     const token = localStorage.getItem("token")
-    const { demo } = jwt.decode(token)
-    return demo
+    if (token) {
+      const { demo } = jwt.decode(token)
+      return demo
+    }
+    return false
   },
 }
 
