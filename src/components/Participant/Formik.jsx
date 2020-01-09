@@ -165,7 +165,7 @@ function ParticipantFormik(props) {
             {i18n("Save")}
           </Button>
           {!isValid && (
-            <div className="flex items-center text-red mt-1">
+            <div className="flex items-center text-red-600 mt-1">
               <Warning fontSize="medium" />
               <div className="ml-1">
                 <div>Validation error! Review the fields marked with the color red.</div>

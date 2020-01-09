@@ -1,6 +1,7 @@
 import React from "react"
 import { Stepper, Step, StepLabel } from "@material-ui/core"
 import { Link, Typography } from "@material-ui/core"
+import { ThumbUp } from '@material-ui/icons';
 import { AppContext } from "../context/"
 
 function getSteps() {
@@ -61,12 +62,15 @@ const StepperWrapper = () => {
       </Typography>
 
       {Object.keys(completed).length === steps.length && (
-        <Typography variant="body2" className="mb-1">
-          Success! You have finished the initial setup.
-          <Link href="/#/settings" className="ml-2">
-            Hide initial setup
-          </Link>
-        </Typography>
+        <div className="flex items-center text-green-600 mb-1">
+          <ThumbUp />
+          <div className="ml-1">
+            Success! You have finished the initial setup.
+            <Link href="/#/settings" className="ml-1">
+              Hide initial setup
+            </Link>
+          </div>
+        </div>
       )}
 
       <Stepper className="stepper" activeStep={activeStep} nonLinear orientation="vertical">

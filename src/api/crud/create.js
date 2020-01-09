@@ -20,8 +20,11 @@ export default async (instance, data) => {
       return json
     })
     .catch((err) => {
+      // remove token if http status 401
       if (err.status === 401) {
         localStorage.removeItem("token")
       }
+      // rethrow the error so that it can be catched later
+      throw err
     })
 }

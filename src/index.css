@@ -103,9 +103,13 @@ tfoot {
   color: #f50057 !important;
   transform: scale(1.2);
 }
-.text-red {
-  color: #f50057;
+.text-red-600 {
+  color: #e53e3e;
 }
+.text-green-600 {
+  color: #38a169;
+}
+
 .items-center.items-center {
   align-items: center;
 }
