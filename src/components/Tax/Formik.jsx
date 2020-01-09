@@ -9,7 +9,7 @@ function TaxFormik({ errors, touched, isSubmitting, values }) {
   return (
     <TaxContext.Provider value={{ errors, touched, isSubmitting, values }}>
       <Form autoComplete="off">
-        <FormikInput name="name" label="Tax name" helper="Required" />
+        <FormikInput name="name" label="Tax name" helper="Required" autoFocus />
         <div className="splitInput">
           <FormikInput name="value" label="Tax value" helper="Required" />
           <FormikInput name="currency" label="Currency" helper="Recommended" />

@@ -1,6 +1,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { Button, Typography } from "@material-ui/core"
+import { Warning } from "@material-ui/icons"
 import { Form } from "formik"
 import Input from "../Formik/Input"
 import { AppContext, ParticipantContext } from "../../context/"
@@ -74,6 +75,7 @@ function ParticipantFormik(props) {
               className="flex w-1/2 mb-1"
               name="title"
               label={i18n("Title")}
+              helper={i18n("Optional")}
             />
           )}
 
@@ -158,10 +160,19 @@ function ParticipantFormik(props) {
             color="secondary"
             className="mr-1 mt-1"
             type="submit"
-            disabled={!isValid && isSubmitting}
+            disabled={!isValid || isSubmitting}
           >
             {i18n("Save")}
           </Button>
+          {!isValid && (
+            <div className="flex items-center text-red mt-1">
+              <Warning fontSize="medium" />
+              <div className="ml-1">
+                <div>Validation error! Review the fields marked with the color red.</div>
+                <div>These errors can also be found in the previous section.</div>
+              </div>
+            </div>
+          )}
         </Form>
       )}
     </ParticipantContext.Provider>

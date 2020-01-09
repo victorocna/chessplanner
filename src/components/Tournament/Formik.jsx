@@ -10,7 +10,7 @@ function TournamentFormik({ errors, touched, isSubmitting, values }) {
   return (
     <TournamentContext.Provider value={{ errors, touched, isSubmitting, values }}>
       <Form autoComplete="off">
-        <FormikInput name="name" label="Tournament name" helper="Required" />
+        <FormikInput name="name" label="Tournament name" helper="Required" autoFocus />
         <FormikInput name="description" label="Description" helper="Optional" />
         <TournamentType />
 
