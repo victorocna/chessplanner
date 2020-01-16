@@ -13,15 +13,19 @@ function getSteps() {
   ]
 }
 
-const getItem = (item) => {
-  return JSON.parse(localStorage.getItem(item) || []).length
+const countOf = (item) => {
+  try {
+    return JSON.parse(localStorage.getItem(item)).length
+  } catch (err) {
+    return 0
+  }
 }
 
 const StepperWrapper = () => {
   const [count] = React.useState({
-    hotels: getItem("hotels"),
-    taxes: getItem("taxes"),
-    tournaments: getItem("tournaments"),
+    hotels: countOf("hotels"),
+    taxes: countOf("taxes"),
+    tournaments: countOf("tournaments"),
   })
 
   const [completed, setCompleted] = React.useState({})
