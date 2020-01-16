@@ -40,7 +40,7 @@ const Confirm = (props) => {
           <Typography variant="h6">Error!</Typography>
           <Typography variant="body2">
             We are unable to verify your account. Please try again later or sign up again for a
-            Masterplanner account.
+            Chessplanner account.
           </Typography>
           <Button variant="contained" color="primary" href="/#/signup" className="mt-1">
             Sign up

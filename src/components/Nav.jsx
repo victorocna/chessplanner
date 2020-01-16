@@ -192,7 +192,7 @@ export default function Nav(props) {
             className={classes.header}
           >
             <AllInclusive />
-            <span>masterplanner</span>
+            <span>chessplanner</span>
           </Typography>
         </Toolbar>
       </AppBar>

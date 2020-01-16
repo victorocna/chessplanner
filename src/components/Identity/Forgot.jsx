@@ -31,7 +31,7 @@ const Forgot = () => {
   return (
     <form onSubmit={handleSubmit} className="m-4">
       <Typography variant="h6" className="mb-1">
-        Forgot your Masterplanner password? Recover it below
+        Forgot your Chessplanner password? Recover it below
       </Typography>
       <TextField
         variant="outlined"

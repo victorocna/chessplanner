@@ -1,5 +1,5 @@
 {
-  "name": "masterplanner",
+  "name": "chessplanner",
   "version": "1.0.0",
   "description": "Modern software for event organizers",
   "private": true,
@@ -14,7 +14,7 @@
     "test": "react-scripts test --env=jsdom"
   },
   "keywords": [
-    "masterplanner",
+    "chessplanner",
     "plan",
     "events",
     "chesscoders"

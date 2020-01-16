@@ -1,7 +1,7 @@
 import React from "react"
 import { Stepper, Step, StepLabel } from "@material-ui/core"
 import { Link, Typography } from "@material-ui/core"
-import { ThumbUp } from '@material-ui/icons';
+import { ThumbUp } from "@material-ui/icons"
 import { AppContext } from "../context/"
 
 function getSteps() {
@@ -60,7 +60,7 @@ const StepperWrapper = () => {
   return (
     <div className="mb-4">
       <Typography variant="h6" className="mb-1">
-        Masterplanner initial setup
+        Chessplanner initial setup
       </Typography>
       <Typography variant="body2" className="mb-1">
         Complete the following steps to be able to manage participants.

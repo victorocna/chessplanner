@@ -43,7 +43,7 @@ function Signup(props) {
   return (
     <form onSubmit={handleSubmit} className="m-4">
       <Typography variant="h6" className="mb-1">
-        Sign up for a Masterplanner account
+        Sign up for a Chessplanner account
       </Typography>
       <TextField
         variant="outlined"

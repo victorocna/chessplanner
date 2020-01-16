@@ -65,10 +65,10 @@ function Login() {
       <Paper className="mt-2 p-4 paper-signup">
         <Typography variant="h6">Don&apos;t have an account yet?</Typography>
         <Typography variant="body2">
-          Create a demo account to try out Masterplanner today.
+          Create a demo account to try out Chessplanner today.
         </Typography>
         <Button variant="contained" color="primary" href="/#/signup" className="mt-1">
-          Sign up for Masterplanner
+          Sign up for Chessplanner
         </Button>
       </Paper>
     </form>
