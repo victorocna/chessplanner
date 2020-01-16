@@ -1,4 +1,4 @@
-const { extractJwt, isJson } = require("../utils")
+const { extractJwt } = require("../utils")
 const putLogEvents = require("../aws/putLogEvents")
 
 module.exports = (req, res, next) => {
@@ -7,11 +7,6 @@ module.exports = (req, res, next) => {
   res.send = function(message) {
     if (req.originalUrl.match(/(create|update|delete)/)) {
       const { username, key } = extractJwt(req.headers)
-
-      // base64 encode unparsed JSON string
-      if (isJson(message)) {
-        message = Buffer.from(message).toString("base64")
-      }
 
       // GET /.netlify/functions/app/foo 404 "Not Found" hello@example.com fdss531caz
       putLogEvents(req.method, req.originalUrl, res.statusCode, message, username, key)

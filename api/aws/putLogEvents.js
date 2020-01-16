@@ -1,10 +1,18 @@
 const aws4 = require("aws4")
 const fetch = require("node-fetch").default
 const getSequenceToken = require("./getSequenceToken")
+const { isJson } = require("../utils")
 
 module.exports = async (...messages) => {
   const now = new Date()
   const sequenceToken = await getSequenceToken()
+
+  for (let i = 0; i < messages.length; i++) {
+    // base64 encode unparsed JSON string
+    if (isJson(messages[i])) {
+      messages[i] = Buffer.from(messages[i]).toString("base64")
+    }
+  }
 
   const body = {
     logEvents: [{ message: messages.join(" "), timestamp: +now }],
