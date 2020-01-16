@@ -30,7 +30,7 @@ module.exports = async (...messages) => {
 
   return await fetch("https://logs.us-east-1.amazonaws.com", {
     method: "POST",
-    body: JSON.stringify(body),
+    body: Buffer.from(JSON.stringify(body)).toString("base64"),
     headers: awsSigned.headers,
   })
 }
