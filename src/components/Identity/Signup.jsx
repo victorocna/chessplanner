@@ -55,7 +55,7 @@ function Signup(props) {
         autoComplete="new-password"
         autoFocus
       />
-      <Password />
+      <Password label="Your desired password" />
       <p>You will be creating a demo account.</p>
       <Button variant="contained" color="secondary" type="submit" disabled={isSubmitting}>
         Sign up

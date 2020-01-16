@@ -1,8 +1,11 @@
 import React from "react"
+import PropTypes from "prop-types"
 import { TextField, InputAdornment, IconButton } from "@material-ui/core"
 import { Visibility, VisibilityOff } from "@material-ui/icons"
 
-const Password = () => {
+const Password = (props) => {
+  const { label } = props
+
   const [showPassword, setVisibility] = React.useState(false)
   const togglePassword = () => {
     setVisibility(!showPassword)
@@ -11,7 +14,7 @@ const Password = () => {
   return (
     <TextField
       variant="outlined"
-      label="Your desired password"
+      label={label}
       name="password"
       type={showPassword ? "text" : "password"}
       className="flex mb-1 mr-1"
@@ -28,6 +31,14 @@ const Password = () => {
       }}
     />
   )
+}
+
+Password.propTypes = {
+  label: PropTypes.string,
+}
+
+Password.defaultProps = {
+  label: "Password",
 }
 
 export default Password

@@ -35,7 +35,7 @@ const Reset = (props) => {
       <Typography variant="h6" className="mb-1">
         Type your new password below
       </Typography>
-      <Password />
+      <Password label="Your new password" />
       <Button variant="contained" color="secondary" type="submit" disabled={isSubmitting}>
         Reset password
       </Button>
