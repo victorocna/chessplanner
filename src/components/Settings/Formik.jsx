@@ -8,9 +8,9 @@ import { Datepicker, InitialSetup, LanguageChoice } from "../Settings"
 import { i18n } from "../../locale"
 import columns from "./possible-columns"
 
-function SettingsFormik({ isSubmitting, values }) {
+function SettingsFormik({ isSubmitting, values, setFieldValue }) {
   return (
-    <SettingContext.Provider value={{ isSubmitting, values }}>
+    <SettingContext.Provider value={{ isSubmitting, values, setFieldValue }}>
       <Form autoComplete="off">
         <FieldArray
           name="columns"

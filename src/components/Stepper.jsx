@@ -24,6 +24,7 @@ const countOf = (item) => {
 const StepperWrapper = () => {
   const [count] = React.useState({
     hotels: countOf("hotels"),
+    settings: countOf("settings"),
     taxes: countOf("taxes"),
     tournaments: countOf("tournaments"),
   })
@@ -37,6 +38,7 @@ const StepperWrapper = () => {
   }
 
   React.useEffect(() => {
+    console.log(count)
     if (count.settings) {
       setCompleted((completed) => ({ ...completed, 0: true }))
       handleNext()
