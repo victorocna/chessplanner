@@ -4,5 +4,5 @@ module.exports = (jsonString) => {
   } catch (e) {
     return false
   }
-  return true
+  return typeof jsonString === "string"
 }
