@@ -38,7 +38,6 @@ const StepperWrapper = () => {
   }
 
   React.useEffect(() => {
-    console.log(count)
     if (count.settings) {
       setCompleted((completed) => ({ ...completed, 0: true }))
       handleNext()

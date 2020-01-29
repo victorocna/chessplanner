@@ -1,16 +1,18 @@
 import React from "react"
+import PropTypes from "prop-types"
 import { Button, TextField, Link, Paper, Typography } from "@material-ui/core"
 import cacheData from "./cache-data"
 import api from "../../api"
 import { notify } from "../Toast"
 import Password from "./Password"
 
-function Login() {
+function Login(props) {
+  const { onSuccess } = props
   const [isSubmitting, setSubmitting] = React.useState(false)
 
   const handleLogin = async (event) => {
     if (isSubmitting) {
-      return false; // return early if the first request did not finish
+      return false // return early if the first request did not finish
     }
     event.preventDefault()
     setSubmitting(true)
@@ -28,6 +30,7 @@ function Login() {
       .then(await cacheData)
       .then(() => {
         setTimeout(() => {
+          onSuccess() // re-renders main component with settings
           window.location.href = "/#/"
         }, 2000)
       })
@@ -73,6 +76,14 @@ function Login() {
       </Paper>
     </form>
   )
+}
+
+Login.propTypes = {
+  onSuccess: PropTypes.func,
+}
+
+Login.defaultProps = {
+  onSuccess: () => {},
 }
 
 export default Login

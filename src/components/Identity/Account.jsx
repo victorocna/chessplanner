@@ -20,7 +20,7 @@ function Account(props) {
           ? i18n("Log out using the button below. Your data is safely stored on our servers")
           : i18n("Welcome back! Log in with your credentials to access your tournaments")}
       </Typography>
-      {identity.token ? <Logout /> : <Login />}
+      {identity.token ? <Logout /> : <Login {...props} />}
     </div>
   )
 }

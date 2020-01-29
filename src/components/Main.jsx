@@ -20,15 +20,21 @@ import Dashboard from "./Dashboard"
 
 export default function Main() {
   const [settings, setSettings] = React.useState({})
-  React.useEffect(() => {
-    async function fetchData() {
-      const all_settings = await store.get("settings")
-      if (all_settings && all_settings.length > 0) {
-        setSettings(() => ({ settings: all_settings[0].data }))
-      }
+  async function fetchData() {
+    const all_settings = await store.get("settings")
+    if (all_settings && all_settings.length > 0) {
+      setSettings(() => ({ settings: all_settings[0].data }))
     }
+  }
+  React.useEffect(() => {
     fetchData()
   }, [])
+
+  const AccountPage = (props) => {
+    return (
+      <Account onSuccess={() => fetchData()} {...props} />
+    )
+  }
 
   return (
     <AppContext.Provider value={settings}>
@@ -54,8 +60,8 @@ export default function Main() {
         <PrivateRoute path="/upload-participants" component={LazyUpload} />
         <PrivateRoute path="/settings" component={SettingsWrapper} />
 
-        <Route path="/account/:expired" component={Account} />
-        <Route path="/account" component={Account} />
+        <Route path="/account/:expired" component={AccountPage} />
+        <Route path="/account" component={AccountPage} />
         <Route path="/confirm/:hash" component={Confirm} />
         <Route path="/forgot" component={Forgot} />
         <Route path="/reset/:hash" component={Reset} />
