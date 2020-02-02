@@ -22,11 +22,12 @@ function Signup(props) {
         password,
         origin,
       })
-      .then(() => {
+      .then((hash) => {
         props.history.push({
           pathname: "/thank-you",
           state: {
-            email: username,
+            hash,
+            username,
           },
         })
       })

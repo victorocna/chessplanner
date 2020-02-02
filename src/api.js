@@ -12,6 +12,9 @@ const login = (data) => identity("login", data)
 const reset = (data) => identity("reset", data)
 const signup = (data) => identity("signup", data)
 
+const emailConfirm = (data) => identity("email/confirm", data)
+const emailForgot = (data) => identity("email/forgot", data)
+
 export default {
   create,
   read,
@@ -24,4 +27,6 @@ export default {
   forgot,
   reset,
   search,
+  emailConfirm,
+  emailForgot,
 }

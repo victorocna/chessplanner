@@ -1,6 +1,7 @@
 const { create, update, remove, read, readAll } = require("./crud")
 const { confirm, forgot, login, reset, signup } = require("./identity")
-const { canCreate, isHashValid, isLoggedIn, userExists } = require("./middleware")
+const { emailConfirm, emailForgot } = require("./email")
+const { canCreate, isHashValid, isLoggedIn, userExists, userNotExist } = require("./middleware")
 const { search } = require("./fide")
 
 module.exports = function(app) {
@@ -21,6 +22,16 @@ module.exports = function(app) {
   })
   app.post("/signup", userExists, (req, res) => {
     return signup(req, res)
+  })
+
+  /**
+   * Send email routes to users already registered
+   */
+  app.post("/email/confirm", userNotExist, (req, res) => {
+    return emailConfirm(req, res)
+  })
+  app.post("/email/forgot", userNotExist, (req, res) => {
+    return emailForgot(req, res)
   })
 
   /**

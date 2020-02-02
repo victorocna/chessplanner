@@ -59,7 +59,7 @@ module.exports = async (req, res) => {
       )
     })
     .then(() => {
-      return res.status(200).send("Ok")
+      return res.status(200).send(hash)
     })
     .catch((error) => {
       return res.status(500).send("Error! " + error.name || "")
