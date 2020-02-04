@@ -7,11 +7,13 @@ import DateFnsUtils from "@date-io/date-fns"
 import enGBLocale from "date-fns/locale/en-GB"
 import { i18n } from "../../../../locale"
 import { hasError } from "../../../../utils/validation"
-import ParticipantContext from "../../../../context/participant-context"
+import { ParticipantContext, AppContext } from "../../../../context"
 import { hasAccommodation } from "../../../../functions"
 
 function Timeframe({ hidden }) {
   const { values, setFieldValue } = React.useContext(ParticipantContext)
+  const { settings } = React.useContext(AppContext)
+
   const isValidDate = (d) => {
     return d instanceof Date && !isNaN(d)
   }
@@ -37,10 +39,18 @@ function Timeframe({ hidden }) {
   React.useEffect(() => {
     if (hasAccommodation(values.hotel.name)) {
       if (!values.hotel.arrival) {
-        values.hotel.arrival = +Date.now()
+        if (settings.arrival) {
+          values.hotel.arrival = settings.arrival
+        } else {
+          values.hotel.arrival = +Date.now()
+        }
       }
       if (!values.hotel.departure) {
-        values.hotel.departure = +new Date(new Date().getTime() + 24 * 60 * 60 * 1000)
+        if (settings.departure) {
+          values.hotel.departure = settings.departure
+        } else {
+          values.hotel.departure = +new Date(new Date().getTime() + 24 * 60 * 60 * 1000)
+        }
       }
     } else {
       values.hotel.arrival = ""
@@ -68,7 +78,7 @@ function Timeframe({ hidden }) {
             <DatePicker
               {...field} // "name", "value", "onChange", "onBlur"
               format="yyyy/MM/dd"
-              className="flex w-1/2 mt-2"
+              className="flex w-1/2 mt-8"
               label={i18n("Arrival")}
               error={hasError(form, "hotel.arrival")}
               onChange={(newDate) => {
@@ -85,7 +95,7 @@ function Timeframe({ hidden }) {
             <DatePicker
               {...field} // "name", "value", "onChange", "onBlur"
               format="yyyy/MM/dd"
-              className="flex w-1/2 mt-2"
+              className="flex w-1/2 mt-8"
               label={i18n("Departure")}
               error={hasError(form, "hotel.departure")}
               onChange={(newDate) => {
@@ -103,7 +113,7 @@ function Timeframe({ hidden }) {
           return (
             <TextField
               {...field} // "name", "value", "onChange", "onBlur"
-              className="flex w-1/2 mt-2"
+              className="flex w-1/2 mt-8"
               label={i18n("Total nights")}
               error={hasError(form, "hotel.nights")}
               disabled

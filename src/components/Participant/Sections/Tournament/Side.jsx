@@ -12,7 +12,7 @@ function Side({ tournaments }) {
     <FieldArray
       name={name}
       render={({ push, remove }) => (
-        <FormGroup className="flex mt-1" label="Side tournament">
+        <FormGroup className="flex mt-4" label="Side tournament">
           {tournaments
             .filter((item) => item.type && item.type === "side")
             .map((item, index) => (

@@ -64,15 +64,15 @@ const StepperWrapper = () => {
 
   return (
     <div className="mb-4">
-      <Typography variant="h6" className="mb-1">
+      <Typography variant="h6" className="mb-4">
         Chessplanner initial setup
       </Typography>
-      <Typography variant="body2" className="mb-1">
+      <Typography variant="body2" className="mb-4">
         Complete the following steps to be able to manage participants.
       </Typography>
 
       {Object.keys(completed).length === steps.length && (
-        <div className="flex items-center text-green-600 mb-1">
+        <div className="flex items-center text-green-600 mb-4">
           <ThumbUp />
           <div className="ml-1">
             Success! You have finished the initial setup.

@@ -30,7 +30,7 @@ const Forgot = () => {
 
   return (
     <form onSubmit={handleSubmit} className="m-4">
-      <Typography variant="h6" className="mb-1">
+      <Typography variant="h6" className="mb-4">
         Forgot your Chessplanner password? Recover it below
       </Typography>
       <TextField
@@ -38,7 +38,7 @@ const Forgot = () => {
         label="Your email"
         name="username"
         type="email"
-        className="flex mb-1 mr-1"
+        className="flex mb-4 mr-4"
         margin="dense"
         autoComplete="new-password"
         autoFocus

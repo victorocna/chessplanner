@@ -53,7 +53,7 @@ function Login(props) {
         label="Email"
         name="username"
         type="email"
-        className="flex mb-1 mr-1"
+        className="flex mb-4 mr-4"
         margin="dense"
         autoFocus
       />
@@ -65,12 +65,12 @@ function Login(props) {
         Forgot password?
       </Link>
 
-      <Paper className="mt-2 p-4 paper-signup">
+      <Paper className="mt-8 p-4 paper-signup">
         <Typography variant="h6">Don&apos;t have an account yet?</Typography>
         <Typography variant="body2">
           Create a demo account to try out Chessplanner today.
         </Typography>
-        <Button variant="contained" color="primary" href="/#/signup" className="mt-1">
+        <Button variant="contained" color="primary" href="/#/signup" className="mt-4">
           Sign up for Chessplanner
         </Button>
       </Paper>

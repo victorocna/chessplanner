@@ -17,7 +17,7 @@ function Contribution({ hidden }) {
         <TextField
           {...field} // "name", "value", "onChange", "onBlur"
           select
-          className="flex w-1/2 mt-2"
+          className="flex w-1/2 mt-8"
           label={i18n("Room share")}
           error={hasError(form, field.name)}
           helperText={i18n("How much does the participant pay")}

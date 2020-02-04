@@ -8,10 +8,8 @@ function LanguageChoice() {
     <Field
       name="language"
       render={({ field }) => (
-        <FormControl className="flex w-1/2 mt-2">
-          <InputLabel htmlFor="language-choice">
-            {i18n("Language")}
-          </InputLabel>
+        <FormControl className="flex w-1/2 mt-8">
+          <InputLabel htmlFor="language-choice">{i18n("Language")}</InputLabel>
           <Select
             {...field} // "name", "value", "onChange", "onBlur"
             inputProps={{ name: "language", id: "language-choice" }}

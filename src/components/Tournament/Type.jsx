@@ -23,7 +23,7 @@ function TournamentType() {
         <TextField
           {...field}
           select
-          className="flex mt-1 mr-1"
+          className="flex mt-4 mr-4"
           label="Choose tournament type"
           error={errors.type && touched.type}
           helperText={helperText(

@@ -31,7 +31,7 @@ function TaxTournament() {
         <TextField
           {...field}
           select
-          className="flex mt-1 mr-1"
+          className="flex mt-4 mr-4"
           label="Choose tournament"
           error={errors.tournament && touched.tournament}
           helperText={helperText("Required")}

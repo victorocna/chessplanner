@@ -47,12 +47,15 @@ function ParticipantFormik(props) {
     <ParticipantContext.Provider value={{ errors, touched, isSubmitting, values, setFieldValue }}>
       {step === "initial" && (
         <Form autoComplete="off">
-          <Name onSubmit={autocompleteSubmit} />
           <Type />
+          <div className="mb-4">
+            {/* TODO: automcomplete only for players */}
+            <Name onSubmit={autocompleteSubmit} />
+          </div>
 
           {shouldShow("yob").basedOn(settings) && (
             <Input
-              className="flex w-1/2 mb-1"
+              className="flex w-1/ mt-4 mb-4"
               name="yob"
               type="number"
               label={i18n("Year of birth")}
@@ -63,7 +66,7 @@ function ParticipantFormik(props) {
           {shouldShow("gender").basedOn(settings) && <Gender />}
           {shouldShow("federation").basedOn(settings) && (
             <Input
-              className="flex w-1/2 mb-1"
+              className="flex w-1/2 mb-4"
               name="federation"
               label={i18n("Federation")}
               helper={federationHelper()}
@@ -72,7 +75,7 @@ function ParticipantFormik(props) {
 
           {shouldShow("title").basedOn(settings) && (
             <Input
-              className="flex w-1/2 mb-1"
+              className="flex w-1/2 mb-4"
               name="title"
               label={i18n("Title")}
               helper={i18n("Optional")}
@@ -81,26 +84,26 @@ function ParticipantFormik(props) {
 
           {shouldShow("club").basedOn(settings) && (
             <Input
-              className="flex mb-1"
+              className="flex mb-4"
               name="club"
               label={i18n("Club")}
               helper={i18n("Optional")}
             />
           )}
 
-          <Typography variant="h6" className="mt-2">
+          <Typography variant="h6" className="mt-8">
             {i18n("Choose tournaments")}
           </Typography>
           <TournamentSection />
 
-          <Typography variant="h6" className="mt-2">
+          <Typography variant="h6" className="mt-8">
             {i18n("Choose accommodation")}
           </Typography>
           <HotelSection />
 
           {shouldShow("notes").basedOn(settings) && (
             <div>
-              <Typography variant="h6" className="mt-2">
+              <Typography variant="h6" className="mt-8">
                 {i18n("Details")}
               </Typography>
               <Notes />
@@ -111,7 +114,7 @@ function ParticipantFormik(props) {
             variant="contained"
             color="secondary"
             type="button"
-            className="mt-2"
+            className="mt-8"
             disabled={taxes.length === 0}
             onClick={() => {
               setStep("confirm")
@@ -131,14 +134,14 @@ function ParticipantFormik(props) {
 
       {step === "confirm" && (
         <Form autoComplete="off">
-          <Typography variant="h6" className="mt-2">
+          <Typography variant="h6" className="mt-8">
             {i18n("Review taxes and payment")}
           </Typography>
           <PaymentSection />
 
           {shouldShow("notes").basedOn(settings) && (
             <div>
-              <Typography variant="h6" className="mt-2">
+              <Typography variant="h6" className="mt-8">
                 {i18n("Details")}
               </Typography>
               <Notes />
@@ -148,7 +151,8 @@ function ParticipantFormik(props) {
           <Button
             variant="outlined"
             color="primary"
-            className="mr-1 mt-1"
+            className="mr-4 mt-4"
+            disabled={isSubmitting}
             onClick={() => {
               setStep("initial")
             }}
@@ -158,15 +162,15 @@ function ParticipantFormik(props) {
           <Button
             variant="contained"
             color="secondary"
-            className="mr-1 mt-1"
+            className="mr-4 mt-4"
             type="submit"
             disabled={!isValid || isSubmitting}
           >
             {i18n("Save")}
           </Button>
           {!isValid && (
-            <div className="flex items-center text-red-600 mt-1">
-              <Warning fontSize="medium" />
+            <div className="flex items-center text-red-600 mt-4">
+              <Warning fontSize="large" />
               <div className="ml-1">
                 <div>Validation error! Review the fields marked with the color red.</div>
                 <div>These errors can also be found in the previous section.</div>

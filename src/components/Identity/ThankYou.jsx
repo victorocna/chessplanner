@@ -12,10 +12,10 @@ const ThankYou = ({ history, location }) => {
 
   return (
     <div className="m-4">
-      <Typography variant="h6" className="mb-1">
+      <Typography variant="h6" className="mb-4">
         Thank you! Your account has been created.
       </Typography>
-      <Typography variant="body2" className="mb-1">
+      <Typography variant="body2" className="mb-4">
         Please check your email sent to <strong>{username}</strong> and confirm your account.
       </Typography>
       {username.indexOf("gmail.com") > -1 && (
@@ -24,7 +24,7 @@ const ThankYou = ({ history, location }) => {
           color="primary"
           href="https://mail.google.com"
           target="_blank"
-          className="mb-1"
+          className="mb-4"
         >
           Open Gmail
         </Button>

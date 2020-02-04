@@ -13,7 +13,7 @@ function Notes() {
           variant="outlined"
           multiline
           rows={3}
-          className="flex mt-1"
+          className="flex mt-4"
           label="Notes"
           error={hasError(form, field.name)}
         />

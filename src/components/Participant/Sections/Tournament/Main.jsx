@@ -12,7 +12,7 @@ function Main({ tournaments }) {
         <TextField
           {...field}
           select
-          className="flex mt-1"
+          className="flex mt-4"
           label="Main tournament"
           error={hasError(form, field.name)}
         >

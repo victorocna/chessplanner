@@ -18,7 +18,7 @@ function Datepicker({ name, label }) {
           <DatePicker
             {...field} // "name", "value", "onChange", "onBlur"
             format="yyyy/MM/dd"
-            className="flex w-1/2 mt-2"
+            className="flex w-1/2 mt-8"
             label={label}
             error={hasError(form, field.name)}
             onChange={(newDate) => {

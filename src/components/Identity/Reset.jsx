@@ -32,7 +32,7 @@ const Reset = (props) => {
 
   return (
     <form onSubmit={handleSubmit} className="m-4">
-      <Typography variant="h6" className="mb-1">
+      <Typography variant="h6" className="mb-4">
         Type your new password below
       </Typography>
       <Password label="Your new password" />

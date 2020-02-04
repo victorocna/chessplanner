@@ -28,7 +28,7 @@ const columns = [
     render: (rowData) => {
       if (typeof rowData.roomTypes !== "undefined") {
         return rowData.roomTypes.map((rule, i) => (
-          <Chip key={i} label={rule.name} style={{ marginRight: "5px" }} />
+          <Chip key={i} label={rule.name} className="mr-2 mb-1" />
         ))
       }
     },

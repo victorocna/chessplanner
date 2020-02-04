@@ -18,7 +18,7 @@ function TournamentFormik({ errors, touched, isSubmitting, values }) {
           variant="contained"
           color="secondary"
           type="submit"
-          className="mt-2"
+          className="mt-8"
           disabled={isSubmitting}
         >
           Save tournament

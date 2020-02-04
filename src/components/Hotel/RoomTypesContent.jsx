@@ -13,7 +13,7 @@ function RoomTypesContent({ index }) {
         render={({ field, form }) => (
           <TextField
             {...field}
-            className="flex mt-2"
+            className="flex mt-8"
             label="Room name"
             error={hasError(form, field.name)}
             autoFocus
@@ -26,7 +26,7 @@ function RoomTypesContent({ index }) {
         render={({ field, form }) => (
           <TextField
             {...field}
-            className="flex mt-2"
+            className="flex mt-8"
             label="Room capacity"
             error={hasError(form, field.name)}
           />
@@ -38,7 +38,7 @@ function RoomTypesContent({ index }) {
         render={({ field, form }) => (
           <TextField
             {...field}
-            className="flex mt-2"
+            className="flex mt-8"
             label="Room price (full)"
             error={hasError(form, field.name)}
           />
@@ -50,7 +50,7 @@ function RoomTypesContent({ index }) {
         render={({ field, form }) => (
           <TextField
             {...field}
-            className="flex mt-2"
+            className="flex mt-8"
             label="Currency"
             error={hasError(form, field.name)}
           />

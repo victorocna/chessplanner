@@ -13,7 +13,7 @@ function Gender() {
         <TextField
           {...field}
           select
-          className="flex mb-1 w-1/2"
+          className="flex mb-4 w-1/2"
           label={i18n("Gender")}
           error={hasError(form, field.name)}
           helperText={showError(form, field.name, "Optional")}

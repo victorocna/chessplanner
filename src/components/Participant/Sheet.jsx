@@ -43,14 +43,12 @@ const ParticipantSheet = (props) => {
 
   return (
     <Box m={2}>
-      <Typography variant="h6">
-        {i18n("Participant Sheet")}
-      </Typography>
+      <Typography variant="h6">{i18n("Participant Sheet")}</Typography>
 
-      <Button variant="contained" color="secondary" className="mr-1 mt-1" onClick={print}>
+      <Button variant="contained" color="secondary" className="mr-4 mt-4" onClick={print}>
         {i18n("Print")}
       </Button>
-      <Button variant="outlined" color="primary" className="mr-1 mt-1" onClick={edit}>
+      <Button variant="outlined" color="primary" className="mr-4 mt-4" onClick={edit}>
         {i18n("Update participant")}
       </Button>
 

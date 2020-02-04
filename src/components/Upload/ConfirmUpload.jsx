@@ -17,7 +17,7 @@ const ConfirmUpload = (props) => {
     <Dialog onClose={handleClose} open={open}>
       <DialogTitle>Confirm upload</DialogTitle>
       <DialogContent>
-        <div className="mb-1">
+        <div className="mb-4">
           This is the first row you will be uploading. Would you like to continue with the import?
         </div>
         <Divider />
@@ -30,7 +30,7 @@ const ConfirmUpload = (props) => {
           ))}
         </div>
       </DialogContent>
-      <DialogActions className="mb-1 mr-1">
+      <DialogActions className="mb-4 mr-4">
         <Button onClick={handleClose} color="primary" variant="outlined">
           No, cancel import
         </Button>

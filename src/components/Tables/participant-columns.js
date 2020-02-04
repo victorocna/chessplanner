@@ -31,6 +31,8 @@ const renderLeftToPay = (rowData) => {
   return <span style={style}>{value}</span>
 }
 
+const renderNotes = (rowData) => <div className="truncate">{rowData.notes}</div>
+
 const columns = [
   {
     title: i18n("Name"),
@@ -127,25 +129,32 @@ const columns = [
     title: i18n("Room share"),
     field: "hotel.room.contribution",
     hidden: true,
+    filtering: false,
   },
   {
     title: i18n("Notes"),
     field: "notes",
-    hidden: true, // eslint-disable-next-line
-    render: (rowData) => <div className="truncate">{rowData.notes}</div>,
+    hidden: true,
+    filtering: false,
+    render: (rowData) => renderNotes(rowData),
   },
   {
     title: i18n("TOTAL to pay"),
     field: "payment.toPay",
     hidden: true,
-    customFilterAndSearch: (term, rowData) => exactMatch(term, rowData, "payment.toPay"),
+    filtering: false,
   },
   {
     title: i18n("TOTAL payed"),
     field: "payment.payed",
     hidden: true,
-    render: (rowData) => rowData.totalPlatit || 0,
-    customFilterAndSearch: (term, rowData) => exactMatch(term, rowData, "payment.payed"),
+    filtering: false,
+  },
+  {
+    title: i18n("Prepayment"),
+    field: "payment.prepayment",
+    hidden: true,
+    filtering: false,
   },
   {
     title: i18n("Amount due"),

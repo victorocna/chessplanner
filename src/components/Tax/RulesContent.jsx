@@ -10,7 +10,9 @@ import shouldShow from "../../utils/shouldShow"
 
 function TaxRulesContent({ index }) {
   const { settings } = React.useContext(AppContext)
-  const filteredKeys = possibleKeys.filter(({ key, required }) => required || shouldShow(key).basedOn(settings))
+  const filteredKeys = possibleKeys.filter(
+    ({ key, required }) => required || shouldShow(key).basedOn(settings)
+  )
 
   return (
     <CardContent>
@@ -20,7 +22,7 @@ function TaxRulesContent({ index }) {
         render={({ field, form }) => (
           <TextField
             {...field}
-            className="flex mt-2"
+            className="flex mt-8"
             label={i18n("Rule name")}
             helperText={i18n("Give your rule a meaningful name, it will be useful later on")}
             error={hasError(form, field.name)}
@@ -34,7 +36,7 @@ function TaxRulesContent({ index }) {
           <TextField
             {...field}
             select
-            className="flex mt-2"
+            className="flex mt-8"
             label={i18n("Key selection")}
             helperText={i18n("For more options, update your settings")}
             error={hasError(form, field.name)}
@@ -53,7 +55,7 @@ function TaxRulesContent({ index }) {
           <TextField
             {...field}
             select
-            className="flex mt-2"
+            className="flex mt-8"
             label={i18n("Symbol selection")}
             error={hasError(form, field.name)}
           >
@@ -71,7 +73,7 @@ function TaxRulesContent({ index }) {
         render={({ field, form }) => (
           <TextField
             {...field}
-            className="flex mt-2"
+            className="flex mt-8"
             label={i18n("Comparison value")}
             error={hasError(form, field.name)}
           />

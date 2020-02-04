@@ -15,7 +15,7 @@ const DashboardCard = (props) => {
   }, [item])
 
   return (
-    <Card className="mt-1">
+    <Card className="mt-4">
       <CardHeader
         avatar={
           <Avatar

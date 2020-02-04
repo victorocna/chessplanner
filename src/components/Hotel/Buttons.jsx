@@ -7,11 +7,11 @@ function HotelButtons({ push }) {
   const { isSubmitting } = React.useContext(HotelContext)
 
   return (
-    <div className="flex mt-2">
+    <div className="flex mt-8">
       <Button
         variant="outlined"
         color="primary"
-        className="mr-1"
+        className="mr-4"
         onClick={push}
         disabled={isSubmitting}
       >
@@ -21,7 +21,7 @@ function HotelButtons({ push }) {
         variant="contained"
         color="secondary"
         type="submit"
-        className="mr-1"
+        className="mr-4"
         disabled={isSubmitting}
       >
         Save hotel

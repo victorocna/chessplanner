@@ -8,11 +8,11 @@ function WhatsNext({ path }) {
     <Fade in={true} timeout={750} style={{ transitionDelay: 500 }}>
       <div>
         <p>{i18n("Everything was saved successfully. What's next?")}</p>
-        <div className="flex mt-1 mb-1">
+        <div className="flex mt-4 mb-4">
           <Button
             variant="outlined"
             color="primary"
-            className="mr-1"
+            className="mr-4"
             onClick={() => {
               window.location.href = path
             }}
@@ -22,7 +22,7 @@ function WhatsNext({ path }) {
           <Button
             variant="outlined"
             color="secondary"
-            className="mr-1"
+            className="mr-4"
             onClick={() => {
               window.location.reload()
             }}
@@ -32,7 +32,7 @@ function WhatsNext({ path }) {
           <Button
             variant="outlined"
             color="primary"
-            className="mr-1"
+            className="mr-4"
             onClick={() => {
               window.location.href = "/#/"
             }}

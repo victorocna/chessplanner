@@ -214,7 +214,6 @@ class Autocomplete extends Component {
           onKeyUp={onKeyUp}
           value={userInput}
           autoComplete="new-password"
-          autoFocus
         />
         {showSuggestions && (
           <Suggestions

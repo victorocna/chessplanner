@@ -57,10 +57,8 @@ const SettingsWrapper = () => {
 
   return (
     <Box m={2}>
-      <Typography variant="h6">
-        {i18n("Settings")}
-      </Typography>
-      <Typography variant="body2" className="mb-1">
+      <Typography variant="h6">{i18n("Settings")}</Typography>
+      <Typography variant="body2" className="mb-4">
         {i18n("Default settings for your account")}
       </Typography>
 

@@ -43,7 +43,7 @@ function SettingsFormik({ isSubmitting, values, setFieldValue }) {
         <Datepicker name="arrival" label={i18n("Arrival")} />
         <Datepicker name="departure" label={i18n("Departure")} />
         <Input
-          className="flex w-1/2 mt-2"
+          className="flex w-1/2 mt-8"
           name="currency"
           label={i18n("Currency")}
           helper={i18n("Currency setting is required")}
@@ -54,7 +54,7 @@ function SettingsFormik({ isSubmitting, values, setFieldValue }) {
           variant="contained"
           color="secondary"
           type="submit"
-          className="mt-2"
+          className="mt-8"
           disabled={isSubmitting}
         >
           Save settings

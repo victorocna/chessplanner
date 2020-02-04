@@ -14,8 +14,8 @@ function Type() {
         <TextField
           {...field}
           select
-          className="flex mb-1 w-1/2"
-          label={i18n("Type")}
+          className="flex mt-4 w-1/2"
+          label={i18n("Type of participant")}
           error={hasError(form, field.name)}
           helperText={showError(form, field.name, i18n("Required"))}
         >

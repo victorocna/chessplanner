@@ -39,7 +39,7 @@ function Room({ roomTypes, hidden }) {
           <TextField
             {...field} // "name", "value", "onChange", "onBlur"
             select
-            className="flex w-1/2 mt-2"
+            className="flex w-1/2 mt-8"
             label="Room type"
             error={hasError(form, field.name)}
             helperText={roomTypesHelperText(roomTypes.length)}
@@ -59,7 +59,7 @@ function Room({ roomTypes, hidden }) {
         render={({ field, form }) => (
           <TextField
             {...field} // "name", "value", "onChange", "onBlur"
-            className="flex w-1/2 mt-2"
+            className="flex w-1/2 mt-8"
             label="Room number"
             error={hasError(form, field.name)}
           />

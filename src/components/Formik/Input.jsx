@@ -36,7 +36,7 @@ FormikInput.propTypes = {
 }
 
 FormikInput.defaultProps = {
-  className: "flex mt-2",
+  className: "flex mt-8",
   type: "text",
   label: "",
   helper: "",

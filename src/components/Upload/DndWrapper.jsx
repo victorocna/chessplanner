@@ -22,7 +22,7 @@ function DndWrapper(props) {
   }
 
   return (
-    <DndProvider backend={whichBackend(navigator.userAgent)} className="mt-2">
+    <DndProvider backend={whichBackend(navigator.userAgent)} className="mt-8">
       {chips.map((chip, i) => renderChip(chip, i))}
     </DndProvider>
   )

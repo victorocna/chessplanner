@@ -17,7 +17,7 @@ const Password = (props) => {
       label={label}
       name="password"
       type={showPassword ? "text" : "password"}
-      className="flex mb-1 mr-1"
+      className="flex mb-4 mr-4"
       margin="dense"
       autoComplete="new-password"
       InputProps={{

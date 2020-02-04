@@ -210,22 +210,28 @@ tfoot {
   margin-left: 0;
 }
 
-.mr-1.mr-1 {
-  margin-right: 1em;
+.mr-2.mr-2 {
+  margin-right: 0.5rem;
+}
+.mr-4.mr-4 {
+  margin-right: 1rem;
 }
 .ml-1.ml-1 {
-  margin-left: .25rem;
+  margin-left: 0.25rem;
 }
-.mt-1.mt-1 {
-  margin-top: 1em;
+.mt-4.mt-4 {
+  margin-top: 1rem;
 }
-.mt-2.mt-2 {
-  margin-top: 2em;
+.mt-8.mt-8 {
+  margin-top: 2rem;
 }
 .mb-1.mb-1 {
+  margin-bottom: 0.25rem;
+}
+.mb-4.mb-4 {
   margin-bottom: 1rem;
 }
-.mb-2.mb-2 {
+.mb-8.mb-8 {
   margin-bottom: 2rem;
 }
 .ml-2.ml-2 {
