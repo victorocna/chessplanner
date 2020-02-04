@@ -5,8 +5,13 @@ import { Field } from "formik"
 import { hasError } from "../../utils/validation"
 import { i18n } from "../../locale"
 import { possibleKeys, possibleOperands } from "./options"
+import { AppContext } from "../../context/"
+import shouldShow from "../../utils/shouldShow"
 
 function TaxRulesContent({ index }) {
+  const { settings } = React.useContext(AppContext)
+  const filteredKeys = possibleKeys.filter(({ key, required }) => required || shouldShow(key).basedOn(settings))
+
   return (
     <CardContent>
       <Field
@@ -32,7 +37,7 @@ function TaxRulesContent({ index }) {
             label={i18n("Key selection")}
             error={hasError(form, field.name)}
           >
-            {possibleKeys.map((option, i) => (
+            {filteredKeys.map((option, i) => (
               <MenuItem key={i} value={option.key}>
                 {option.text}
               </MenuItem>
