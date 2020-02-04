@@ -4,7 +4,7 @@ import { Field } from "formik"
 import Autocomplete from "../../Autocomplete"
 import { hasError } from "../../../utils/validation"
 
-function Name({ onSubmit }) {
+function Name({ ready, onSubmit }) {
   return (
     <Field
       type="text"
@@ -13,6 +13,7 @@ function Name({ onSubmit }) {
         <Autocomplete
           {...field} // "name", "value", "onChange", "onBlur"
           userInput={field.name}
+          ready={ready}
           onSubmit={onSubmit}
           error={hasError(form, field.name)}
         />
@@ -22,6 +23,7 @@ function Name({ onSubmit }) {
 }
 
 Name.propTypes = {
+  ready: PropTypes.bool,
   onSubmit: PropTypes.func,
 }
 

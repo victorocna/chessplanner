@@ -57,7 +57,9 @@ class Autocomplete extends Component {
     if (this.timeout) {
       clearTimeout(this.timeout)
     }
-    return this.state.userInput.length >= this.state.minLetters
+
+    const { ready } = this.props
+    return ready && this.state.userInput.length >= this.state.minLetters
   }
   triggerShow = (suggestions) => {
     this.setState({
@@ -229,6 +231,7 @@ class Autocomplete extends Component {
 }
 
 Autocomplete.propTypes = {
+  ready: PropTypes.bool,
   value: PropTypes.string,
   onChange: PropTypes.func, // Formik prop
   onBlur: PropTypes.func, // Formik prop
@@ -239,6 +242,7 @@ Autocomplete.propTypes = {
 }
 
 Autocomplete.defaultValues = {
+  ready: true,
   value: "",
 }
 

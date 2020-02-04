@@ -43,14 +43,18 @@ function ParticipantFormik(props) {
     fetchData()
   }, [])
 
+  const readyToAutocomplete = () => {
+    const { type } = values
+    return type === "player"
+  }
+
   return (
     <ParticipantContext.Provider value={{ errors, touched, isSubmitting, values, setFieldValue }}>
       {step === "initial" && (
         <Form autoComplete="off">
           <Type />
           <div className="mb-4">
-            {/* TODO: automcomplete only for players */}
-            <Name onSubmit={autocompleteSubmit} />
+            <Name ready={readyToAutocomplete()} onSubmit={autocompleteSubmit} />
           </div>
 
           {shouldShow("yob").basedOn(settings) && (
