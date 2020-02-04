@@ -22,6 +22,7 @@ function TaxRulesContent({ index }) {
             {...field}
             className="flex mt-2"
             label={i18n("Rule name")}
+            helperText={i18n("Give your rule a meaningful name, it will be useful later on")}
             error={hasError(form, field.name)}
             autoFocus
           />
@@ -35,6 +36,7 @@ function TaxRulesContent({ index }) {
             select
             className="flex mt-2"
             label={i18n("Key selection")}
+            helperText={i18n("For more options, update your settings")}
             error={hasError(form, field.name)}
           >
             {filteredKeys.map((option, i) => (

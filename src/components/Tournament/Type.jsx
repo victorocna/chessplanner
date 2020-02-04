@@ -2,8 +2,11 @@ import React from "react"
 import { TextField, MenuItem } from "@material-ui/core"
 import { Field } from "formik"
 import { TournamentContext } from "../../context"
+import { AppContext } from "../../context/"
+import shouldShow from "../../utils/shouldShow"
 
 function TournamentType() {
+  const { settings } = React.useContext(AppContext)
   const { errors, touched } = React.useContext(TournamentContext)
   const helperText = (fallback = "") => {
     if (errors.type && touched.type) {
@@ -28,7 +31,9 @@ function TournamentType() {
           )}
         >
           <MenuItem value="main">Main tournament</MenuItem>
-          <MenuItem value="side">Side tournament</MenuItem>
+          {shouldShow("tournaments.side").basedOn(settings) && (
+            <MenuItem value="side">Side tournament</MenuItem>
+          )}
         </TextField>
       )}
     />
