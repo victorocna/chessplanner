@@ -157,6 +157,9 @@ tfoot {
 /**
  * Material Table actions
  **/
+.MaterialTable .MuiPaper-elevation2.MuiPaper-elevation2 {
+  box-shadow: none;
+}
 .MaterialTable .MuiTable-root tbody th:last-child span.Mui-disabled {
   color: transparent;
 }
@@ -399,6 +402,9 @@ tfoot {
 }
 .hidden.hidden {
   display: none;
+}
+.shadow-none.shadow-none {
+  box-shadow: none !important;
 }
 
 .autocomplete-input {

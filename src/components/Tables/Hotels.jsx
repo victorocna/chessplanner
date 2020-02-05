@@ -1,39 +1,18 @@
 import React, { useEffect, useState } from "react"
-import { Chip, Fab, useMediaQuery, useTheme } from "@material-ui/core"
+import { Fab, useMediaQuery, useTheme } from "@material-ui/core"
 import AddIcon from "@material-ui/icons/Add"
 import MaterialTable from "material-table"
 import fromStore from "../../utils/fromStore"
 import { hide, hideEvery } from "../../utils/hide"
 import { i18n } from "../../locale"
+import { hotelColumns as columns } from "./columns"
+import { changeActiveColumns, persistActiveColumns } from "./column-utils"
 
 const editItem = (event, rowData) => {
   window.location.href = `/#/edit-hotel/${rowData.id}`
 }
 
 const actions = [{ icon: "edit", onClick: editItem }]
-const columns = [
-  {
-    title: i18n("Hotel"),
-    field: "name",
-    type: "string",
-  },
-  {
-    title: i18n("Description"),
-    field: "description",
-    type: "string",
-  },
-  {
-    title: i18n("Rooms"),
-    field: "roomTypes",
-    render: (rowData) => {
-      if (typeof rowData.roomTypes !== "undefined") {
-        return rowData.roomTypes.map((rule, i) => (
-          <Chip key={i} label={rule.name} className="mr-2 mb-1" />
-        ))
-      }
-    },
-  },
-]
 const options = {
   pageSize: 10,
   pageSizeOptions: [10, 25, 50, 100],
@@ -56,9 +35,9 @@ const Hotels = () => {
   }
 
   const [state, setState] = useState({
-    options: options,
-    columns: columns,
-    actions: actions,
+    options,
+    columns,
+    actions,
   })
 
   useEffect(() => {
@@ -74,19 +53,27 @@ const Hotels = () => {
     fetchData()
   }, [])
 
+  const changeColumns = () => {
+    return changeActiveColumns(state.columns, "columns[hotels]")
+  }
+
+  React.useEffect(() => {
+    const activeColumns = persistActiveColumns(columns, "columns[hotels]")
+    setState((state) => ({ ...state, columns: activeColumns }))
+  }, [])
+
   return (
     <div className="MaterialTable">
       <MaterialTable
+        className="shadow-none"
         title={i18n("Hotels")}
         columns={state.columns}
         data={state.hotels}
         options={state.options}
         localization={i18n("_table")}
         actions={state.actions}
-        style={{
-          boxShadow: "none",
-        }}
         onRowClick={editItem}
+        onChangeColumnHidden={changeColumns}
       />
       <Fab color="secondary" aria-label="Add" href="#/new-hotel" className="fab">
         <AddIcon />

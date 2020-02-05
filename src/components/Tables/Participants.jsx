@@ -5,9 +5,9 @@ import MaterialTable from "material-table"
 import fromStore from "../../utils/fromStore"
 import { hide, hideEvery } from "../../utils/hide"
 import { i18n } from "../../locale"
-import columns from "./participant-columns"
+import { participantColumns as columns } from "./columns"
+import { changeActiveColumns, filterRequiredColumns, persistActiveColumns } from "./column-utils"
 import { AppContext } from "../../context"
-import optionalColumns from "../Settings/possible-columns"
 
 const viewItem = (event, rowData) => {
   window.location.href = `/#/view/${rowData.id}`
@@ -28,27 +28,17 @@ const options = {
 }
 
 const Participants = () => {
-  /**
-   * Filter columns based on settings
-   * @see https://stackoverflow.com/a/33034768
-   */
   const { settings } = React.useContext(AppContext)
   React.useEffect(() => {
-    let filtered_columns = []
-    if (settings && settings.columns) {
-      const optional_columns = Object.keys(optionalColumns)
-      const all_columns = columns.map((item) => item.field)
+    if (settings) {
+      const { columns: columnsFromSettings } = settings
+      const { columns } = state
+      const possibleColumns = filterRequiredColumns(columns, columnsFromSettings)
 
-      const mandatory_columns = all_columns.filter((item) => !optional_columns.includes(item))
-      const user_columns = all_columns.filter((item) => settings.columns.includes(item))
-      filtered_columns = mandatory_columns.concat(user_columns)
-
-      setState((state) => ({
-        ...state,
-        columns: columns.filter((item) => filtered_columns.includes(item.field)),
-      }))
+      const activeColumns = persistActiveColumns(possibleColumns, "columns[participants]")
+      setState((state) => ({ ...state, columns: activeColumns }))
     }
-  }, [settings])
+  }, [settings, state])
 
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"))
@@ -58,9 +48,9 @@ const Participants = () => {
   }
 
   const [state, setState] = React.useState({
-    options: options,
-    columns: columns,
-    actions: actions,
+    options,
+    columns,
+    actions,
   })
 
   React.useEffect(() => {
@@ -76,19 +66,22 @@ const Participants = () => {
     fetchData()
   }, [])
 
+  const changeColumns = () => {
+    return changeActiveColumns(state.columns, "columns[participants]")
+  }
+
   return (
     <div className="MaterialTable">
       <MaterialTable
+        className="shadow-none"
         title={i18n("Participants")}
         columns={state.columns}
         data={state.participants}
         options={state.options}
         localization={i18n("_table", {})}
         actions={state.actions}
-        style={{
-          boxShadow: "none",
-        }}
         onRowClick={viewItem}
+        onChangeColumnHidden={changeColumns}
       />
       <Fab color="secondary" aria-label="Add" href="#/new" className="fab">
         <AddIcon />

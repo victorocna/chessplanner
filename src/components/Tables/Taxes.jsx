@@ -1,61 +1,18 @@
-import React, { useEffect, useState } from "react"
-import { Chip, Fab, useMediaQuery, useTheme } from "@material-ui/core"
+import React from "react"
+import { Fab, useMediaQuery, useTheme } from "@material-ui/core"
 import AddIcon from "@material-ui/icons/Add"
 import MaterialTable from "material-table"
 import fromStore from "../../utils/fromStore"
 import { hide, hideEvery } from "../../utils/hide"
 import { i18n } from "../../locale"
+import { taxColumns as columns } from "./columns"
+import { changeActiveColumns, persistActiveColumns } from "./column-utils"
 
 const editItem = (event, rowData) => {
   window.location.href = `/#/edit-tax/${rowData.id}`
 }
 
 const actions = [{ icon: "edit", onClick: editItem }]
-const columns = [
-  {
-    title: i18n("Tax"),
-    field: "name",
-    type: "string",
-  },
-  {
-    title: i18n("Tournament"),
-    field: "tournament",
-    type: "string",
-    render: (rowData) => {
-      if (rowData.tournament && rowData.tournament === "*") {
-        return "Every tournament"
-      }
-      return rowData.tournament
-    },
-  },
-  {
-    title: i18n("Value"),
-    field: "value",
-    render: (rowData) => {
-      if (typeof rowData.value === "undefined") {
-        return "N/A"
-      }
-      return rowData.value + " " + (rowData.currency || "")
-    },
-  },
-  {
-    title: i18n("Priority"),
-    field: "priority",
-    type: "numeric",
-    hidden: true,
-  },
-  {
-    title: i18n("Rules"),
-    field: "rules",
-    render: (rowData) => {
-      if (typeof rowData.rules !== "undefined") {
-        return rowData.rules.map((rule, i) => (
-          <Chip key={i} label={rule.name} style={{ marginRight: "5px" }} />
-        ))
-      }
-    },
-  },
-]
 const options = {
   pageSize: 10,
   pageSizeOptions: [10, 25, 50, 100],
@@ -77,13 +34,13 @@ const Taxes = () => {
     hideEvery(actions)
   }
 
-  const [state, setState] = useState({
-    options: options,
-    columns: columns,
-    actions: actions,
+  const [state, setState] = React.useState({
+    options,
+    columns,
+    actions,
   })
 
-  useEffect(() => {
+  React.useEffect(() => {
     async function fetchData() {
       const all_taxes = await fromStore("taxes")
       const taxes = all_taxes.map((tax) => ({
@@ -91,9 +48,18 @@ const Taxes = () => {
         id: tax["ref"]["@ref"]["id"],
       }))
 
-      setState((state) => ({ ...state, taxes: taxes }))
+      setState((state) => ({ ...state, taxes }))
     }
     fetchData()
+  }, [])
+
+  const changeColumns = () => {
+    return changeActiveColumns(state.columns, "columns[taxes]")
+  }
+
+  React.useEffect(() => {
+    const activeColumns = persistActiveColumns(columns, "columns[taxes]")
+    setState((state) => ({ ...state, columns: activeColumns }))
   }, [])
 
   return (
@@ -109,6 +75,7 @@ const Taxes = () => {
           boxShadow: "none",
         }}
         onRowClick={editItem}
+        onChangeColumnHidden={changeColumns}
       />
       <Fab color="secondary" aria-label="Add" href="#/new-tax" className="fab">
         <AddIcon />

@@ -1,7 +1,7 @@
 import React from "react"
 import { format } from "date-fns"
 import get from "lodash.get"
-import { i18n } from "../../locale"
+import { i18n } from "../../../locale"
 
 const minWidth = { minWidth: "300px" }
 const exactMatch = (term, rowData, field) => {
@@ -31,18 +31,20 @@ const renderLeftToPay = (rowData) => {
   return <span style={style}>{value}</span>
 }
 
-const renderNotes = (rowData) => <div className="truncate">{rowData.notes}</div>
-
 const columns = [
   {
     title: i18n("Name"),
     field: "name",
+    required: true,
     cellStyle: minWidth,
   },
   {
-    title: i18n("Type"),
+    title: i18n("Type of participant"),
     field: "type",
-    hidden: true,
+    required: true,
+    render: ({ type }) => {
+      return i18n(type[0].toUpperCase() + type.substr(1))
+    },
   },
   {
     title: i18n("Year of birth"),
@@ -55,6 +57,12 @@ const columns = [
     render: (rowData) => {
       return <div className="truncate">{rowData.club}</div>
     },
+    hidden: true,
+  },
+  {
+    title: i18n("Title"),
+    field: "title",
+    hidden: true,
   },
   {
     title: i18n("Federation"),
@@ -69,10 +77,12 @@ const columns = [
   {
     title: i18n("Main tournament"),
     field: "tournaments.main",
+    required: true,
   },
   {
     title: i18n("Side tournaments"),
     field: "tournaments.side",
+    hidden: true,
     render: (rowData) => {
       if (rowData.tournaments && rowData.tournaments.side) {
         return rowData.tournaments.side.join(" ")
@@ -101,6 +111,7 @@ const columns = [
     title: i18n("Arrival"),
     field: "hotel.arrival",
     hidden: true,
+    filtering: false,
     render: (rowData) => {
       if (rowData.hotel.arrival) {
         return format(rowData.hotel.arrival, "yyyy/MM/dd")
@@ -112,6 +123,7 @@ const columns = [
     title: i18n("Departure"),
     field: "hotel.departure",
     hidden: true,
+    filtering: false,
     render: (rowData) => {
       if (rowData.hotel.departure) {
         return format(rowData.hotel.departure, "yyyy/MM/dd")
@@ -123,6 +135,7 @@ const columns = [
     title: i18n("Total nights"),
     field: "hotel.nights",
     hidden: true,
+    filtering: false,
     customFilterAndSearch: (term, rowData) => exactMatch(term, rowData, "hotel.nights"),
   },
   {
@@ -135,17 +148,19 @@ const columns = [
     title: i18n("Notes"),
     field: "notes",
     hidden: true,
-    filtering: false,
-    render: (rowData) => renderNotes(rowData),
+    filtering: false,  // eslint-disable-next-line
+    render: ({ notes }) => <div className="truncate">{notes}</div>,
   },
   {
-    title: i18n("TOTAL to pay"),
+    title: i18n("Amount due"),
     field: "payment.toPay",
-    hidden: true,
+    required: true,
     filtering: false,
+    render: (rowData) => renderLeftToPay(rowData),
+    customSort: (a, b) => getLeftToPay(a) - getLeftToPay(b),
   },
   {
-    title: i18n("TOTAL payed"),
+    title: i18n("Amount payed"),
     field: "payment.payed",
     hidden: true,
     filtering: false,
@@ -157,10 +172,15 @@ const columns = [
     filtering: false,
   },
   {
-    title: i18n("Amount due"),
-    cellStyle: { width: "200px" },
-    render: (rowData) => renderLeftToPay(rowData),
-    customSort: (a, b) => getLeftToPay(a) - getLeftToPay(b),
+    title: i18n("Discount"),
+    field: "payment.discount",
+    hidden: true,
+    filtering: false,
+  },
+  {
+    title: i18n("Payment method"),
+    field: "payment.method",
+    hidden: true,
   },
 ]
 

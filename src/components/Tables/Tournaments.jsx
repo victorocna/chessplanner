@@ -5,29 +5,14 @@ import MaterialTable from "material-table"
 import fromStore from "../../utils/fromStore"
 import { hide, hideEvery } from "../../utils/hide"
 import { i18n } from "../../locale"
+import { tournamentColumns as columns } from "./columns"
+import { changeActiveColumns, persistActiveColumns } from "./column-utils"
 
 const editItem = (event, rowData) => {
   window.location.href = `/#/edit-tournament/${rowData.id}`
 }
 
 const actions = [{ icon: "edit", onClick: editItem }]
-const columns = [
-  {
-    title: i18n("Tournament"),
-    field: "name",
-    type: "string",
-  },
-  {
-    title: i18n("Description"),
-    field: "description",
-    type: "string",
-  },
-  {
-    title: i18n("Type"),
-    field: "type",
-    type: "string",
-  },
-]
 const options = {
   pageSize: 10,
   pageSizeOptions: [10, 25, 50, 100],
@@ -49,9 +34,9 @@ const Tournaments = () => {
   }
 
   const [state, setState] = useState({
-    options: options,
-    columns: columns,
-    actions: actions,
+    options,
+    columns,
+    actions,
   })
 
   useEffect(() => {
@@ -67,19 +52,27 @@ const Tournaments = () => {
     fetchData()
   }, [])
 
+  const changeColumns = () => {
+    return changeActiveColumns(state.columns, "columns[tournaments]")
+  }
+
+  React.useEffect(() => {
+    const activeColumns = persistActiveColumns(columns, "columns[tournaments]")
+    setState((state) => ({ ...state, columns: activeColumns }))
+  }, [])
+
   return (
     <div className="MaterialTable">
       <MaterialTable
+        className="shadow-none"
         title={i18n("Tournaments")}
         columns={state.columns}
         data={state.tournaments}
         options={state.options}
         localization={i18n("_table")}
         actions={state.actions}
-        style={{
-          boxShadow: "none",
-        }}
         onRowClick={editItem}
+        onChangeColumnHidden={changeColumns}
       />
       <Fab color="secondary" aria-label="Add" href="#/new-tournament" className="fab">
         <AddIcon />
