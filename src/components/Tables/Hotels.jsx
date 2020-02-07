@@ -48,7 +48,7 @@ const Hotels = () => {
         id: item["ref"]["@ref"]["id"],
       }))
 
-      setState((state) => ({ ...state, hotels: hotels }))
+      setState((state) => ({ ...state, hotels }))
     }
     fetchData()
   }, [])

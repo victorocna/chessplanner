@@ -51,7 +51,8 @@ const Participants = () => {
       const activeColumns = persistActiveColumns(possibleColumns, "columns[participants]")
       setState((state) => ({ ...state, columns: activeColumns }))
     }
-  }, [settings, state])
+    // eslint-disable-next-line
+  }, [settings])
 
   React.useEffect(() => {
     async function fetchData() {

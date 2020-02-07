@@ -47,7 +47,7 @@ const Tournaments = () => {
         id: item["ref"]["@ref"]["id"],
       }))
 
-      setState((state) => ({ ...state, tournaments: tournaments }))
+      setState((state) => ({ ...state, tournaments }))
     }
     fetchData()
   }, [])
