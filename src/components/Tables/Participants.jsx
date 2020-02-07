@@ -28,18 +28,6 @@ const options = {
 }
 
 const Participants = () => {
-  const { settings } = React.useContext(AppContext)
-  React.useEffect(() => {
-    if (settings) {
-      const { columns: columnsFromSettings } = settings
-      const { columns } = state
-      const possibleColumns = filterRequiredColumns(columns, columnsFromSettings)
-
-      const activeColumns = persistActiveColumns(possibleColumns, "columns[participants]")
-      setState((state) => ({ ...state, columns: activeColumns }))
-    }
-  }, [settings, state])
-
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"))
   if (isMobile) {
@@ -52,6 +40,18 @@ const Participants = () => {
     columns,
     actions,
   })
+
+  const { settings } = React.useContext(AppContext)
+  React.useEffect(() => {
+    if (settings) {
+      const { columns: columnsFromSettings } = settings
+      const { columns } = state
+      const possibleColumns = filterRequiredColumns(columns, columnsFromSettings)
+
+      const activeColumns = persistActiveColumns(possibleColumns, "columns[participants]")
+      setState((state) => ({ ...state, columns: activeColumns }))
+    }
+  }, [settings, state])
 
   React.useEffect(() => {
     async function fetchData() {
