@@ -4,13 +4,13 @@ export default (columns, key) => {
     return columns
   }
 
-  const _userColumns = userColumns.split(",")
+  const _userColumns = userColumns.split(',')
   return columns.map((column) => {
     const { field } = column
     if (_userColumns.includes(field)) {
-      return Object.assign({}, column, { hidden: false })
+      return { ...column, hidden: false }
     }
 
-    return Object.assign({}, column, { hidden: true })
+    return { ...column, hidden: true }
   })
 }
