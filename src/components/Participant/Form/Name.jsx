@@ -2,10 +2,11 @@ import React from "react"
 import PropTypes from "prop-types"
 import { Field } from "formik"
 import Autocomplete from "../../Autocomplete"
+import FormikInput from "../../Formik/Input"
 import { hasError } from "../../../utils/validation"
 
 function Name({ ready, onSubmit }) {
-  return (
+  const renderAutocomplete = () => (
     <Field
       type="text"
       name="name"
@@ -20,6 +21,24 @@ function Name({ ready, onSubmit }) {
       )}
     />
   )
+
+  const renderInput = () => (
+    <Field
+      type="text"
+      name="name"
+      render={({ field, form }) => (
+        <FormikInput
+          {...field} // "name", "value", "onChange", "onBlur"
+          label="Name"
+          className="flex mt-4"
+          helper="Required"
+          error={hasError(form, field.name)}
+        />
+      )}
+    />
+  )
+
+  return ready ? renderAutocomplete() : renderInput()
 }
 
 Name.propTypes = {

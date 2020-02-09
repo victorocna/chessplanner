@@ -116,6 +116,13 @@ tfoot {
 .items-center.items-center {
   align-items: center;
 }
+.text-sm.text-sm,
+.advanced-options .MuiFormControlLabel-label {
+  font-size: 0.875rem;
+}
+.advanced-options .MuiCollapse-entered .MuiFormControl-root {
+  max-width: 100%;
+}
 
 .checkbox-flex.checkbox-flex {
   display: flex;
@@ -407,8 +414,9 @@ tfoot {
   box-shadow: none !important;
 }
 
-.autocomplete-input {
+.autocomplete-input.autocomplete-input {
   width: 100%;
+  margin-bottom: 0;
 }
 
 .suggestions {

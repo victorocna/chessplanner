@@ -1,12 +1,12 @@
 import howMuch from "./howMuch"
 
-it("throws error when called without any arguments", function() {
+it("throws an error when called without any arguments", function() {
   expect(() => {
     howMuch()
   }).toThrow()
 })
 
-it("throws error when called without mandatory parameters", function() {
+it("throws an error when called without mandatory parameters", function() {
   const taxes = [
     {
       name: "Tax1",
@@ -19,7 +19,7 @@ it("throws error when called without mandatory parameters", function() {
   }).toThrow()
 })
 
-it("returns the tax object received when no rules exist", function() {
+it("returns the tax received when no rules exist", function() {
   const taxes = [
     {
       name: "Tax1",
@@ -28,11 +28,12 @@ it("returns the tax object received when no rules exist", function() {
     },
   ]
 
-  const result = howMuch(taxes)
-  expect(result["Tax1"]["value"]).toBe(50)
+  const computedTaxes = howMuch(taxes)
+  const name = getTaxByName(computedTaxes, "Tax1")
+  expect(computedTaxes[name]).toBe(50)
 })
 
-it("returns the highest priority between two taxes with the same name", function() {
+it("returns the the tax with highest priority from two taxes with the same name", function() {
   const taxes = [
     {
       name: "Tax1",
@@ -46,8 +47,9 @@ it("returns the highest priority between two taxes with the same name", function
     },
   ]
 
-  const result = howMuch(taxes)
-  expect(result["Tax1"]["value"]).toBe(70)
+  const computedTaxes = howMuch(taxes)
+  const name = getTaxByName(computedTaxes, "Tax1")
+  expect(computedTaxes[name]).toBe(70)
 })
 
 it("returns an empty object for taxes that do not match tournaments", function() {
@@ -90,12 +92,13 @@ it("returns the tax when rules match (GM == GM)", function() {
     },
   ]
 
-  const traits = {
+  const props = {
     title: "GM",
   }
 
-  const result = howMuch(taxes, traits)
-  expect(result["Tax1"]["value"]).toBe(70)
+  const computedTaxes = howMuch(taxes, props)
+  const name = getTaxByName(computedTaxes, "Tax1")
+  expect(computedTaxes[name]).toBe(70)
 })
 
 it("returns an empty object when rules do not match (GM != IM)", function() {
@@ -138,11 +141,12 @@ it("returns the tax when no traits are provided", function() {
     },
   ]
 
-  const result = howMuch(taxes)
-  expect(result["Tax1"]["value"]).toBe(70)
+  const computedTaxes = howMuch(taxes)
+  const name = getTaxByName(computedTaxes, "Tax1")
+  expect(computedTaxes[name]).toBe(70)
 })
 
-it("returns the highest priority tax when both taxes match (one with rules, one without)", function() {
+it("returns the highest priority tax when both taxes match (prio1 > prio2)", function() {
   const taxes = [
     {
       name: "Tax1",
@@ -163,12 +167,43 @@ it("returns the highest priority tax when both taxes match (one with rules, one 
     },
   ]
 
-  const traits = {
+  const props = {
     title: "GM",
   }
 
-  const result = howMuch(taxes, traits)
-  expect(result["Tax1"]["value"]).toBe(13)
+  const computedTaxes = howMuch(taxes, props)
+  const name = getTaxByName(computedTaxes, "Tax1")
+  expect(computedTaxes[name]).toBe(13)
+})
+
+it("returns the highest priority tax when both taxes match (prio2 > prio1)", function() {
+  const taxes = [
+    {
+      name: "Tax1",
+      value: 13,
+      priority: 20,
+      rules: [
+        {
+          key: "title",
+          eq: "==",
+          val: "GM",
+        },
+      ],
+    },
+    {
+      name: "Tax1",
+      value: 12,
+      priority: 40,
+    },
+  ]
+
+  const props = {
+    title: "GM",
+  }
+
+  const computedTaxes = howMuch(taxes, props)
+  const name = getTaxByName(computedTaxes, "Tax1")
+  expect(computedTaxes[name]).toBe(12)
 })
 
 it("returns an empty object when rules match, but tournaments don't", () => {
@@ -197,3 +232,32 @@ it("returns an empty object when rules match, but tournaments don't", () => {
   const result = howMuch(taxes, traits)
   expect(result["Tax1"]).toBeUndefined()
 })
+
+it("returns tax multiplied with capacity when the participant pays the room in full", function() {
+  const taxes = [
+    {
+      name: "Tax1",
+      tournament: "*",
+      value: 70,
+      priority: 10,
+      roomShare: true,
+    },
+  ]
+
+  const props = {
+    hotel: {
+      room: {
+        capacity: 2,
+        contribution: "full",
+      },
+    },
+  }
+
+  const computedTaxes = howMuch(taxes, props)
+  const name = getTaxByName(computedTaxes, "Tax1")
+  expect(computedTaxes[name]).toBe(140)
+})
+
+const getTaxByName = (taxes, name) => {
+  return taxes && Object.keys(taxes).filter((tax) => tax === name)[0]
+}

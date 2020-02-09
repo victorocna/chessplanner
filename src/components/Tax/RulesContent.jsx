@@ -67,6 +67,7 @@ function TaxRulesContent({ index }) {
           </TextField>
         )}
       />
+      {/* TODO: switch by key selection */}
       <Field
         type="text"
         name={`rules[${index}].val`}

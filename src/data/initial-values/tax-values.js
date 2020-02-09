@@ -1,10 +1,8 @@
-import { currency } from "../../defaults"
-
 export default {
   name: "",
   value: "",
-  currency,
   tournament: "",
+  roomShare: false,
   priority: 10,
   rules: [],
 }

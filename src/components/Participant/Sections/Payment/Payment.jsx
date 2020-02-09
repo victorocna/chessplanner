@@ -29,29 +29,32 @@ function Payment() {
   React.useEffect(() => {
     if (taxes && taxes.length) {
       try {
-        const howMuchObject = howMuch(taxes, values)
-        const taxRows = Object.values(howMuchObject)
+        const computedTaxes = howMuch(taxes, values)
+        // const taxRows = Object.values(howMuchObject)
 
         // accommodation
         if (values.hotel.name && values.hotel.nights && values.hotel.room.price) {
           const name = roomName(values.hotel)
           const value = roomPrice(values.hotel)
           if (!isNaN(value)) {
-            taxRows.push({ name, value })
+            // taxRows.push({ name, value })
+            computedTaxes[name] = Number(value)
           }
         }
 
+        let i = 0
         setFieldValue("taxes", []) // reset taxes
-        for (let i = 0; i < taxRows.length; i++) {
+        for (const name in computedTaxes) {
           setFieldValue(`taxes[${i}]`, {
-            name: taxRows[i].name,
-            value: +taxRows[i].value,
+            name,
+            value: Number(computedTaxes[name])
           })
+          i++
         }
 
         const initial = 0
-        const computed = taxRows.reduce((accumulator, item) => {
-          return accumulator + +item.value
+        const computed = Object.values(computedTaxes).reduce((accumulator, value) => {
+          return accumulator + Number(value)
         }, initial)
         setFieldValue("payment.computed", computed)
 

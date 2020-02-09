@@ -1,10 +1,10 @@
 import equation from "./equation"
+import get from "lodash.get"
 
 /**
- * Compute how much do i owe based on some tax rules & a person's traits
- * Trait = a distinguishing quality or characteristic, typically one belonging to a person.
+ * Returns an object with the tax name as key and the tax value as its value
  */
-export default (taxes, traits) => {
+export default (taxes, props) => {
   if (!taxes || !taxes[0]) {
     throw new Error("No taxes found")
   }
@@ -14,24 +14,36 @@ export default (taxes, traits) => {
     throw new Error("No mandatory keys found")
   }
 
-  let priority = 0
-  let grouped = {}
+  const priorities = {}
+  const computedTaxes = {}
 
   for (let i = 0, len = taxes.length; i < len; i++) {
-    let currentTax = taxes[i]
-    let name = currentTax.name
+    const currentTax = taxes[i]
+    const { name, value, priority, roomShare } = currentTax
 
     if (
-      tournamentsMatch(currentTax, traits) &&
-      rulesMatch(currentTax, traits) &&
-      currentTax["priority"] >= priority
+      tournamentsMatch(currentTax, props) &&
+      rulesMatch(currentTax, props) &&
+      hasPriority(priority, priorities[name])
     ) {
-      grouped[name] = currentTax
-      priority = currentTax["priority"]
+      const contribution = get(props, "hotel.room.contribution")
+      const capacity = get(props, "hotel.room.capacity")
+
+      if (roomShare && payedNothing(contribution, capacity)) {
+        continue
+      }
+      if (roomShare && payedInFull(contribution, capacity)) {
+        computedTaxes[name] = Math.round(value * capacity)
+        priorities[name] = priority
+        continue
+      }
+
+      computedTaxes[name] = value
+      priorities[name] = priority
     }
   }
 
-  return grouped
+  return computedTaxes
 }
 
 const tournamentsMatch = (currentTax, traits) => {
@@ -40,10 +52,18 @@ const tournamentsMatch = (currentTax, traits) => {
   }
 
   const all_tournaments = []
-  if (traits["tournaments"] && traits["tournaments"]["main"].length > 0) {
+  if (
+    traits["tournaments"] &&
+    traits["tournaments"]["main"] &&
+    traits["tournaments"]["main"].length > 0
+  ) {
     all_tournaments.push(traits["tournaments"]["main"])
   }
-  if (traits["tournaments"] && traits["tournaments"]["side"].length > 0) {
+  if (
+    traits["tournaments"] &&
+    traits["tournaments"]["side"] &&
+    traits["tournaments"]["side"].length > 0
+  ) {
     all_tournaments.push(...traits["tournaments"]["side"])
   }
 
@@ -68,4 +88,20 @@ const rulesMatch = (currentTax, traits) => {
     return equation(traits[rule["key"]], rule["eq"], rule["val"])
   })
   return passedRules.length === currentTax["rules"].length
+}
+
+const hasPriority = (currentPriority, storedPriority) => {
+  if (!storedPriority) {
+    return true
+  }
+
+  return currentPriority >= storedPriority
+}
+
+const payedInFull = (contribution, capacity) => {
+  return contribution === "full" && capacity > 1
+}
+
+const payedNothing = (contribution, capacity) => {
+  return contribution === "empty" && capacity > 1
 }

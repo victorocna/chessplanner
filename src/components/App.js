@@ -5,6 +5,7 @@ import Notifications from "./Toast"
 import Nav from "./Nav"
 import Main from "./Main"
 
+// TODO: use BrowserRouter instead of HashRouter
 const drawerWidth = 240
 const useStyles = makeStyles((theme) => ({
   drawer: {

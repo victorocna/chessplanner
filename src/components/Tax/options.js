@@ -7,6 +7,7 @@ const possibleKeys = [
   { key: "gender", text: i18n("Gender") },
   { key: "yob", text: i18n("Year of birth") },
 ]
+// TODO: convert to key value object
 const possibleOperands = ["<", ">", "<=", ">=", "!=", "=="]
 
 export { possibleKeys, possibleOperands }

@@ -59,7 +59,7 @@ function ParticipantFormik(props) {
 
           {shouldShow("yob").basedOn(settings) && (
             <Input
-              className="flex w-1/ mt-4 mb-4"
+              className="flex w-1/2 mt-4 mb-4"
               name="yob"
               type="number"
               label={i18n("Year of birth")}

@@ -1,3 +1,4 @@
+export { default as AdvancedOptions } from "../Tax/AdvancedOptions"
 export { default as TaxTournament } from "../Tax/Tournament"
 export { default as TaxRules } from "../Tax/Rules"
 export { default as TaxRulesContent } from "../Tax/RulesContent"
