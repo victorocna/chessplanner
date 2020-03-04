@@ -3,6 +3,7 @@ const { confirm, forgot, login, reset, signup } = require("./identity")
 const { emailConfirm, emailForgot } = require("./email")
 const { canCreate, isHashValid, isLoggedIn, userExists, userNotExist } = require("./middleware")
 const { search } = require("./fide")
+const { createParticipant, readHotelNames, readTournamentNames } = require("./public")
 
 module.exports = function(app) {
   /**
@@ -58,5 +59,19 @@ module.exports = function(app) {
    */
   app.get("/fide/search", (req, res) => {
     return search(req, res)
+  })
+
+  /**
+   * Public routes
+   * @see https://restfulapi.net/resource-naming/
+   */
+  app.get("/public/hotels/:key", (req, res) => {
+    return readHotelNames(req, res)
+  })
+  app.get("/public/tournaments/:key", (req, res) => {
+    return readTournamentNames(req, res)
+  })
+  app.post("/public/participants/:key", (req, res) => {
+    return createParticipant(req, res)
   })
 }

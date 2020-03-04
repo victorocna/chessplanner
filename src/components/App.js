@@ -1,11 +1,10 @@
 import React from "react"
-import { HashRouter } from "react-router-dom"
+import { BrowserRouter as Router } from "react-router-dom"
 import { makeStyles } from "@material-ui/core/styles"
 import Notifications from "./Toast"
 import Nav from "./Nav"
 import Main from "./Main"
 
-// TODO: use BrowserRouter instead of HashRouter
 const drawerWidth = 240
 const useStyles = makeStyles((theme) => ({
   drawer: {
@@ -37,7 +36,7 @@ export default function App() {
 
   return (
     <div>
-      <HashRouter>
+      <Router>
         <div className="flex">
           <Nav />
           <main className="flex-grow">
@@ -45,7 +44,7 @@ export default function App() {
             <Main />
           </main>
         </div>
-      </HashRouter>
+      </Router>
       <Notifications options={{ top: "80px", right: "0", width: "auto", margin: "0 20px" }} />
     </div>
   )
