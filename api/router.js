@@ -1,3 +1,4 @@
+const cors = require("cors")
 const { create, update, remove, read, readAll } = require("./crud")
 const { confirm, forgot, login, reset, signup } = require("./identity")
 const { emailConfirm, emailForgot } = require("./email")
@@ -65,13 +66,17 @@ module.exports = function(app) {
    * Public routes
    * @see https://restfulapi.net/resource-naming/
    */
-  app.get("/public/hotels/:key", (req, res) => {
+  const corsOptions = {
+    // TODO: whitelist origins
+    origin: false,
+  }
+  app.get("/public/hotels/:key", cors(corsOptions), (req, res) => {
     return readHotelNames(req, res)
   })
-  app.get("/public/tournaments/:key", (req, res) => {
+  app.get("/public/tournaments/:key", cors(corsOptions), (req, res) => {
     return readTournamentNames(req, res)
   })
-  app.post("/public/participants/:key", (req, res) => {
+  app.post("/public/participants/:key", cors(corsOptions), (req, res) => {
     return createParticipant(req, res)
   })
 }
