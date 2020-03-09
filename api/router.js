@@ -73,7 +73,7 @@ module.exports = function(app) {
   app.get("/public/tournaments/:key", cors(corsOptions), (req, res) => {
     return readTournamentNames(req, res)
   })
-  app.post("/public/participants/:key", cors(corsOptions), (req, res) => {
+  app.post("/public/participants/:key", (req, res) => {
     return createParticipant(req, res)
   })
 }
