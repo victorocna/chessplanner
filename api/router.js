@@ -1,4 +1,5 @@
 const cors = require("cors")
+const corsOptions = require("./cors-options")
 const { create, update, remove, read, readAll } = require("./crud")
 const { confirm, forgot, login, reset, signup } = require("./identity")
 const { emailConfirm, emailForgot } = require("./email")
@@ -63,13 +64,9 @@ module.exports = function(app) {
   })
 
   /**
-   * Public routes
+   * Public routes with whitelist CORS
    * @see https://restfulapi.net/resource-naming/
    */
-  const corsOptions = {
-    // TODO: whitelist origins
-    origin: false,
-  }
   app.get("/public/hotels/:key", cors(corsOptions), (req, res) => {
     return readHotelNames(req, res)
   })
