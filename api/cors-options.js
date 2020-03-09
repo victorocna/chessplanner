@@ -5,11 +5,10 @@ const whitelist = require("./whitelist")
  */
 const corsOptions = {
   origin: function(origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
+    if (whitelist.includes(origin)) {
       callback(null, true)
     } else {
-      // maybe throw an error
-      callback(null, false)
+      callback(new Error('Not allowed by CORS'))
     }
   },
 }
