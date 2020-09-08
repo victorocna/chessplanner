@@ -1,5 +1,5 @@
 import React from "react"
-import { BrowserRouter as Router } from "react-router-dom"
+import { HashRouter as Router } from "react-router-dom"
 import { makeStyles } from "@material-ui/core/styles"
 import Notifications from "./Toast"
 import Nav from "./Nav"
