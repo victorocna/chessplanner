@@ -18,10 +18,11 @@ module.exports = async (req, res, next) => {
     return res.status(400).send("Bad Request! Missing required fields")
   }
 
-  const demoAccount = await client.query(q.Get(q.Ref(`collections/users/${ref}`)))
-  .then((response) => {
-    return response.data.demo
-  })
+  const demoAccount = await client
+    .query(q.Get(q.Ref(`collections/users/${ref}`)))
+    .then((response) => {
+      return response.data.demo
+    })
 
   if (!demoAccount) {
     return next() // non-demo account do not have restrictions

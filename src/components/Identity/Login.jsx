@@ -70,7 +70,7 @@ function Login(props) {
         <Typography variant="body2">
           Create a demo account to try out Chessplanner today.
         </Typography>
-        <Button variant="contained" color="primary" href="/#/signup" className="mt-4">
+        <Button variant="contained" color="primary" href="/signup" className="mt-4">
           Sign up for Chessplanner
         </Button>
       </Paper>

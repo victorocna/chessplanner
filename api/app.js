@@ -11,12 +11,6 @@ app.use(helmet())
 // log requests from the API to console
 app.use(require("./middleware/access-log"))
 
-// intercept 4xx and 5xx status codes and write to AWS logger
-app.use(require("./middleware/aws-log-errors"))
-
-// intercept important routes and write backup to AWS logger
-app.use(require("./middleware/aws-backup"))
-
 // allow CORS from localhost
 if (process.env.NODE_ENV !== "production") {
   app.use(cors({ origin: "http://localhost:3000" }))

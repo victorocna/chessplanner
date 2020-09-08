@@ -5,6 +5,7 @@ const { signup } = require("../views/email-templates")
 
 module.exports = async (req, res) => {
   const { username, password, origin } = req.body
+  console.log("username ", username)
   if (!username || !password) {
     return res.status(400).send("Bad Request! Missing required fields")
   }
