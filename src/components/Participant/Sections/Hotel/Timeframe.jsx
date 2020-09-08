@@ -12,7 +12,10 @@ import { hasAccommodation } from "../../../../functions"
 
 function Timeframe({ hidden }) {
   const { values, setFieldValue } = React.useContext(ParticipantContext)
-  const { settings } = React.useContext(AppContext)
+  let { settings } = React.useContext(AppContext)
+  if (!settings) {
+    settings = {}
+  }
 
   const isValidDate = (d) => {
     return d instanceof Date && !isNaN(d)
