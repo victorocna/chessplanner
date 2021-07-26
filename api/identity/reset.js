@@ -26,15 +26,15 @@ module.exports = async (req, res) => {
       const userId = response["data"][0]["data"]["ref"]
 
       // delete hash from db && update password
-      client.query(q.Delete(hashId))
       client.query(
         q.Update(userId, {
           data: {
-            password: await bcrypt.hash(password, 10),
+            password: bcrypt.hashSync(password, 10),
             updatedAt: +Date.now(),
           },
         })
       )
+      client.query(q.Delete(hashId))
 
       return res.status(200).send("Ok")
     })
