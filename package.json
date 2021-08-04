@@ -59,7 +59,7 @@
     "typeface-noto-sans": "0.0.72",
     "typeface-roboto": "0.0.54",
     "xlsx": "^0.14.5",
-    "xmldom": "^0.1.27",
+    "xmldom": "^0.6.0",
     "xpath": "0.0.27",
     "y18n": "^4.0.0",
     "yup": "^0.27.0"
